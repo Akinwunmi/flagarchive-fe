@@ -1,0 +1,10 @@
+<figure [ngClass]="{ card: card() }">
+  <app-flag-image
+    [src]="entity().imageUrl ?? ''"
+    [alt]="entity().translationKey"
+    [placeholder]="!entity().imageUrl"
+  />
+  <figcaption>
+    {{ entity().translationKey }}
+  </figcaption>
+</figure>

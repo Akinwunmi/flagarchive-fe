@@ -1,0 +1,54 @@
+<div class="actions">
+  <button
+    flagButton
+    [attr.ghost]="activeSection() !== discoverSection.Continents || undefined"
+    (click)="setActiveMainEntity(defaultMainEntity.Continents)"
+  >
+    Continents
+    @if (activeSection() !== discoverSection.Continents) {
+      <flag-icon>swap_horiz</flag-icon>
+    }
+  </button>
+  <button
+    flagButton
+    [attr.ghost]="activeSection() !== discoverSection.Organizations || undefined"
+    (click)="setActiveMainEntity(defaultMainEntity.Organizations)"
+  >
+    @if (activeSection() !== discoverSection.Organizations) {
+      <flag-icon>swap_horiz</flag-icon>
+    }
+    Organizations
+  </button>
+</div>
+@if (!isMobile || (isMobile && activeSection() === discoverSection.Continents)) {
+  <ng-container *ngTemplateOutlet="entitiesTemplate; context: {
+    $implicit: continents(),
+    title: 'Continents',
+  }" />
+}
+@if (!isMobile || (isMobile && activeSection() === discoverSection.Organizations)) {
+  <ng-container *ngTemplateOutlet="entitiesTemplate; context: {
+    $implicit: organizations(),
+    title: 'Organizations',
+  }" />
+}
+
+<ng-template #entitiesTemplate let-entities let-title="title">
+  <section [ngClass]="{ mobile: isMobile }">
+    <h2>{{ title }}</h2>
+    <ul>
+      @for (entity of entities; track entity.id) {
+        <li>
+          <a
+            tabindex="0"
+            [ngClass]="{ active: entity.id === activeMainEntityId() }"
+            (click)="setActiveMainEntity(entity.id)"
+            (keydown)="setActiveMainEntity(entity.id)"
+          >
+            {{ entity.translationKey }}
+          </a>
+        </li>
+      }
+    </ul>
+  </section>
+</ng-template>

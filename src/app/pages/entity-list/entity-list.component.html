@@ -1,0 +1,9 @@
+<section [ngClass]="{ grid: true }">
+  @for (entity of entities; track $index) {
+    <app-entity
+      [card]="true"
+      [entity]="entity"
+      (click)="getEntitiesAndNavigate(entity)"
+    />
+  }
+</section>
