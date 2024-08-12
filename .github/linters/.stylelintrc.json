@@ -1,0 +1,11 @@
+{
+  "rules": {
+    "media-feature-range-notation": "prefix"
+  },
+  "overrides": [
+    {
+      "files": ["*.scss", "**/*.scss"],
+      "customSyntax": "postcss-scss"
+    }
+  ]
+}
