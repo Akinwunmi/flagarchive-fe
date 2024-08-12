@@ -1,15 +1,16 @@
 import { NgClass } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 import { Entity } from '../../models';
 import { FlagImageComponent } from '../flag-image';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [FlagImageComponent, NgClass],
   selector: 'app-entity',
   standalone: true,
-  imports: [FlagImageComponent, NgClass],
+  styleUrl: './entity.component.scss',
   templateUrl: './entity.component.html',
-  styleUrl: './entity.component.scss'
 })
 export class EntityComponent {
   entity = input.required<Entity>();

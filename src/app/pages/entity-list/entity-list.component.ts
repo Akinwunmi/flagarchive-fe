@@ -1,5 +1,12 @@
 import { NgClass } from '@angular/common';
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  DestroyRef,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -11,6 +18,7 @@ import { getEntities } from '../../state/actions';
 import { selectActiveEntityId, selectEntities } from '../../state/selectors';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [EntityComponent, NgClass],
   selector: 'app-entity-list',
   standalone: true,
@@ -18,6 +26,7 @@ import { selectActiveEntityId, selectEntities } from '../../state/selectors';
   templateUrl: './entity-list.component.html',
 })
 export class EntityListComponent implements OnInit {
+  readonly #cdr = inject(ChangeDetectorRef);
   readonly #destroyRef = inject(DestroyRef);
   readonly #route = inject(ActivatedRoute);
   readonly #router = inject(Router);
@@ -39,6 +48,7 @@ export class EntityListComponent implements OnInit {
       if (id !== this.#activeEntityId) {
         this.#getEntities(id);
       }
+      this.#cdr.markForCheck();
     });
   }
 
@@ -64,6 +74,7 @@ export class EntityListComponent implements OnInit {
     ).subscribe(([id, entities]) => {
       this.#activeEntityId = id;
       this.entities = entities ?? [];
+      this.#cdr.markForCheck();
     });
   }
 }

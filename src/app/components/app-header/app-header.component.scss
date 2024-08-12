@@ -5,9 +5,8 @@
   justify-content: space-between;
   padding: var(--flag-space-sm) var(--flag-space-sm) 0;
 
-  @media screen and (min-width: 40rem) {
+  @media (min-width: 40rem) {
     padding-inline: var(--flag-space-lg);
-    
   }
 }
 

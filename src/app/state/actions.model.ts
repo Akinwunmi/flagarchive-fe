@@ -1,4 +1,6 @@
-import { AppState, AppStateKey } from './reducers.model';
+import { Entity } from '../models';
+
+import { AppStateKey } from './reducers.model';
 
 export enum ActionTypes {
   GetEntities = '[Entities] Get Entities By Parent ID',
@@ -14,18 +16,22 @@ export interface GetEntitiesProps {
   id: string;
 }
 
-export interface GetMainEntitiesProps {
-  types: string[];
-}
-
 export interface SetActiveEntityIdProps {
   id: string;
 }
 
-export interface GetEntitiesErrorProps extends Pick<AppState, AppStateKey.Errors> {}
+export interface GetEntitiesErrorProps {
+  [AppStateKey.Errors]: unknown[];
+}
 
-export interface GetEntitiesSuccessProps  extends Pick<AppState, AppStateKey.Entities> {}
+export interface GetEntitiesSuccessProps {
+  [AppStateKey.Entities]: Entity[];
+}
 
-export interface GetMainEntitiesErrorProps extends Pick<AppState, AppStateKey.Errors> {}
+export interface GetMainEntitiesErrorProps {
+  [AppStateKey.Errors]: unknown[];
+}
 
-export interface GetMainEntitiesSuccessProps  extends Pick<AppState, AppStateKey.MainEntities> {}
+export interface GetMainEntitiesSuccessProps {
+  [AppStateKey.MainEntities]: Entity[];
+}

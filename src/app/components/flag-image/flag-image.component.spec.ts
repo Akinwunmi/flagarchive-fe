@@ -9,8 +9,7 @@ describe('FlagImageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FlagImageComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlagImageComponent);
     component = fixture.componentInstance;

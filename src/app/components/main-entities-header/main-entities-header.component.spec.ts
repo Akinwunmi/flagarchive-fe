@@ -9,8 +9,7 @@ describe('MainEntitiesHeaderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MainEntitiesHeaderComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MainEntitiesHeaderComponent);
     component = fixture.componentInstance;

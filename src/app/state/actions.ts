@@ -6,7 +6,6 @@ import {
   GetEntitiesProps,
   GetEntitiesSuccessProps,
   GetMainEntitiesErrorProps,
-  GetMainEntitiesProps,
   GetMainEntitiesSuccessProps,
   SetActiveEntityIdProps,
 } from './actions.model';

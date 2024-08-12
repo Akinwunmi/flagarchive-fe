@@ -17,7 +17,7 @@ figure {
     gap: var(--flag-space-xs);
     grid-template-columns: auto;
     grid-template-rows: auto var(--flag-size-sm);
-    
+
     figcaption {
       display: grid;
       grid-template-columns: 1fr auto;
