@@ -7,7 +7,7 @@ import {
   query,
   where,
 } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { Entity } from '../../models';
 
@@ -18,6 +18,15 @@ export class EntityService {
   readonly #firestore = inject(Firestore);
 
   #entities = collection(this.#firestore, 'entities');
+
+  getEntityById(id: string): Observable<Entity> {
+    const entities = query(this.#entities, where('id', '==', id), limit(1));
+    const entities$ = collectionData(entities, { idField: 'baseId' }) as Observable<Entity[]>;
+
+    return entities$.pipe(
+      map(entities => entities[0]),
+    );
+  }
 
   getEntitiesByParentId(id: string): Observable<Entity[]> {
     const entities = query(this.#entities, where('parentId', '==', id), limit(60));

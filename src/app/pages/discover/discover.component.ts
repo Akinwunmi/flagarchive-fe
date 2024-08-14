@@ -3,13 +3,15 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { MainEntitiesHeaderComponent } from '../../components';
-import { selectActiveEntityId, selectMainEntities } from '../../state/selectors';
+import { EntityHeaderComponent, MainEntitiesHeaderComponent } from '../../components';
+import { EntityType } from '../../models';
 import { getMainEntities } from '../../state/actions';
+import { selectActiveEntity, selectMainEntities } from '../../state/selectors';
+import { map } from 'rxjs';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AsyncPipe, MainEntitiesHeaderComponent, RouterOutlet],
+  imports: [AsyncPipe, EntityHeaderComponent, MainEntitiesHeaderComponent, RouterOutlet],
   selector: 'app-discover',
   standalone: true,
   styleUrl: './discover.component.scss',
@@ -18,8 +20,12 @@ import { getMainEntities } from '../../state/actions';
 export class DiscoverComponent implements OnInit {
   readonly #store = inject(Store);
 
-  activeEntityId$ = this.#store.select(selectActiveEntityId);
+  activeEntity$ = this.#store.select(selectActiveEntity);
   mainEntities$ = this.#store.select(selectMainEntities);
+
+  isMainEntity$ = this.activeEntity$.pipe(
+    map(entity => entity?.type && Object.values(EntityType).includes(entity.type as EntityType)),
+  );
 
   ngOnInit() {
     this.#store.dispatch(getMainEntities());

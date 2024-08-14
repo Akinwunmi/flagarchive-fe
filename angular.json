@@ -32,8 +32,8 @@
               }
             ],
             "styles": [
-              "node_modules/@flagarchive/angular/core/styles.scss",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/@flagarchive/angular/core/styles.scss"
             ],
             "scripts": []
           },

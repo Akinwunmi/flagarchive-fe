@@ -2,6 +2,9 @@ import { createAction, props } from '@ngrx/store';
 
 import {
   ActionTypes,
+  GetActiveEntityErrorProps,
+  GetActiveEntityProps,
+  GetActiveEntitySuccessProps,
   GetEntitiesErrorProps,
   GetEntitiesProps,
   GetEntitiesSuccessProps,
@@ -9,6 +12,21 @@ import {
   GetMainEntitiesSuccessProps,
   SetActiveEntityIdProps,
 } from './actions.model';
+
+export const getActiveEntity = createAction(
+  ActionTypes.GetActiveEntity,
+  props<GetActiveEntityProps>(),
+);
+
+export const getActiveEntityError = createAction(
+  ActionTypes.GetActiveEntityError,
+  props<GetActiveEntityErrorProps>(),
+);
+
+export const getActiveEntitySuccess = createAction(
+  ActionTypes.GetActiveEntitySuccess,
+  props<GetActiveEntitySuccessProps>(),
+);
 
 export const getEntities = createAction(
   ActionTypes.GetEntities,

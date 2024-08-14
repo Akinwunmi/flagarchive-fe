@@ -24,3 +24,30 @@ h6 {
   line-height: var(--flag-font-line-height-s);
   margin: 0;
 }
+
+p,
+dl {
+  font-family: var(--flag-font-family-primary);
+  font-weight: var(--flag-font-weight-regular);
+  font-size: var(--flag-font-size-sm);
+  line-height: var(--flag-font-line-height-md);
+  margin: 0;
+}
+
+dl {
+  display: grid;
+  gap: var(--flag-space-xs);
+
+  dt {
+    font-weight: var(--flag-font-weight-bold);
+  }
+
+  dd {
+    margin-left: var(--flag-space-md);
+  }
+}
+
+a {
+  text-decoration: underline;
+  text-underline-offset: 0.125rem;
+}

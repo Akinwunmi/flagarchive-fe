@@ -3,6 +3,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { AppState } from './reducers.model';
 
 export const state = createFeatureSelector<AppState>('app');
+export const selectActiveEntity = createSelector(state, (state: AppState) => state?.activeEntity);
 export const selectActiveEntityId = createSelector(
   state,
   (state: AppState) => state?.activeEntityId,

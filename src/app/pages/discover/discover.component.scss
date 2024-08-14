@@ -1,4 +1,18 @@
-section {
+.header {
+  background-color: var(--flag-color-grey-200);
+  border-bottom: 2px solid var(--flag-color-white);
+  display: flex;
+  flex-direction: column;
+  gap: var(--flag-space-lg);
+  justify-content: space-between;
+  overflow: hidden;
+  padding: var(--flag-space-md) var(--flag-space-sm);
+  position: sticky;
+  top: var(--flag-size-xl);
+  z-index: 1;
+}
+
+.content {
   display: grid;
   gap: var(--flag-space-sm);
   padding: var(--flag-space-md) var(--flag-space-sm);

@@ -7,6 +7,9 @@ import { EntityType } from '../models';
 import { EntityService } from '../services';
 
 import {
+  getActiveEntity,
+  getActiveEntityError,
+  getActiveEntitySuccess,
   getEntities,
   getEntitiesError,
   getEntitiesSuccess,
@@ -26,9 +29,20 @@ export class EntityEffects {
   readonly #entityService = inject(EntityService);
   readonly #store = inject(Store);
 
+  getActiveEntity$ = createEffect(() => this.#actions$.pipe(
+    ofType(getActiveEntity),
+    switchMap(({ id }) => this.#entityService.getEntityById(id).pipe(
+      map(activeEntity => getActiveEntitySuccess({ activeEntity })),
+      catchError(error => of(getActiveEntityError(this.#setError(error)))),
+    )),
+  ));
+
   getEntities$ = createEffect(() => this.#actions$.pipe(
     ofType(getEntities),
-    tap(({ id }) => this.#store.dispatch(setActiveEntityId({ id }))),
+    tap(({ id }) => {
+      this.#store.dispatch(setActiveEntityId({ id }));
+      this.#store.dispatch(getActiveEntity({ id }));
+    }),
     switchMap(({ id }) => this.#entityService.getEntitiesByParentId(id).pipe(
       map(entities => getEntitiesSuccess({ entities })),
       catchError(error => of(getEntitiesError(this.#setError(error)))),
