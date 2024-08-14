@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection, isDevMode } from '@angular/core';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { provideRouter } from '@angular/router';
@@ -8,6 +8,7 @@ import { provideStore } from '@ngrx/store';
 import { routes } from './app.routes';
 import { EntityEffects } from './state/effects';
 import { reducer } from './state/reducers';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 export const APP_CONFIG: ApplicationConfig = {
   providers: [
@@ -24,6 +25,7 @@ export const APP_CONFIG: ApplicationConfig = {
     provideFirestore(() => getFirestore()),
     provideRouter(routes),
     provideStore({ app: reducer }),
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideZoneChangeDetection({ eventCoalescing: true }),
   ],
 };

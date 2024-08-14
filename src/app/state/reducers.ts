@@ -1,6 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
 
 import {
+  getActiveEntityError,
+  getActiveEntitySuccess,
   getEntitiesError,
   getEntitiesSuccess,
   getMainEntitiesError,
@@ -11,6 +13,7 @@ import { AppState, AppStateKey } from './reducers.model';
 import { DefaultMainEntity } from '../models';
 
 export const initialState: AppState = {
+  [AppStateKey.ActiveEntity]: undefined,
   [AppStateKey.ActiveEntityId]: DefaultMainEntity.Continents,
   [AppStateKey.Errors]: [],
   [AppStateKey.Entities]: [],
@@ -19,6 +22,14 @@ export const initialState: AppState = {
 
 export const reducer = createReducer(
   initialState,
+  on(getActiveEntityError, (state, { errors }) => ({
+    ...state,
+    [AppStateKey.Errors]: errors,
+  })),
+  on(getActiveEntitySuccess, (state, { activeEntity }) => ({
+    ...state,
+    [AppStateKey.ActiveEntity]: activeEntity,
+  })),
   on(getEntitiesError, (state, { errors }) => ({
     ...state,
     [AppStateKey.Errors]: errors,

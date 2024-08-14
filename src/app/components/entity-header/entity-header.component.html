@@ -1,1 +1,28 @@
-<p>entity-header works!</p>
+<section class="content">
+  <div>
+    <flag-breadcrumb [items]="breadcrumb()" (selectedItem)="goToEntity($event)" />
+    @if (isExpanded || !isMobile) {
+      <h2>{{ entity().translationKey }}</h2>
+      <h3>{{ entity().type }}</h3>
+    }
+  </div>
+  <button flagButton ghost type="button" (click)="toggleState()">
+    <flag-icon>
+      @if (isExpanded) {
+        keyboard_arrow_up
+      } @else {
+        keyboard_arrow_down
+      }
+    </flag-icon>
+  </button>
+</section>
+<div class="actions">
+  <button flagButton raised rounded disabled>
+    <flag-icon>info_i</flag-icon>
+  </button>
+</div>
+<app-flag-image
+  [src]="entity().imageUrl ?? ''"
+  [alt]="entity().translationKey"
+  [placeholder]="!entity().imageUrl"
+/>
