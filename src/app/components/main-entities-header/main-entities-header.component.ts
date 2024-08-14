@@ -1,12 +1,12 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
-  computed,
-  DestroyRef,
   HostListener,
+  OnInit,
+  computed,
   inject,
   input,
-  OnInit,
   signal,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,6 +17,7 @@ import { DefaultMainEntity, DiscoverSection, Entity, EntityType } from '../../mo
 import { setActiveEntityId } from '../../state/actions';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FlagIconComponent, NgClass, NgTemplateOutlet],
   selector: 'app-main-entities-header',
   standalone: true,
@@ -38,7 +39,7 @@ export class MainEntitiesHeaderComponent implements OnInit {
   organizations = computed(() => this.mainEntities()?.filter(entity =>
     entity.type === EntityType.Organization,
   ));
-  
+
   activeSection = computed(() => this.activeMainEntityId().startsWith('o')
     ? DiscoverSection.Organizations
     : DiscoverSection.Continents,

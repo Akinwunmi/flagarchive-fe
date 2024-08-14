@@ -21,16 +21,26 @@
   </button>
 </div>
 @if (!isMobile || (isMobile && activeSection() === discoverSection.Continents)) {
-  <ng-container *ngTemplateOutlet="entitiesTemplate; context: {
-    $implicit: continents(),
-    title: 'Continents',
-  }" />
+  <ng-container
+    *ngTemplateOutlet="
+      entitiesTemplate;
+      context: {
+        $implicit: continents(),
+        title: 'Continents',
+      }
+    "
+  />
 }
 @if (!isMobile || (isMobile && activeSection() === discoverSection.Organizations)) {
-  <ng-container *ngTemplateOutlet="entitiesTemplate; context: {
-    $implicit: organizations(),
-    title: 'Organizations',
-  }" />
+  <ng-container
+    *ngTemplateOutlet="
+      entitiesTemplate;
+      context: {
+        $implicit: organizations(),
+        title: 'Organizations',
+      }
+    "
+  />
 }
 
 <ng-template #entitiesTemplate let-entities let-title="title">

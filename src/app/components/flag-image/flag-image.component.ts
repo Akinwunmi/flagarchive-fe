@@ -1,11 +1,11 @@
-import { Component, HostBinding, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, input } from '@angular/core';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-flag-image',
   standalone: true,
-  imports: [],
+  styleUrl: './flag-image.component.scss',
   templateUrl: './flag-image.component.html',
-  styleUrl: './flag-image.component.scss'
 })
 export class FlagImageComponent {
   src = input.required<string>();

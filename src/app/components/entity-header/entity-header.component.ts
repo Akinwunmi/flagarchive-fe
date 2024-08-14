@@ -1,12 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-entity-header',
   standalone: true,
-  imports: [],
+  styleUrl: './entity-header.component.scss',
   templateUrl: './entity-header.component.html',
-  styleUrl: './entity-header.component.scss'
 })
-export class EntityHeaderComponent {
-
-}
+export class EntityHeaderComponent {}

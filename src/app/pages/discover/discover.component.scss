@@ -3,7 +3,7 @@ section {
   gap: var(--flag-space-sm);
   padding: var(--flag-space-md) var(--flag-space-sm);
 
-  @media only screen and (min-width: 40rem) {
+  @media (min-width: 40rem) {
     padding-inline: var(--flag-space-lg);
   }
 }
