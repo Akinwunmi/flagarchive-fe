@@ -59,3 +59,8 @@ export const setActiveEntityId = createAction(
   ActionTypes.SetActiveEntityId,
   props<SetActiveEntityIdProps>(),
 );
+
+export const setSelectedYear = createAction(
+  ActionTypes.SetSelectedYear,
+  props<{ year: number }>(),
+);

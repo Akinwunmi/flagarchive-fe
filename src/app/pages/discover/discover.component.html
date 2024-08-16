@@ -1,12 +1,16 @@
-<section class="header">
-  @if (activeEntity$ | async; as activeEntity) {
+@if (activeEntity$ | async; as activeEntity) {
+  <section class="header">
     @if (isMainEntity$ | async) {
       <app-main-entities-header [mainEntities]="(mainEntities$ | async) ?? []" />
     } @else {
       <app-entity-header [entity]="activeEntity" />
     }
-  }
-</section>
+    <div class="actions">
+      <app-year-navigator />
+      <app-advanced-search />
+    </div>
+  </section>
+}
 <section class="content">
   <router-outlet />
 </section>

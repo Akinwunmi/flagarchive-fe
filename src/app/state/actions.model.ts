@@ -12,9 +12,8 @@ export enum ActionTypes {
   GetMainEntities = '[Entities] Get Entities By Type',
   GetMainEntitiesError = '[Entities] Get Entities By Type Error',
   GetMainEntitiesSuccess = '[Entities] Get Entities By Type Success',
-  SetActiveEntityError = '[Entities] Set Active Entity Error',
   SetActiveEntityId = '[Entities] Set Active Entity ID',
-  SetActiveEntitySuccess = '[Entities] Set Active Entity Success',
+  SetSelectedYear = '[Advanced Search] Set Selected Year',
 }
 
 export interface GetActiveEntityProps {
@@ -33,10 +32,6 @@ export interface GetEntitiesProps {
   id: string;
 }
 
-export interface SetActiveEntityIdProps {
-  id: string;
-}
-
 export interface GetEntitiesErrorProps {
   [AppStateKey.Errors]: unknown[];
 }
@@ -51,4 +46,12 @@ export interface GetMainEntitiesErrorProps {
 
 export interface GetMainEntitiesSuccessProps {
   [AppStateKey.MainEntities]: Entity[];
+}
+
+export interface SetActiveEntityIdProps {
+  id: string;
+}
+
+export interface SetSelectedYearProps {
+  year: number;
 }

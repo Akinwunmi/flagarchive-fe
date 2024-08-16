@@ -15,4 +15,8 @@ import { FlagImageComponent } from '../flag-image';
 export class EntityComponent {
   entity = input.required<Entity>();
   card = input(true);
+
+  setAltParentId(id: string): string {
+    return id.split('-').pop() || '';
+  }
 }

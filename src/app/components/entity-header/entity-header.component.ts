@@ -8,14 +8,19 @@ import {
   input,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BreadcrumbItem, FlagBreadcrumbComponent, FlagIconComponent } from '@flagarchive/angular';
+import {
+  BreadcrumbItem,
+  FlagBreadcrumbComponent,
+  FlagButtonDirective,
+  FlagIconComponent,
+} from '@flagarchive/angular';
 
 import { Entity } from '../../models';
 import { FlagImageComponent } from '../flag-image';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FlagBreadcrumbComponent, FlagIconComponent, FlagImageComponent],
+  imports: [FlagBreadcrumbComponent, FlagButtonDirective, FlagIconComponent, FlagImageComponent],
   selector: 'app-entity-header',
   standalone: true,
   styleUrl: './entity-header.component.scss',

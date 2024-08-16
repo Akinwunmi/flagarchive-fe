@@ -1,13 +1,18 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { FlagIconComponent, FlagPillComponent, PillType } from '@flagarchive/angular';
+import {
+  FlagButtonDirective,
+  FlagIconComponent,
+  FlagPillComponent,
+  PillType,
+} from '@flagarchive/angular';
 import { Store } from '@ngrx/store';
 
 import { setActiveEntityId } from '../../state/actions';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FlagIconComponent, FlagPillComponent],
+  imports: [FlagButtonDirective, FlagIconComponent, FlagPillComponent],
   selector: 'app-header',
   standalone: true,
   styleUrl: './app-header.component.scss',

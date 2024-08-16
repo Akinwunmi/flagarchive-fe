@@ -2,16 +2,28 @@ import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { map } from 'rxjs';
 
-import { EntityHeaderComponent, MainEntitiesHeaderComponent } from '../../components';
+import {
+  AdvancedSearchComponent,
+  EntityHeaderComponent,
+  MainEntitiesHeaderComponent,
+  YearNavigatorComponent,
+} from '../../components';
 import { EntityType } from '../../models';
 import { getMainEntities } from '../../state/actions';
 import { selectActiveEntity, selectMainEntities } from '../../state/selectors';
-import { map } from 'rxjs';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AsyncPipe, EntityHeaderComponent, MainEntitiesHeaderComponent, RouterOutlet],
+  imports: [
+    AdvancedSearchComponent,
+    AsyncPipe,
+    EntityHeaderComponent,
+    MainEntitiesHeaderComponent,
+    RouterOutlet,
+    YearNavigatorComponent,
+  ],
   selector: 'app-discover',
   standalone: true,
   styleUrl: './discover.component.scss',

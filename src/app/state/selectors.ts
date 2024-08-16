@@ -11,3 +11,4 @@ export const selectActiveEntityId = createSelector(
 export const selectEntities = createSelector(state, (state: AppState) => state?.entities);
 export const selectEntitiesError = createSelector(state, (state: AppState) => state?.errors);
 export const selectMainEntities = createSelector(state, (state: AppState) => state?.mainEntities);
+export const selectSelectedYear = createSelector(state, (state: AppState) => state?.selectedYear);

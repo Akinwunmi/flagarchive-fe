@@ -6,5 +6,8 @@
   />
   <figcaption>
     {{ entity().translationKey }}
+    @if (entity().altParentId; as altParentId) {
+      ({{ setAltParentId(altParentId) }})
+    }
   </figcaption>
 </figure>
