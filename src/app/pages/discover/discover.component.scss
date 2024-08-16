@@ -10,6 +10,28 @@
   position: sticky;
   top: var(--flag-size-xl);
   z-index: 1;
+
+  .actions {
+    box-sizing: border-box;
+    display: flex;
+    gap: var(--flag-space-md);
+    justify-content: space-between;
+    width: 100%;
+
+    .timeline {
+      align-items: center;
+      display: flex;
+      gap: var(--flag-space-lg);
+
+      p {
+        display: none;
+
+        @media (min-width: 40rem) {
+          display: block;
+        }
+      }
+    }
+  }
 }
 
 .content {

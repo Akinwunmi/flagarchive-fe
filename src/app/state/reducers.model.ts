@@ -6,6 +6,7 @@ export enum AppStateKey {
   Errors = 'errors',
   Entities = 'entities',
   MainEntities = 'mainEntities',
+  SelectedYear = 'selectedYear',
 }
 
 export interface AppState {
@@ -14,4 +15,5 @@ export interface AppState {
   [AppStateKey.Errors]: unknown[];
   [AppStateKey.Entities]: Entity[];
   [AppStateKey.MainEntities]: Entity[];
+  [AppStateKey.SelectedYear]: number;
 }
