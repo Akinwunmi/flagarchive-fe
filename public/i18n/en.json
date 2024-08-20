@@ -38,8 +38,7 @@
     "SORT": "Sort",
     "SURNAME": "Surname",
     "TIMELINE": "Timeline",
-    "USERNAME": "Username",
-    "WELCOME": "Welcome!"
+    "USERNAME": "Username"
   },
   "MESSAGES": {
     "AUTH": {
@@ -65,9 +64,13 @@
     "EDIT": "Update entity",
     "RANGE_TITLE": "Range {{ index }}"
   },
-  "FILTERS_AND_SORTING": {
-    "ADVANCED_SEARCH": "Advanced search",
-    "FILTER_BY": "Filter by:"
+  "ADVANCED_SEARCH": {
+    "SORTING": {
+      "NAME": {
+        "ASC": "Name (A-Z)",
+        "DESC": "Name (Z-A)"
+      }
+    }
   },
   "DISCOVER": {
     "CONTINENTS": "Continents",
@@ -429,6 +432,7 @@
     "IDAHO": "Idaho",
     "IDSKENHUIZEN": "Idskenhuizen",
     "ILLINOIS": "Illinois",
+    "INCA_EMPIRE": "Inca Empire",
     "INDIA": "India",
     "INDIANA": "Indiana",
     "INDONESIA": "Indonesia",

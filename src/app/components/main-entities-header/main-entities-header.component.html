@@ -5,7 +5,7 @@
   <button
     flagButton
     [attr.ghost]="activeSection() !== discoverSection.Continents || undefined"
-    (click)="setActiveMainEntity(defaultMainEntity.Continents)"
+    (click)="selectMainEntity(defaultMainEntity.Continents)"
   >
     {{ CONTINENTS_TRANSLATION }}
     @if (activeSection() !== discoverSection.Continents) {
@@ -15,7 +15,7 @@
   <button
     flagButton
     [attr.ghost]="activeSection() !== discoverSection.Organizations || undefined"
-    (click)="setActiveMainEntity(defaultMainEntity.Organizations)"
+    (click)="selectMainEntity(defaultMainEntity.Organizations)"
   >
     @if (activeSection() !== discoverSection.Organizations) {
       <flag-icon>swap_horiz</flag-icon>
@@ -54,11 +54,11 @@
         <li>
           <a
             tabindex="0"
-            [ngClass]="{ active: entity.id === activeMainEntityId() }"
-            (click)="setActiveMainEntity(entity.id)"
-            (keydown)="setActiveMainEntity(entity.id)"
+            [ngClass]="{ active: entity.id === selectedMainEntityId() }"
+            (click)="selectMainEntity(entity.id)"
+            (keydown)="selectMainEntity(entity.id)"
           >
-            {{ entity.translationKey }}
+            {{ 'ENTITIES' | translationKey: entity.translationKey | translate }}
           </a>
         </li>
       }

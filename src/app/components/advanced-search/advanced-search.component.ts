@@ -8,6 +8,7 @@ import {
   FlagListItemComponent,
 } from '@flagarchive/angular';
 import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { SortDirection, SortOption } from '../../models';
 import { setSortDirection } from '../../state/actions';
@@ -21,6 +22,7 @@ import { selectSortDirection } from '../../state/selectors';
     FlagDropdownDirective,
     FlagIconComponent,
     FlagListItemComponent,
+    TranslateModule,
   ],
   selector: 'app-advanced-search',
   standalone: true,
@@ -37,7 +39,7 @@ export class AdvancedSearchComponent {
   sortOptions = computed<SortOption[]>(() => Object.values(SortDirection).map(direction => ({
     active: this.#sortDirection() === direction,
     direction,
-    label: `Name ${direction === SortDirection.Asc ? 'A-Z' : 'Z-A'}`,
+    label: 'ADVANCED_SEARCH.SORTING.NAME.' + direction.toUpperCase(),
   })));
 
   setMenuOpen(): void {

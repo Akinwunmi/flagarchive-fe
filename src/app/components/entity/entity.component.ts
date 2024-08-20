@@ -1,12 +1,14 @@
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { Entity } from '../../models';
+import { TranslationKeyPipe } from '../../pipes';
 import { FlagImageComponent } from '../flag-image';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FlagImageComponent, NgClass],
+  imports: [FlagImageComponent, NgClass, TranslateModule, TranslationKeyPipe],
   selector: 'app-entity',
   standalone: true,
   styleUrl: './entity.component.scss',

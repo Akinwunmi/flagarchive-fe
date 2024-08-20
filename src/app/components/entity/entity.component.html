@@ -1,13 +1,19 @@
+@let NAME_TRANSLATION = 'ENTITIES' | translationKey: entity().translationKey | translate;
+
 <figure [ngClass]="{ card: card() }">
   <app-flag-image
     [src]="entity().imageUrl ?? ''"
-    [alt]="entity().translationKey"
+    [alt]="NAME_TRANSLATION"
     [placeholder]="!entity().imageUrl"
   />
   <figcaption>
-    {{ entity().translationKey }}
     @if (entity().altParentId; as altParentId) {
-      ({{ setAltParentId(altParentId) }})
+      <span class="alt-parent">
+        {{ setAltParentId(altParentId) }}
+      </span>
     }
+    <span class="name">
+      {{ NAME_TRANSLATION }}
+    </span>
   </figcaption>
 </figure>

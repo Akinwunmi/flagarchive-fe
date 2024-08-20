@@ -14,13 +14,22 @@ import {
   FlagButtonDirective,
   FlagIconComponent,
 } from '@flagarchive/angular';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { Entity } from '../../models';
 import { FlagImageComponent } from '../flag-image';
+import { TranslationKeyPipe } from '../../pipes';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FlagBreadcrumbComponent, FlagButtonDirective, FlagIconComponent, FlagImageComponent],
+  imports: [
+    FlagBreadcrumbComponent,
+    FlagButtonDirective,
+    FlagIconComponent,
+    FlagImageComponent,
+    TranslateModule,
+    TranslationKeyPipe,
+  ],
   selector: 'app-entity-header',
   standalone: true,
   styleUrl: './entity-header.component.scss',
@@ -58,7 +67,7 @@ export class EntityHeaderComponent {
     const ids = this.entity().id.split('-').slice(0, -1);
     return ids.reduce((list: BreadcrumbItem[], id, index) => {
       const link = `entity/${ids.slice(0, index + 1).join('-')}`;
-      return [...list, { link, title: id }];
+      return [...list, { link, title: id.toUpperCase() }];
     }, []);
   }
 }

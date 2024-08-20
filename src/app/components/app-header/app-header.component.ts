@@ -7,12 +7,13 @@ import {
   PillType,
 } from '@flagarchive/angular';
 import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { setSelectedEntityId } from '../../state/actions';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FlagButtonDirective, FlagIconComponent, FlagPillComponent],
+  imports: [FlagButtonDirective, FlagIconComponent, FlagPillComponent, TranslateModule],
   selector: 'app-header',
   standalone: true,
   styleUrl: './app-header.component.scss',
