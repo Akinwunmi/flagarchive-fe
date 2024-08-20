@@ -9,8 +9,23 @@ figure {
   width: 100%;
 
   figcaption {
+    align-items: baseline;
     display: flex;
     gap: var(--flag-space-sm);
+
+    .name {
+      display: -webkit-box;
+      line-clamp: 1;
+      word-break: break-all;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+
+    .alt-parent {
+      font-size: var(--flag-font-size-xs);
+      font-weight: var(--flag-font-weight-medium);
+      text-transform: uppercase;
+    }
   }
 
   &.card {
@@ -19,8 +34,6 @@ figure {
     grid-template-rows: auto var(--flag-size-sm);
 
     figcaption {
-      display: grid;
-      grid-template-columns: 1fr auto;
       height: var(--flag-space-xl);
       overflow: hidden;
     }

@@ -11,18 +11,20 @@ import {
   input,
   signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { FlagIconComponent } from '@flagarchive/angular';
 import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { filter, map, startWith } from 'rxjs';
 
 import { DefaultMainEntity, DiscoverSection, Entity, EntityType } from '../../models';
+import { TranslationKeyPipe } from '../../pipes';
 import { setSelectedEntityId } from '../../state/actions';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FlagIconComponent, NgClass, NgTemplateOutlet],
+  imports: [FlagIconComponent, NgClass, NgTemplateOutlet, TranslateModule, TranslationKeyPipe],
   selector: 'app-main-entities-header',
   standalone: true,
   styleUrl: './main-entities-header.component.scss',
@@ -37,12 +39,12 @@ export class MainEntitiesHeaderComponent implements OnInit {
 
   mainEntities = input.required<Entity[]>();
 
-  activeMainEntityId = signal<string>(DefaultMainEntity.Continents);
+  selectedMainEntityId = signal<string>(DefaultMainEntity.Continents);
 
   continents = computed(() => this.#getEntities(EntityType.Continent));
   organizations = computed(() => this.#getEntities(EntityType.Organization));
 
-  activeSection = computed(() => this.activeMainEntityId().startsWith('o')
+  activeSection = computed(() => this.selectedMainEntityId().startsWith('o')
     ? DiscoverSection.Organizations
     : DiscoverSection.Continents,
   );
@@ -65,15 +67,15 @@ export class MainEntitiesHeaderComponent implements OnInit {
       startWith(initialId),
       takeUntilDestroyed(this.#destroyRef),
     ).subscribe(id => {
-      if (id && id !== this.activeMainEntityId()) {
-        this.activeMainEntityId.set(id);
+      if (id && id !== this.selectedMainEntityId()) {
+        this.selectedMainEntityId.set(id);
       }
       this.#cdr.markForCheck();
     });
   }
 
-  setActiveMainEntity(id: string) {
-    this.activeMainEntityId.set(id);
+  selectMainEntity(id: string) {
+    this.selectedMainEntityId.set(id);
     this.#store.dispatch(setSelectedEntityId({ id: id }));
     this.#router.navigate(['entity', id], { relativeTo: this.#route });
   }

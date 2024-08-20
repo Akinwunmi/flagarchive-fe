@@ -35,7 +35,7 @@ export class EntityListComponent implements OnInit {
 
   entities!: Entity[];
 
-  #activeEntityId!: string;
+  #selectedEntityId!: string;
 
   ngOnInit() {
     const id = this.#router.url.split('/').pop();
@@ -46,7 +46,7 @@ export class EntityListComponent implements OnInit {
       takeUntilDestroyed(this.#destroyRef),
     ).subscribe(() => {
       const id = this.#router.url.split('/').pop();
-      if (id !== this.#activeEntityId) {
+      if (id !== this.#selectedEntityId) {
         this.#getEntities(id);
       }
       this.#cdr.markForCheck();
@@ -54,7 +54,7 @@ export class EntityListComponent implements OnInit {
   }
 
   getEntitiesAndNavigate(entity: Entity) {
-    const id = entity.altId?.startsWith(this.#activeEntityId) ? entity.altId : entity.id;
+    const id = entity.altId?.startsWith(this.#selectedEntityId) ? entity.altId : entity.id;
 
     this.#getEntities(id);
     this.#router.navigate(['..', id], { relativeTo: this.#route });
@@ -74,7 +74,7 @@ export class EntityListComponent implements OnInit {
     ]).pipe(
       takeUntilDestroyed(this.#destroyRef),
     ).subscribe(([id, entities, sortDirection]) => {
-      this.#activeEntityId = id;
+      this.#selectedEntityId = id;
       this.entities = sortBy<Entity>(entities, 'translationKey', sortDirection) ?? [];
       this.#cdr.markForCheck();
     });

@@ -6,7 +6,7 @@ export const DISCOVER_ROUTES: Routes = [
   {
     path: '',
     component: DiscoverComponent,
-    title: 'Discover',
+    title: 'Flag Archive - Discover',
     children: [
       {
         path: '',

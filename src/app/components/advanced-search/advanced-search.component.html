@@ -11,7 +11,7 @@
   <flag-card>
     @for (option of sortOptions(); track $index) {
       <flag-list-item [active]="option.active" (click)="setSortDirection(option.direction)">
-        {{ option.label }}
+        {{ option.label | translate }}
       </flag-list-item>
     }
   </flag-card>

@@ -12,6 +12,6 @@ export const ENTITY_LIST_ROUTES: Routes = [
   {
     path: ':id',
     component: EntityListComponent,
-    title: 'Entity',
+    title: 'Flag Archive - Discover - Entity',
   },
 ];

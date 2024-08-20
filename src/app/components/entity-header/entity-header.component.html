@@ -1,9 +1,11 @@
+@let NAME_TRANSLATION = 'ENTITIES' | translationKey: entity().translationKey | translate;
+
 <section class="content">
   <div>
     <flag-breadcrumb [items]="breadcrumb()" (selectedItem)="goToEntity($event)" />
     @if (isExpanded || !isMobile) {
-      <h2>{{ entity().translationKey }}</h2>
-      <h3>{{ entity().type }}</h3>
+      <h2>{{ NAME_TRANSLATION }}</h2>
+      <h3>{{ 'ENTITY_TYPES' | translationKey: entity().type | translate }}</h3>
     }
   </div>
   <button flagButton ghost type="button" (click)="toggleState()">
@@ -23,6 +25,6 @@
 </div>
 <app-flag-image
   [src]="entity().imageUrl ?? ''"
-  [alt]="entity().translationKey"
+  [alt]="NAME_TRANSLATION"
   [placeholder]="!entity().imageUrl"
 />
