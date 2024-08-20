@@ -22,7 +22,7 @@ import { Store } from '@ngrx/store';
 import { interval, map, Subject, takeUntil } from 'rxjs';
 
 import { setSelectedYear } from '../../state/actions';
-import { selectSelectedYear } from '../../state/selectors';
+import { selectYear } from '../../state/selectors';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -58,7 +58,7 @@ export class YearNavigatorComponent implements OnDestroy, OnInit {
   #playSpeed$ = interval(750);
 
   ngOnInit() {
-    this.#store.select(selectSelectedYear).pipe(
+    this.#store.select(selectYear).pipe(
       map(selectedYear => selectedYear),
       takeUntilDestroyed(this.#destroyRef),
     ).subscribe(selectedYear => {

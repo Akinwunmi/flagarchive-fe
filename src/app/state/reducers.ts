@@ -1,37 +1,46 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { DefaultMainEntity } from '../models';
+import { DefaultMainEntity, SortDirection } from '../models';
 
 import {
-  getActiveEntityError,
-  getActiveEntitySuccess,
   getEntitiesError,
   getEntitiesSuccess,
   getMainEntitiesError,
   getMainEntitiesSuccess,
-  setActiveEntityId,
+  getSelectedEntityError,
+  getSelectedEntitySuccess,
+  setSelectedEntityId,
   setSelectedYear,
+  setSortDirection,
 } from './actions';
-import { AppState, AppStateKey } from './reducers.model';
+import { AdvancedSearchStateKey, AppState, AppStateKey, EntitiesStateKey } from './reducers.model';
 
 export const initialState: AppState = {
-  [AppStateKey.ActiveEntity]: undefined,
-  [AppStateKey.ActiveEntityId]: DefaultMainEntity.Continents,
+  [AppStateKey.AdvancedSearch]: {
+    [AdvancedSearchStateKey.SelectedYear]: new Date().getFullYear(),
+    [AdvancedSearchStateKey.SortDirection]: SortDirection.Asc,
+  },
   [AppStateKey.Errors]: [],
-  [AppStateKey.Entities]: [],
-  [AppStateKey.MainEntities]: [],
-  [AppStateKey.SelectedYear]: new Date().getFullYear(),
+  [AppStateKey.Entities]: {
+    [EntitiesStateKey.All]: [],
+    [EntitiesStateKey.Current]: [],
+    [EntitiesStateKey.Main]: [],
+    [EntitiesStateKey.SelectedId]: DefaultMainEntity.Continents,
+  },
 };
 
 export const reducer = createReducer(
   initialState,
-  on(getActiveEntityError, (state, { errors }) => ({
+  on(getSelectedEntityError, (state, { errors }) => ({
     ...state,
     [AppStateKey.Errors]: errors,
   })),
-  on(getActiveEntitySuccess, (state, { activeEntity }) => ({
+  on(getSelectedEntitySuccess, (state, { selected }) => ({
     ...state,
-    [AppStateKey.ActiveEntity]: activeEntity,
+    [AppStateKey.Entities]: {
+      ...state[AppStateKey.Entities],
+      [EntitiesStateKey.Selected]: selected,
+    },
   })),
   on(getEntitiesError, (state, { errors }) => ({
     ...state,
@@ -39,22 +48,41 @@ export const reducer = createReducer(
   })),
   on(getEntitiesSuccess, (state, { entities }) => ({
     ...state,
-    [AppStateKey.Entities]: entities,
+    [AppStateKey.Entities]: {
+      ...state[AppStateKey.Entities],
+      [EntitiesStateKey.Current]: entities,
+    },
   })),
   on(getMainEntitiesError, (state, { errors }) => ({
     ...state,
     [AppStateKey.Errors]: errors,
   })),
-  on(getMainEntitiesSuccess, (state, { mainEntities }) => ({
+  on(getMainEntitiesSuccess, (state, { main }) => ({
     ...state,
-    [AppStateKey.MainEntities]: mainEntities,
+    [AppStateKey.Entities]: {
+      ...state[AppStateKey.Entities],
+      [EntitiesStateKey.Main]: main,
+    },
   })),
-  on(setActiveEntityId, (state, { id }) => ({
+  on(setSelectedEntityId, (state, { id }) => ({
     ...state,
-    [AppStateKey.ActiveEntityId]: id,
+    [AppStateKey.Entities]: {
+      ...state[AppStateKey.Entities],
+      [EntitiesStateKey.SelectedId]: id,
+    },
   })),
   on(setSelectedYear, (state, { year }) => ({
     ...state,
-    [AppStateKey.SelectedYear]: year,
+    [AppStateKey.AdvancedSearch]: {
+      ...state[AppStateKey.AdvancedSearch],
+      [AdvancedSearchStateKey.SelectedYear]: year,
+    },
+  })),
+  on(setSortDirection, (state, { direction }) => ({
+    ...state,
+    [AppStateKey.AdvancedSearch]: {
+      ...state[AppStateKey.AdvancedSearch],
+      [AdvancedSearchStateKey.SortDirection]: direction,
+    },
   })),
 );

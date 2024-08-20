@@ -12,7 +12,7 @@ import {
 } from '../../components';
 import { EntityType } from '../../models';
 import { getMainEntities } from '../../state/actions';
-import { selectActiveEntity, selectMainEntities } from '../../state/selectors';
+import { selectEntity, selectMainEntities } from '../../state/selectors';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,10 +32,10 @@ import { selectActiveEntity, selectMainEntities } from '../../state/selectors';
 export class DiscoverComponent implements OnInit {
   readonly #store = inject(Store);
 
-  activeEntity$ = this.#store.select(selectActiveEntity);
+  selectedEntity$ = this.#store.select(selectEntity);
   mainEntities$ = this.#store.select(selectMainEntities);
 
-  isMainEntity$ = this.activeEntity$.pipe(
+  isMainEntity$ = this.selectedEntity$.pipe(
     map(entity => entity?.type && Object.values(EntityType).includes(entity.type as EntityType)),
   );
 

@@ -1,3 +1,18 @@
-<button flagButton disabled>
-  <flag-icon>tune</flag-icon>
+<button
+  flagButton
+  [flagDropdownTrigger]="sortingDropdown"
+  [isOpen]="isMenuOpen()"
+  (click)="setMenuOpen()"
+>
+  <flag-icon>sort</flag-icon>
 </button>
+
+<ng-template #sortingDropdown>
+  <flag-card>
+    @for (option of sortOptions(); track $index) {
+      <flag-list-item [active]="option.active" (click)="setSortDirection(option.direction)">
+        {{ option.label }}
+      </flag-list-item>
+    }
+  </flag-card>
+</ng-template>

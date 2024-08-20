@@ -7,16 +7,16 @@ import { EntityType } from '../models';
 import { EntityService } from '../services';
 
 import {
-  getActiveEntity,
-  getActiveEntityError,
-  getActiveEntitySuccess,
+  getSelectedEntity,
+  getSelectedEntityError,
+  getSelectedEntitySuccess,
   getEntities,
   getEntitiesError,
   getEntitiesSuccess,
   getMainEntities,
   getMainEntitiesError,
   getMainEntitiesSuccess,
-  setActiveEntityId,
+  setSelectedEntityId,
 } from './actions';
 import { initialState } from './reducers';
 import { AppState, AppStateKey } from './reducers.model';
@@ -29,19 +29,19 @@ export class EntityEffects {
   readonly #entityService = inject(EntityService);
   readonly #store = inject(Store);
 
-  getActiveEntity$ = createEffect(() => this.#actions$.pipe(
-    ofType(getActiveEntity),
+  getSelectedEntity$ = createEffect(() => this.#actions$.pipe(
+    ofType(getSelectedEntity),
     switchMap(({ id }) => this.#entityService.getEntityById(id).pipe(
-      map(activeEntity => getActiveEntitySuccess({ activeEntity })),
-      catchError(error => of(getActiveEntityError(this.#setError(error)))),
+      map(selected => getSelectedEntitySuccess({ selected })),
+      catchError(error => of(getSelectedEntityError(this.#setError(error)))),
     )),
   ));
 
   getEntities$ = createEffect(() => this.#actions$.pipe(
     ofType(getEntities),
     tap(({ id }) => {
-      this.#store.dispatch(setActiveEntityId({ id }));
-      this.#store.dispatch(getActiveEntity({ id }));
+      this.#store.dispatch(setSelectedEntityId({ id }));
+      this.#store.dispatch(getSelectedEntity({ id }));
     }),
     switchMap(({ id }) => this.#entityService.getEntitiesByParentId(id).pipe(
       map(entities => getEntitiesSuccess({ entities })),
@@ -55,7 +55,7 @@ export class EntityEffects {
       EntityType.Continent,
       EntityType.Organization,
     ]).pipe(
-      map(mainEntities => getMainEntitiesSuccess({ mainEntities })),
+      map(main => getMainEntitiesSuccess({ main })),
       catchError(error => of(getMainEntitiesError(this.#setError(error)))),
     )),
   ));

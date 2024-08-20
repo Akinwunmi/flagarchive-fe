@@ -2,31 +2,17 @@ import { createAction, props } from '@ngrx/store';
 
 import {
   ActionTypes,
-  GetActiveEntityErrorProps,
-  GetActiveEntityProps,
-  GetActiveEntitySuccessProps,
   GetEntitiesErrorProps,
   GetEntitiesProps,
   GetEntitiesSuccessProps,
   GetMainEntitiesErrorProps,
   GetMainEntitiesSuccessProps,
-  SetActiveEntityIdProps,
+  GetSelectedEntityErrorProps,
+  GetSelectedEntityProps,
+  GetSelectedEntitySuccessProps,
+  SetSelectedEntityIdProps,
+  SetSortDirectionProps,
 } from './actions.model';
-
-export const getActiveEntity = createAction(
-  ActionTypes.GetActiveEntity,
-  props<GetActiveEntityProps>(),
-);
-
-export const getActiveEntityError = createAction(
-  ActionTypes.GetActiveEntityError,
-  props<GetActiveEntityErrorProps>(),
-);
-
-export const getActiveEntitySuccess = createAction(
-  ActionTypes.GetActiveEntitySuccess,
-  props<GetActiveEntitySuccessProps>(),
-);
 
 export const getEntities = createAction(
   ActionTypes.GetEntities,
@@ -55,12 +41,32 @@ export const getMainEntitiesSuccess = createAction(
   props<GetMainEntitiesSuccessProps>(),
 );
 
-export const setActiveEntityId = createAction(
-  ActionTypes.SetActiveEntityId,
-  props<SetActiveEntityIdProps>(),
+export const getSelectedEntity = createAction(
+  ActionTypes.GetSelectedEntity,
+  props<GetSelectedEntityProps>(),
+);
+
+export const getSelectedEntityError = createAction(
+  ActionTypes.GetSelectedEntityError,
+  props<GetSelectedEntityErrorProps>(),
+);
+
+export const getSelectedEntitySuccess = createAction(
+  ActionTypes.GetSelectedEntitySuccess,
+  props<GetSelectedEntitySuccessProps>(),
+);
+
+export const setSelectedEntityId = createAction(
+  ActionTypes.SetSelectedEntityId,
+  props<SetSelectedEntityIdProps>(),
 );
 
 export const setSelectedYear = createAction(
   ActionTypes.SetSelectedYear,
   props<{ year: number }>(),
+);
+
+export const setSortDirection = createAction(
+  ActionTypes.SetSortDirection,
+  props<SetSortDirectionProps>(),
 );
