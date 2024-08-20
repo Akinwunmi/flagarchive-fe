@@ -11,18 +11,19 @@ import {
   input,
   signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { FlagIconComponent } from '@flagarchive/angular';
 import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { filter, map, startWith } from 'rxjs';
 
 import { DefaultMainEntity, DiscoverSection, Entity, EntityType } from '../../models';
 import { setSelectedEntityId } from '../../state/actions';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FlagIconComponent, NgClass, NgTemplateOutlet],
+  imports: [FlagIconComponent, NgClass, NgTemplateOutlet, TranslateModule],
   selector: 'app-main-entities-header',
   standalone: true,
   styleUrl: './main-entities-header.component.scss',

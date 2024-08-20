@@ -1,10 +1,13 @@
+@let CONTINENTS_TRANSLATION = 'DISCOVER.CONTINENTS' | translate;
+@let ORGANIZATIONS_TRANSLATION = 'DISCOVER.ORGANIZATIONS' | translate;
+
 <div class="actions">
   <button
     flagButton
     [attr.ghost]="activeSection() !== discoverSection.Continents || undefined"
     (click)="setActiveMainEntity(defaultMainEntity.Continents)"
   >
-    Continents
+    {{ CONTINENTS_TRANSLATION }}
     @if (activeSection() !== discoverSection.Continents) {
       <flag-icon>swap_horiz</flag-icon>
     }
@@ -17,7 +20,7 @@
     @if (activeSection() !== discoverSection.Organizations) {
       <flag-icon>swap_horiz</flag-icon>
     }
-    Organizations
+    {{ ORGANIZATIONS_TRANSLATION }}
   </button>
 </div>
 @if (!isMobile || (isMobile && activeSection() === discoverSection.Continents)) {
@@ -26,7 +29,7 @@
       entitiesTemplate;
       context: {
         $implicit: continents(),
-        title: 'Continents',
+        title: CONTINENTS_TRANSLATION,
       }
     "
   />
@@ -37,7 +40,7 @@
       entitiesTemplate;
       context: {
         $implicit: organizations(),
-        title: 'Organizations',
+        title: ORGANIZATIONS_TRANSLATION,
       }
     "
   />

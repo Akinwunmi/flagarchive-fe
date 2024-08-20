@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 import { AppHeaderComponent } from './components';
 
@@ -11,4 +12,10 @@ import { AppHeaderComponent } from './components';
   styleUrl: './app.component.scss',
   templateUrl: './app.component.html',
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+  readonly #translate = inject(TranslateService);
+
+  ngOnInit() {
+    this.#translate.setDefaultLang('en');
+  }
+}

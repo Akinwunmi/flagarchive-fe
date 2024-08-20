@@ -6,6 +6,7 @@ export const HOME_ROUTES: Routes = [
   {
     path: '',
     component: HomeComponent,
+    title: 'Flag Archive',
     children: [
       {
         path: '',

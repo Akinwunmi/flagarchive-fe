@@ -1,0 +1,216 @@
+{
+  "LANGUAGES": {
+    "EN": "English",
+    "NL": "Nederlands"
+  },
+  "PAGES": {
+    "ABOUT": "Over dit project",
+    "ADD_ENTITY": "Voeg entiteit toe",
+    "ADMIN": "Admin dashboard",
+    "HOME": "Home",
+    "LOGIN": "Inloggen",
+    "MY_ACCOUNT": "Mijn account",
+    "MY_FAVORITES": "Mijn favorieten",
+    "SIGNUP": "Registreren"
+  },
+  "COMMON": {
+    "ADD": "Voeg toe",
+    "APP_NAME": "Flag Archive",
+    "ARCHIVES": "Archieven",
+    "CTA": {
+      "BACK": "Terug",
+      "CANCEL": "Annuleer",
+      "CONFIRM": "Bevestig",
+      "NEXT": "Volgende"
+    },
+    "DISCOVER": "Ontdek",
+    "EMAIL_ADDRESS": "E-mailadres",
+    "FILTERS": "Filters",
+    "FULL_NAME": "Volledige naam",
+    "LOGIN": "Inloggen",
+    "LOGOUT": "Uitloggen",
+    "NAME": "Naam",
+    "PAGE_NOT_FOUND": "Pagina onbekend",
+    "PASSWORD": "Wachtwoord",
+    "PLAY": "Afspelen",
+    "SEARCH": "Zoek",
+    "SIGNUP": "Registreren",
+    "SORT": "Sorteer",
+    "SURNAME": "Achternaam",
+    "TIMELINE": "Tijdlijn",
+    "USERNAME": "Gebruikersnaam",
+    "WELCOME": "Welkom!"
+  },
+  "MESSAGES": {
+    "AUTH": {
+      "INVALID_CREDENTIAL": "Gebruikersnaam of wachtwoord is onjuist"
+    }  
+  },
+  "FOOTER": {
+    "SITEMAP": "Sitemap"
+  },
+  "SIGNUP": {
+    "HAS_ACCOUNT": "Ik heb al een account"
+  },
+  "MY_ACCOUNT": {
+    "CHANGE_PASSWORD": "Wachtwoord wijzigen",
+    "EDIT_ACCOUNT": "Account bewerken"
+  },
+  "ADMIN": {
+    "ADD_ENTITY": "Voeg entiteit toe"
+  },
+  "ADD_ENTITY": {
+    "ADD": "Voeg entiteit toe",
+    "ADD_RANGE": "Voeg periode toe",
+    "EDIT": "Update entiteit",
+    "RANGE_TITLE": "Periode {{ index }}"
+  },
+  "FILTERS_AND_SORTING": {
+    "ADVANCED_SEARCH": "Geavanceerd zoeken",
+    "FILTER_BY": "Filteren met:"
+  },
+  "DISCOVER": {
+    "CONTINENTS": "Continenten",
+    "HAS_PARENT": "Is onderdeel van {{ type }}",
+    "ORGANIZATIONS": "Organisaties",
+    "PARENT": "Onderdeel van"
+  },
+  "FORM": {
+    "CONTROLS": {
+      "ALT_ID": {
+        "LABEL": "Alternatieve ID",
+        "PLACEHOLDER": "Voer alternatieve ID in"
+      },
+      "EMAIL_ADDRESS": {
+        "LABEL": "E-mailadres",
+        "PLACEHOLDER": "Voer e-mailadres in"
+      },
+      "ID": {
+        "LABEL": "ID",
+        "PLACEHOLDER": "Voer ID in"
+      },
+      "IMAGE_URL": {
+        "LABEL": "Afbeelding URL",
+        "PLACEHOLDER": "Voer afbeelding URL in"
+      },
+      "NAME": {
+        "LABEL": "Voornaam",
+        "PLACEHOLDER": "Voer voornaam in"
+      },
+      "PARENT": {
+        "LABEL": "ID van moederentiteit",
+        "PLACEHOLDER": "Voer ID van moederentiteit in"
+      },
+      "PASSWORD": {
+        "LABEL": "Wachtwoord",
+        "PLACEHOLDER": "Voer wachtwoord in"
+      },
+      "RANGE_END": {
+        "LABEL": "Einde",
+        "PLACEHOLDER": "Voer eindjaar in"
+      },
+      "RANGE_START": {
+        "LABEL": "Begin",
+        "PLACEHOLDER": "Voer beginjaar in"
+      },
+      "SURNAME": {
+        "LABEL": "Achternaam",
+        "PLACEHOLDER": "Voer achternaam in"
+      },
+      "TRANSLATION_KEY": {
+        "LABEL": "Vertalingskey",
+        "PLACEHOLDER": "Voer vertalingskey in"
+      },
+      "TYPE": {
+        "LABEL": "Type",
+        "PLACEHOLDER": "Voer type in"
+      },
+      "USERNAME": {
+        "LABEL": "Gebruikersnaam",
+        "PLACEHOLDER": "Voer gebruikersnaam in"
+      }
+    }
+  },
+  "ENTITY_TYPES": {
+    "COMMUNITY": "Gemeenschap",
+    "CONTINENT": "Continent",
+    "COUNTRY": "Land",
+    "INTERGOVERNMENTAL_ORGANIZATION": "Intergouvernementele organisatie",
+    "MUNICIPALITY": "Gemeente",
+    "NON_GOVERNMENTAL_ORGANIZATION": "Niet-gouvernementele organisatie",
+    "PROVINCE": "Provincie",
+    "SPECIALIZED_AGENCY": "Gespecialiseerde organisatie"
+  },
+  "ENTITIES": {
+    "AFRICA": "Afrika",
+    "ALAND": "Åland",
+    "ALBANIA": "Albanië",
+    "ANDORRA": "Andorra",
+    "ARMENIA": "Armenië",
+    "ARUBA": "Aruba",
+    "ASIA": "Azië",
+    "AUSTRALIA": "Australië",
+    "AUSTRIA": "Oostenrijk",
+    "BELARUS": "Wit-Rusland",
+    "BELGIUM": "België",
+    "BOSNIA_AND_HERZEGOVINA": "Bosnië and Herzegovina",
+    "BULGARIA": "Bulgarije",
+    "CROATIA": "Kroatië",
+    "CURACAO": "Curaçao",
+    "CYPRUS": "Cyprus",
+    "CZECHIA": "Tsjechië",
+    "DENMARK": "Denemarken",
+    "ESTONIA": "Estland",
+    "EUROPE": "Europa",
+    "FINLAND": "Finland",
+    "FRANCE": "Frankrijk",
+    "GEORGIA": "Georgië",
+    "GERMANY": "Duitsland",
+    "GIBRALTAR": "Gibraltar",
+    "GREAT_BRITAIN": "Verenigd Koninkrijk",
+    "GREECE": "Griekenland",
+    "HUNGARY": "Hongarije",
+    "ICELAND": "IJsland",
+    "INTERNATIONAL": "Internationaal",
+    "IOC": "Internationaal Olympisch Comité",
+    "IPC": "Internationaal Paralympisch Comité",
+    "IRELAND": "Ierland",
+    "ITALY": "Italië",
+    "KOSOVO": "Kosovo",
+    "LATVIA": "Letland",
+    "LGBT": "LGBT gemeenschap",
+    "LIECHTENSTEIN": "Liechtenstein",
+    "LITHUANIA": "Litouwen",
+    "LUXEMBOURG": "Luxemburg",
+    "MALTA": "Malta",
+    "MISCELLANEOUS": "Diversen",
+    "MOLDOVA": "Moldavië",
+    "MONACO": "Monaco",
+    "MONTENEGRO": "Montenegro",
+    "NETHERLANDS_ANTILLES": "Nederlandse Antillen",
+    "NETHERLANDS": "Nederland",
+    "NON_BINARY": "Non-binaire gemeenschap",
+    "NORTH_AMERICA": "Noord-Amerika",
+    "NORTH_MACEDONIA": "Noord-Macedonië",
+    "NORWAY": "Noorwegen",
+    "PANSEXUAL": "Pansexuele gemeenschap",
+    "POLAND": "Polen",
+    "PORTUGAL": "Portugal",
+    "ROMANIA": "Roemenië",
+    "RUSSIA": "Rusland",
+    "SAN_MARINO": "San Marino",
+    "SERBIA": "Servië",
+    "SLOVAKIA": "Slowakije",
+    "SLOVANIA": "Slovenië",
+    "SOUTH_AMERICA": "Zuid-Amerika",
+    "SPAIN": "Spanje",
+    "SWEDEN": "Zweden",
+    "SWITZERLAND": "Zwitserland",
+    "TRANSEXUAL": "Transexuele gemeenschap",
+    "TURKEY": "Turkije",
+    "UKRAINE": "Oekraïne",
+    "UNESCO": "UNESCO",
+    "UNITED_NATIONS": "Verenigde Naties",
+    "VATICAN_CITY": "Vaticaanstad"
+  }
+}
