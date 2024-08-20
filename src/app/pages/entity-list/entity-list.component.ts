@@ -15,7 +15,8 @@ import { combineLatest } from 'rxjs';
 import { EntityComponent } from '../../components';
 import { Entity } from '../../models';
 import { getEntities } from '../../state/actions';
-import { selectActiveEntityId, selectEntities } from '../../state/selectors';
+import { selectEntities, selectEntityId, selectSortDirection } from '../../state/selectors';
+import { sortBy } from '../../utils';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -39,7 +40,7 @@ export class EntityListComponent implements OnInit {
   ngOnInit() {
     const id = this.#router.url.split('/').pop();
     this.#getEntities(id);
-    this.#setActiveEntityIdAndEntities();
+    this.#setEntityIdAndEntities();
 
     this.#router.events.pipe(
       takeUntilDestroyed(this.#destroyRef),
@@ -65,15 +66,16 @@ export class EntityListComponent implements OnInit {
     }
   }
 
-  #setActiveEntityIdAndEntities() {
+  #setEntityIdAndEntities() {
     combineLatest([
-      this.#store.select(selectActiveEntityId),
+      this.#store.select(selectEntityId),
       this.#store.select(selectEntities),
+      this.#store.select(selectSortDirection),
     ]).pipe(
       takeUntilDestroyed(this.#destroyRef),
-    ).subscribe(([id, entities]) => {
+    ).subscribe(([id, entities, sortDirection]) => {
       this.#activeEntityId = id;
-      this.entities = entities ?? [];
+      this.entities = sortBy<Entity>(entities, 'translationKey', sortDirection) ?? [];
       this.#cdr.markForCheck();
     });
   }

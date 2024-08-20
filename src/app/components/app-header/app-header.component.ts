@@ -8,7 +8,7 @@ import {
 } from '@flagarchive/angular';
 import { Store } from '@ngrx/store';
 
-import { setActiveEntityId } from '../../state/actions';
+import { setSelectedEntityId } from '../../state/actions';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,7 +27,7 @@ export class AppHeaderComponent {
   goToHome() {
     const id = 'af';
 
-    this.#store.dispatch(setActiveEntityId({ id }));
+    this.#store.dispatch(setSelectedEntityId({ id }));
     this.#router.navigate(['discover', 'entity', id]);
   }
 }

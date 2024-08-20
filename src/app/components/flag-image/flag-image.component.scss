@@ -1,3 +1,5 @@
+@use '@flagarchive/angular/core/styles' as *;
+
 :host {
   aspect-ratio: 3 / 2;
   display: flex;
@@ -17,6 +19,15 @@
     max-height: 100%;
     max-width: 100%;
   }
+
+  .no-image {
+    align-items: center;
+    color: var(--flag-color-grey-400);
+    display: none;
+    inset: 0;
+    justify-content: center;
+    position: absolute;
+  }
 }
 
 :host(.placeholder) {
@@ -24,6 +35,10 @@
 
   img {
     display: none;
+  }
+
+  .no-image {
+    display: flex;
   }
 }
 

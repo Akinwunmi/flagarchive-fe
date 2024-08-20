@@ -17,7 +17,7 @@ import { Store } from '@ngrx/store';
 import { filter, map, startWith } from 'rxjs';
 
 import { DefaultMainEntity, DiscoverSection, Entity, EntityType } from '../../models';
-import { setActiveEntityId } from '../../state/actions';
+import { setSelectedEntityId } from '../../state/actions';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -74,7 +74,7 @@ export class MainEntitiesHeaderComponent implements OnInit {
 
   setActiveMainEntity(id: string) {
     this.activeMainEntityId.set(id);
-    this.#store.dispatch(setActiveEntityId({ id: id }));
+    this.#store.dispatch(setSelectedEntityId({ id: id }));
     this.#router.navigate(['entity', id], { relativeTo: this.#route });
   }
 
