@@ -42,9 +42,7 @@ export class EntityListComponent implements OnInit {
     this.#getEntities(id);
     this.#setEntityIdAndEntities();
 
-    this.#router.events.pipe(
-      takeUntilDestroyed(this.#destroyRef),
-    ).subscribe(() => {
+    this.#router.events.pipe(takeUntilDestroyed(this.#destroyRef)).subscribe(() => {
       const id = this.#router.url.split('/').pop();
       if (id !== this.#selectedEntityId) {
         this.#getEntities(id);
@@ -71,12 +69,12 @@ export class EntityListComponent implements OnInit {
       this.#store.select(selectEntityId),
       this.#store.select(selectEntities),
       this.#store.select(selectSortDirection),
-    ]).pipe(
-      takeUntilDestroyed(this.#destroyRef),
-    ).subscribe(([id, entities, sortDirection]) => {
-      this.#selectedEntityId = id;
-      this.entities = sortBy<Entity>(entities, 'translationKey', sortDirection) ?? [];
-      this.#cdr.markForCheck();
-    });
+    ])
+      .pipe(takeUntilDestroyed(this.#destroyRef))
+      .subscribe(([id, entities, sortDirection]) => {
+        this.#selectedEntityId = id;
+        this.entities = sortBy<Entity>(entities, 'translationKey', sortDirection) ?? [];
+        this.#cdr.markForCheck();
+      });
   }
 }

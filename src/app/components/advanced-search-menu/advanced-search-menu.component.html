@@ -1,0 +1,56 @@
+<flag-card>
+  <section class="layout">
+    <header>
+      {{ 'COMMON.LAYOUT' | translate }}
+    </header>
+    <div class="toggle">
+      @for (option of layoutOptions(); track $index) {
+        <button
+          flagButton
+          secondary
+          [attr.raised]="option.active || undefined"
+          (click)="setLayout(option.value)"
+        >
+          <flag-icon>{{ option.icon }}</flag-icon>
+        </button>
+      }
+    </div>
+  </section>
+  <!-- TODO implement once flag variants are supported -->
+  <!-- <section>
+    <header>
+      {{ 'COMMON.FLAG_CATEGORIES' | translate }}
+      <flag-icon>flag</flag-icon>
+    </header>
+    <div class="toggle">
+      @for (option of flagCategoryOptions(); track $index) {
+        <button
+          flagButton
+          secondary
+          [attr.raised]="option.active || undefined"
+          (click)="setFlagCategory(option.value)"
+        >
+          {{ option.label ?? '' | translate }}
+        </button>
+      }
+    </div>
+  </section> -->
+  <section>
+    <header>
+      {{ 'COMMON.SORTING' | translate }}
+      <flag-icon>sort</flag-icon>
+    </header>
+    <div class="toggle">
+      @for (option of sortOptions(); track $index) {
+        <button
+          flagButton
+          secondary
+          [attr.raised]="option.active || undefined"
+          (click)="setSortDirection(option.value)"
+        >
+          {{ option.label ?? '' | translate }}
+        </button>
+      }
+    </div>
+  </section>
+</flag-card>

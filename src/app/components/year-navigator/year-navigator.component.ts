@@ -44,7 +44,7 @@ export class YearNavigatorComponent implements OnDestroy, OnInit {
   readonly #store = inject(Store);
 
   max = input(new Date().getFullYear());
-  min = input(0);
+  min = input(new Date().getFullYear());
 
   #isPlayingBackward = signal(false);
   #isPlayingForward = signal(false);
@@ -58,13 +58,16 @@ export class YearNavigatorComponent implements OnDestroy, OnInit {
   #playSpeed$ = interval(750);
 
   ngOnInit() {
-    this.#store.select(selectYear).pipe(
-      map(selectedYear => selectedYear),
-      takeUntilDestroyed(this.#destroyRef),
-    ).subscribe(selectedYear => {
-      this.selectedYear = Math.min(this.max(), selectedYear);
-      this.#cdr.markForCheck();
-    });
+    this.#store
+      .select(selectYear)
+      .pipe(
+        map(selectedYear => selectedYear),
+        takeUntilDestroyed(this.#destroyRef),
+      )
+      .subscribe(selectedYear => {
+        this.selectedYear = Math.min(this.max(), selectedYear);
+        this.#cdr.markForCheck();
+      });
   }
 
   ngOnDestroy() {
@@ -85,9 +88,7 @@ export class YearNavigatorComponent implements OnDestroy, OnInit {
   play(backward?: boolean) {
     this.#isPlayingBackward.set(!!backward);
     this.#isPlayingForward.set(!backward);
-    this.#playSpeed$.pipe(
-      takeUntil(this.#stop$),
-    ).subscribe(() => {
+    this.#playSpeed$.pipe(takeUntil(this.#stop$)).subscribe(() => {
       const maxReached = this.#isPlayingForward() && this.max() === this.selectedYear;
       const minReached = this.#isPlayingBackward() && this.min() === this.selectedYear;
       if (maxReached || minReached) {

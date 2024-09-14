@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { AppHeaderComponent } from './components';
+import { AppFooterComponent, AppHeaderComponent } from './components';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AppHeaderComponent, RouterOutlet],
+  imports: [AppFooterComponent, AppHeaderComponent, RouterOutlet],
   selector: 'app-root',
   standalone: true,
   styleUrl: './app.component.scss',

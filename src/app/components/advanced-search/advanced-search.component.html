@@ -1,18 +1,14 @@
+<app-year-navigator />
 <button
   flagButton
-  [flagDropdownTrigger]="sortingDropdown"
+  secondary
+  [flagDropdownTrigger]="advancedSearchDropdown"
   [isOpen]="isMenuOpen()"
   (click)="setMenuOpen()"
 >
-  <flag-icon>sort</flag-icon>
+  <flag-icon>tune</flag-icon>
 </button>
 
-<ng-template #sortingDropdown>
-  <flag-card>
-    @for (option of sortOptions(); track $index) {
-      <flag-list-item [active]="option.active" (click)="setSortDirection(option.direction)">
-        {{ option.label | translate }}
-      </flag-list-item>
-    }
-  </flag-card>
+<ng-template #advancedSearchDropdown>
+  <app-advanced-search-menu />
 </ng-template>
