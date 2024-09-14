@@ -26,7 +26,9 @@
     "DISCOVER": "Discover",
     "EMAIL_ADDRESS": "Email Address",
     "FILTERS": "Filters",
+    "FLAG_CATEGORIES": "Flag Categories",
     "FULL_NAME": "Full Name",
+    "LAYOUT": "Layout",
     "LOGIN": "Log in",
     "LOGOUT": "Log out",
     "NAME": "Name",
@@ -35,7 +37,7 @@
     "PLAY": "Play",
     "SEARCH": "Search",
     "SIGNUP": "Sign up",
-    "SORT": "Sort",
+    "SORTING": "Sorting",
     "SURNAME": "Surname",
     "TIMELINE": "Timeline",
     "USERNAME": "Username"
@@ -43,7 +45,7 @@
   "MESSAGES": {
     "AUTH": {
       "INVALID_CREDENTIAL": "Username or password is incorrect"
-    }  
+    }
   },
   "FOOTER": {
     "SITEMAP": "Sitemap"
@@ -65,6 +67,13 @@
     "RANGE_TITLE": "Range {{ index }}"
   },
   "ADVANCED_SEARCH": {
+    "FLAG_CATEGORY": {
+      "CIVIL": "Civil",
+      "DE_FACTO": "De facto",
+      "DE_JURE": "De jure",
+      "NAVAL": "Naval",
+      "OFFICIAL": "Official"
+    },
     "SORTING": {
       "NAME": {
         "ASC": "Name (A-Z)",
@@ -803,7 +812,6 @@
     "ZUTPHEN": "Zutphen",
     "ZWIJNDRECHT": "Zwijndrecht",
     "ZWOLLE": "Zwolle",
-
     "GILZE_EN_RIJEN": "Gilze en Rijen",
     "GOIRLE": "Goirle",
     "HALDERBERGE": "Halderberge",
@@ -837,7 +845,6 @@
     "WAALWIJK": "Waalwijk",
     "WOENSDRECHT": "Woensdrecht",
     "ZUNDERT": "Zundert",
-
     "AALSMEER": "Aalsmeer",
     "ALKMAAR": "Alkmaar",
     "AMSTERDAM": "Amsterdam",
@@ -886,7 +893,6 @@
     "WORMERLAND": "Wormerland",
     "ZAANSTAD": "Zaanstad",
     "ZANDVOORT": "Zandvoort",
-
     "EEMSDELTA": "Eemsdelta",
     "HET_HOGELAND": "Het Hogeland",
     "MIDDEN_GRONINGEN": "Midden-Groningen",
@@ -896,7 +902,6 @@
     "VEENDAM": "Veendam",
     "WESTERKWARTIER": "Westerkwartier",
     "WESTERWOLDE": "Westerwolde",
-
     "BEEKDAELEN": "Beekdaelen",
     "BEEK": "Beek",
     "BEESEL": "Beesel",

@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { DefaultMainEntity, SortDirection } from '../models';
+import { DefaultMainEntity, FlagCategory, Layout, SortDirection } from '../models';
 
 import {
   getEntitiesError,
@@ -9,6 +9,8 @@ import {
   getMainEntitiesSuccess,
   getSelectedEntityError,
   getSelectedEntitySuccess,
+  setFlagCategory,
+  setLayout,
   setSelectedEntityId,
   setSelectedYear,
   setSortDirection,
@@ -17,6 +19,8 @@ import { AdvancedSearchStateKey, AppState, AppStateKey, EntitiesStateKey } from 
 
 export const initialState: AppState = {
   [AppStateKey.AdvancedSearch]: {
+    [AdvancedSearchStateKey.FlagCategory]: FlagCategory.Official,
+    [AdvancedSearchStateKey.Layout]: Layout.Grid,
     [AdvancedSearchStateKey.SelectedYear]: new Date().getFullYear(),
     [AdvancedSearchStateKey.SortDirection]: SortDirection.Asc,
   },
@@ -62,6 +66,20 @@ export const reducer = createReducer(
     [AppStateKey.Entities]: {
       ...state[AppStateKey.Entities],
       [EntitiesStateKey.Main]: main,
+    },
+  })),
+  on(setFlagCategory, (state, { category }) => ({
+    ...state,
+    [AppStateKey.AdvancedSearch]: {
+      ...state[AppStateKey.AdvancedSearch],
+      [AdvancedSearchStateKey.FlagCategory]: category,
+    },
+  })),
+  on(setLayout, (state, { layout }) => ({
+    ...state,
+    [AppStateKey.AdvancedSearch]: {
+      ...state[AppStateKey.AdvancedSearch],
+      [AdvancedSearchStateKey.Layout]: layout,
     },
   })),
   on(setSelectedEntityId, (state, { id }) => ({

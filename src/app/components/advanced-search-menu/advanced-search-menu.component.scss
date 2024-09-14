@@ -1,0 +1,35 @@
+flag-card {
+  background-color: var(--flag-color-secondary-100);
+  color: var(--flag-color-secondary-700);
+  display: grid;
+  gap: var(--flag-space-xs);
+
+  section {
+    background-color: var(--flag-color-white);
+    display: grid;
+    gap: var(--flag-space-sm);
+    padding: var(--flag-space-md);
+
+    &.layout {
+      grid-template-columns: 1fr auto;
+    }
+
+    header {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .toggle {
+      background-color: var(--flag-color-secondary-200);
+      border-radius: var(--flag-radius-sm);
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      overflow: hidden;
+
+      button {
+        border-radius: 0;
+      }
+    }
+  }
+}

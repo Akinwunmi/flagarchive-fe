@@ -1,4 +1,4 @@
-import { Entity, SortDirection } from '../models';
+import { Entity, FlagCategory, Layout, SortDirection } from '../models';
 
 export enum AppStateKey {
   AdvancedSearch = 'advancedSearch',
@@ -7,6 +7,8 @@ export enum AppStateKey {
 }
 
 export enum AdvancedSearchStateKey {
+  FlagCategory = 'flagCategory',
+  Layout = 'layout',
   SelectedYear = 'selectedYear',
   SortDirection = 'sortDirection',
 }
@@ -26,6 +28,8 @@ export interface AppState {
 }
 
 export interface AdvancedSearchState {
+  [AdvancedSearchStateKey.FlagCategory]: FlagCategory;
+  [AdvancedSearchStateKey.Layout]: Layout;
   [AdvancedSearchStateKey.SelectedYear]: number;
   [AdvancedSearchStateKey.SortDirection]: SortDirection;
 }

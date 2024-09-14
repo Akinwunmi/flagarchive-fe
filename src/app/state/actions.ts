@@ -10,14 +10,14 @@ import {
   GetSelectedEntityErrorProps,
   GetSelectedEntityProps,
   GetSelectedEntitySuccessProps,
+  SetFlagCategoryProps,
+  SetLayoutProps,
   SetSelectedEntityIdProps,
+  SetSelectedYearProps,
   SetSortDirectionProps,
 } from './actions.model';
 
-export const getEntities = createAction(
-  ActionTypes.GetEntities,
-  props<GetEntitiesProps>(),
-);
+export const getEntities = createAction(ActionTypes.GetEntities, props<GetEntitiesProps>());
 
 export const getEntitiesError = createAction(
   ActionTypes.GetEntitiesError,
@@ -56,6 +56,13 @@ export const getSelectedEntitySuccess = createAction(
   props<GetSelectedEntitySuccessProps>(),
 );
 
+export const setFlagCategory = createAction(
+  ActionTypes.SetFlagCategory,
+  props<SetFlagCategoryProps>(),
+);
+
+export const setLayout = createAction(ActionTypes.SetLayout, props<SetLayoutProps>());
+
 export const setSelectedEntityId = createAction(
   ActionTypes.SetSelectedEntityId,
   props<SetSelectedEntityIdProps>(),
@@ -63,7 +70,7 @@ export const setSelectedEntityId = createAction(
 
 export const setSelectedYear = createAction(
   ActionTypes.SetSelectedYear,
-  props<{ year: number }>(),
+  props<SetSelectedYearProps>(),
 );
 
 export const setSortDirection = createAction(

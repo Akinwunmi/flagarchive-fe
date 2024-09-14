@@ -19,6 +19,14 @@ export const selectEntitiesError = createSelector(
   state,
   (state: AppState) => state?.[AppStateKey.Errors],
 );
+export const selectFlagCategory = createSelector(
+  state,
+  (state: AppState) => state?.[AppStateKey.AdvancedSearch]?.[AdvancedSearchStateKey.FlagCategory],
+);
+export const selectLayout = createSelector(
+  state,
+  (state: AppState) => state?.[AppStateKey.AdvancedSearch]?.[AdvancedSearchStateKey.Layout],
+);
 export const selectMainEntities = createSelector(
   state,
   (state: AppState) => state?.[AppStateKey.Entities]?.[EntitiesStateKey.Main],

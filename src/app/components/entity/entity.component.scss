@@ -22,8 +22,9 @@ figure {
     }
 
     .alt-parent {
+      color: var(--flag-color-secondary-700);
       font-size: var(--flag-font-size-xs);
-      font-weight: var(--flag-font-weight-medium);
+      font-weight: var(--flag-font-weight-bold);
       text-transform: uppercase;
     }
   }

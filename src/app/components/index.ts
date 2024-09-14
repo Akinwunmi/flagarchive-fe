@@ -1,4 +1,6 @@
 export * from './advanced-search';
+export * from './advanced-search-menu';
+export * from './app-footer';
 export * from './app-header';
 export * from './entity';
 export * from './entity-header';

@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { FlagSkeletonComponent } from '@flagarchive/angular';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 
@@ -8,7 +9,6 @@ import {
   AdvancedSearchComponent,
   EntityHeaderComponent,
   MainEntitiesHeaderComponent,
-  YearNavigatorComponent,
 } from '../../components';
 import { EntityType } from '../../models';
 import { getMainEntities } from '../../state/actions';
@@ -20,9 +20,9 @@ import { selectEntity, selectMainEntities } from '../../state/selectors';
     AdvancedSearchComponent,
     AsyncPipe,
     EntityHeaderComponent,
+    FlagSkeletonComponent,
     MainEntitiesHeaderComponent,
     RouterOutlet,
-    YearNavigatorComponent,
   ],
   selector: 'app-discover',
   standalone: true,
