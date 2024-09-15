@@ -3,6 +3,8 @@ import { createReducer, on } from '@ngrx/store';
 import { DefaultMainEntity, FlagCategory, Layout, SortDirection } from '../models';
 
 import {
+  addEntitiesError,
+  addEntitiesSuccess,
   getEntitiesError,
   getEntitiesSuccess,
   getMainEntitiesError,
@@ -35,15 +37,15 @@ export const initialState: AppState = {
 
 export const reducer = createReducer(
   initialState,
-  on(getSelectedEntityError, (state, { errors }) => ({
+  on(addEntitiesError, (state, { errors }) => ({
     ...state,
     [AppStateKey.Errors]: errors,
   })),
-  on(getSelectedEntitySuccess, (state, { selected }) => ({
+  on(addEntitiesSuccess, (state, { entities }) => ({
     ...state,
     [AppStateKey.Entities]: {
       ...state[AppStateKey.Entities],
-      [EntitiesStateKey.Selected]: selected,
+      [EntitiesStateKey.All]: [...state[AppStateKey.Entities][EntitiesStateKey.All], ...entities],
     },
   })),
   on(getEntitiesError, (state, { errors }) => ({
@@ -66,6 +68,17 @@ export const reducer = createReducer(
     [AppStateKey.Entities]: {
       ...state[AppStateKey.Entities],
       [EntitiesStateKey.Main]: main,
+    },
+  })),
+  on(getSelectedEntityError, (state, { errors }) => ({
+    ...state,
+    [AppStateKey.Errors]: errors,
+  })),
+  on(getSelectedEntitySuccess, (state, { selected }) => ({
+    ...state,
+    [AppStateKey.Entities]: {
+      ...state[AppStateKey.Entities],
+      [EntitiesStateKey.Selected]: selected,
     },
   })),
   on(setFlagCategory, (state, { category }) => ({

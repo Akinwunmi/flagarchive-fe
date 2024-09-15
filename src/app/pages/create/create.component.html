@@ -1,0 +1,10 @@
+<!-- ! WIP -->
+<flag-form-field>
+  <label for="entities">
+    Entities
+  </label>
+  <textarea flagInput name="entities" id="entities" (keyup)="validate($event)"></textarea>
+</flag-form-field>
+<button flagButton [disabled]="!isValid" (click)="upload()">
+  Upload
+</button>

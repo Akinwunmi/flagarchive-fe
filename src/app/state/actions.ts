@@ -2,6 +2,9 @@ import { createAction, props } from '@ngrx/store';
 
 import {
   ActionTypes,
+  AddEntitiesErrorProps,
+  AddEntitiesProps,
+  AddEntitiesSuccessProps,
   GetEntitiesErrorProps,
   GetEntitiesProps,
   GetEntitiesSuccessProps,
@@ -16,6 +19,18 @@ import {
   SetSelectedYearProps,
   SetSortDirectionProps,
 } from './actions.model';
+
+export const addEntities = createAction(ActionTypes.AddEntities, props<AddEntitiesProps>());
+
+export const addEntitiesError = createAction(
+  ActionTypes.AddEntitiesError,
+  props<AddEntitiesErrorProps>(),
+);
+
+export const addEntitiesSuccess = createAction(
+  ActionTypes.AddEntitiesSuccess,
+  props<AddEntitiesSuccessProps>(),
+);
 
 export const getEntities = createAction(ActionTypes.GetEntities, props<GetEntitiesProps>());
 

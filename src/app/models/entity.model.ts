@@ -23,3 +23,5 @@ export interface EntityRange {
   parentId?: string;
   translationKey?: string;
 }
+
+export type EntityWithoutBaseId = Omit<Entity, 'baseId'>;
