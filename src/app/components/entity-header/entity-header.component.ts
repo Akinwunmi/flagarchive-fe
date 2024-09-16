@@ -32,7 +32,7 @@ import { TranslationKeyPipe } from '../../pipes';
   ],
   selector: 'app-entity-header',
   standalone: true,
-  styleUrl: './entity-header.component.scss',
+  styleUrl: './entity-header.component.css',
   templateUrl: './entity-header.component.html',
 })
 export class EntityHeaderComponent {
@@ -50,7 +50,6 @@ export class EntityHeaderComponent {
   @HostListener('window:resize') onWindowResize() {
     this.isMobile = window.innerWidth < 640;
   }
-
 
   goToEntity(item: BreadcrumbItem) {
     const route = item.link?.split('/');

@@ -26,7 +26,7 @@ import { selectEntity, selectMainEntities } from '../../state/selectors';
   ],
   selector: 'app-discover',
   standalone: true,
-  styleUrl: './discover.component.scss',
+  styleUrl: './discover.component.css',
   templateUrl: './discover.component.html',
 })
 export class DiscoverComponent implements OnInit {

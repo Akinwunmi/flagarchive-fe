@@ -27,7 +27,7 @@ import { setSelectedEntityId } from '../../state/actions';
   imports: [FlagIconComponent, NgClass, NgTemplateOutlet, TranslateModule, TranslationKeyPipe],
   selector: 'app-main-entities-header',
   standalone: true,
-  styleUrl: './main-entities-header.component.scss',
+  styleUrl: './main-entities-header.component.css',
   templateUrl: './main-entities-header.component.html',
 })
 export class MainEntitiesHeaderComponent implements OnInit {
@@ -44,16 +44,17 @@ export class MainEntitiesHeaderComponent implements OnInit {
   continents = computed(() => this.#getEntities(EntityType.Continent));
   organizations = computed(() => this.#getEntities(EntityType.Organization));
 
-  activeSection = computed(() => this.selectedMainEntityId().startsWith('o')
-    ? DiscoverSection.Organizations
-    : DiscoverSection.Continents,
+  activeSection = computed(() =>
+    this.selectedMainEntityId().startsWith('o')
+      ? DiscoverSection.Organizations
+      : DiscoverSection.Continents,
   );
 
   defaultMainEntity = DefaultMainEntity;
   discoverSection = DiscoverSection;
-  
+
   isMobile = window.innerWidth < 640;
-  
+
   @HostListener('window:resize')
   onWindowResize() {
     this.isMobile = window.innerWidth < 640;
@@ -61,17 +62,19 @@ export class MainEntitiesHeaderComponent implements OnInit {
 
   ngOnInit() {
     const initialId = this.#router.url.split('/').pop();
-    this.#router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      map(event => event.url.split('/').pop()),
-      startWith(initialId),
-      takeUntilDestroyed(this.#destroyRef),
-    ).subscribe(id => {
-      if (id && id !== this.selectedMainEntityId()) {
-        this.selectedMainEntityId.set(id);
-      }
-      this.#cdr.markForCheck();
-    });
+    this.#router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        map(event => event.url.split('/').pop()),
+        startWith(initialId),
+        takeUntilDestroyed(this.#destroyRef),
+      )
+      .subscribe(id => {
+        if (id && id !== this.selectedMainEntityId()) {
+          this.selectedMainEntityId.set(id);
+        }
+        this.#cdr.markForCheck();
+      });
   }
 
   selectMainEntity(id: string) {

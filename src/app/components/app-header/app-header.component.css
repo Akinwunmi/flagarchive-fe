@@ -3,11 +3,7 @@
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
-  padding: var(--flag-space-sm) var(--flag-space-sm) 0;
-
-  @media (min-width: 40rem) {
-    padding-inline: var(--flag-space-lg);
-  }
+  padding: var(--flag-space-sm) var(--app-horizontal-padding) 0;
 }
 
 .title {

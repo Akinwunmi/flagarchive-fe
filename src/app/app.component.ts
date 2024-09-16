@@ -9,7 +9,7 @@ import { AppFooterComponent, AppHeaderComponent } from './components';
   imports: [AppFooterComponent, AppHeaderComponent, RouterOutlet],
   selector: 'app-root',
   standalone: true,
-  styleUrl: './app.component.scss',
+  styleUrl: './app.component.css',
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {

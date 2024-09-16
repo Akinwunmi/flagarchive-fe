@@ -16,7 +16,7 @@ import { setSelectedEntityId } from '../../state/actions';
   imports: [FlagButtonDirective, FlagIconComponent, FlagPillComponent, TranslateModule],
   selector: 'app-header',
   standalone: true,
-  styleUrl: './app-header.component.scss',
+  styleUrl: './app-header.component.css',
   templateUrl: './app-header.component.html',
 })
 export class AppHeaderComponent {

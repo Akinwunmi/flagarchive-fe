@@ -1,4 +1,10 @@
-@use '@angular/cdk/overlay-prebuilt.css';
+:root {
+  --app-horizontal-padding: var(--flag-space-sm);
+
+  @media (min-width: 40rem) {
+    --app-horizontal-padding: var(--flag-space-lg);
+  }
+}
 
 html,
 body {

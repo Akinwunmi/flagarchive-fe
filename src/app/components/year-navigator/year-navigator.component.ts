@@ -35,7 +35,7 @@ import { selectYear } from '../../state/selectors';
   ],
   selector: 'app-year-navigator',
   standalone: true,
-  styleUrl: './year-navigator.component.scss',
+  styleUrl: './year-navigator.component.css',
   templateUrl: './year-navigator.component.html',
 })
 export class YearNavigatorComponent implements OnDestroy, OnInit {

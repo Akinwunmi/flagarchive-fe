@@ -9,7 +9,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   imports: [FlagFormFieldComponent],
   selector: 'app-create',
   standalone: true,
-  styleUrl: './create.component.scss',
+  styleUrl: './create.component.css',
   templateUrl: './create.component.html',
 })
 export class CreateComponent {

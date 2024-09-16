@@ -23,7 +23,7 @@ import { sortBy } from '../../utils';
   imports: [EntityComponent, NgClass],
   selector: 'app-entity-list',
   standalone: true,
-  styleUrl: './entity-list.component.scss',
+  styleUrl: './entity-list.component.css',
   templateUrl: './entity-list.component.html',
 })
 export class EntityListComponent implements OnInit {
