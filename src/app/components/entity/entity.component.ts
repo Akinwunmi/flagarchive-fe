@@ -11,7 +11,7 @@ import { FlagImageComponent } from '../flag-image';
   imports: [FlagImageComponent, NgClass, TranslateModule, TranslationKeyPipe],
   selector: 'app-entity',
   standalone: true,
-  styleUrl: './entity.component.scss',
+  styleUrl: './entity.component.css',
   templateUrl: './entity.component.html',
 })
 export class EntityComponent {

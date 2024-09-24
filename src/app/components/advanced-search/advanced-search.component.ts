@@ -19,7 +19,7 @@ import { YearNavigatorComponent } from '../year-navigator';
   ],
   selector: 'app-advanced-search',
   standalone: true,
-  styleUrl: './advanced-search.component.scss',
+  styleUrl: './advanced-search.component.css',
   templateUrl: './advanced-search.component.html',
 })
 export class AdvancedSearchComponent {

@@ -7,7 +7,29 @@
   <button flagButton ghost>
     <flag-icon>translate</flag-icon>
   </button>
-  <button flagButton ghost>
+  <button flagButton ghost [flagDropdownTrigger]="menuTemplate" [(isOpen)]="isMenuOpen">
     <flag-icon>menu</flag-icon>
   </button>
 </div>
+
+<ng-template #menuTemplate>
+  <flag-card>
+    @if (currentUser()) {
+      @if (isAdmin()) {
+        <flag-list-item role="button" (click)="goToCreate()">
+          <flag-icon>create</flag-icon>
+          {{ 'COMMON.CREATE' | translate }}
+        </flag-list-item>
+      }
+      <flag-list-item role="button" (click)="logOut()">
+        <flag-icon>logout</flag-icon>
+        {{ 'COMMON.LOGOUT' | translate }}
+      </flag-list-item>
+    } @else {
+      <flag-list-item role="button" (click)="goToLogin()">
+        <flag-icon>login</flag-icon>
+        {{ 'COMMON.LOGIN' | translate }}
+      </flag-list-item>
+    }
+  </flag-card>
+</ng-template>

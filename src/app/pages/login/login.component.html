@@ -1,0 +1,31 @@
+<header>
+  <h2>{{ 'PAGES.LOGIN' | translate }}</h2>
+</header>
+<section>
+  <form [formGroup]="form" (ngSubmit)="logIn()">
+    <app-form-field-input
+      translationKey="EMAIL_ADDRESS"
+      type="email"
+      [control]="getControl('email')"
+      [required]="true"
+    />
+    <app-form-field-input
+      translationKey="PASSWORD"
+      type="password"
+      [control]="getControl('password')"
+      [required]="true"
+    />
+    <button flagButton raised type="submit" [disabled]="form.invalid || form.pristine">
+      {{ 'COMMON.LOGIN' | translate }}
+    </button>
+    @if (errorMessage(); as errorMessage) {
+      {{ 'MESSAGES' | translationKey: errorMessage | translate }}
+    }
+  </form>
+</section>
+<footer>
+  {{ 'LOGIN.NO_ACCOUNT' | translate }}
+  <button flagButton ghost>
+    {{ 'COMMON.SIGNUP' | translate }}
+  </button>
+</footer>

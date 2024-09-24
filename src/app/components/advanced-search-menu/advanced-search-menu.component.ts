@@ -26,7 +26,7 @@ import { selectFlagCategory, selectLayout, selectSortDirection } from '../../sta
   ],
   selector: 'app-advanced-search-menu',
   standalone: true,
-  styleUrl: './advanced-search-menu.component.scss',
+  styleUrl: './advanced-search-menu.component.css',
   templateUrl: './advanced-search-menu.component.html',
 })
 export class AdvancedSearchMenuComponent {

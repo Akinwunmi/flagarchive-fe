@@ -7,6 +7,7 @@
     "ABOUT": "About this project",
     "ADD_ENTITY": "Add entity",
     "ADMIN": "Admin Dashboard",
+    "CREATE": "Create",
     "HOME": "Home",
     "LOGIN": "Log in",
     "MY_ACCOUNT": "My account",
@@ -17,6 +18,7 @@
     "ADD": "Add",
     "APP_NAME": "Flag Archive",
     "ARCHIVES": "Archives",
+    "CREATE": "Create",
     "CTA": {
       "BACK": "Back",
       "CANCEL": "Cancel",
@@ -40,6 +42,7 @@
     "SORTING": "Sorting",
     "SURNAME": "Surname",
     "TIMELINE": "Timeline",
+    "UPLOAD": "Upload",
     "USERNAME": "Username"
   },
   "MESSAGES": {
@@ -49,6 +52,9 @@
   },
   "FOOTER": {
     "SITEMAP": "Sitemap"
+  },
+  "LOGIN": {
+    "NO_ACCOUNT": "Don't have an account yet?"
   },
   "SIGNUP": {
     "HAS_ACCOUNT": "I already have an account"
@@ -96,6 +102,10 @@
       "EMAIL_ADDRESS": {
         "LABEL": "Email address",
         "PLACEHOLDER": "Enter email address"
+      },
+      "ENTITIES_JSON": {
+        "LABEL": "Entities JSON",
+        "PLACEHOLDER": "Enter entities JSON"
       },
       "ID": {
         "LABEL": "ID",

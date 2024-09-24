@@ -3,6 +3,9 @@ import { Entity, FlagCategory, Layout, SortDirection } from '../models';
 import { AppStateKey, EntitiesStateKey } from './reducers.model';
 
 export enum ActionTypes {
+  AddEntities = '[Entities] Add Entities',
+  AddEntitiesError = '[Entities] Add Entities Error',
+  AddEntitiesSuccess = '[Entities] Add Entities Success',
   GetEntities = '[Entities] Get Entities By Parent ID',
   GetEntitiesError = '[Entities] Get Entities By Parent ID Error',
   GetEntitiesSuccess = '[Entities] Get Entities By Parent ID Success',
@@ -17,6 +20,18 @@ export enum ActionTypes {
   SetSelectedEntityId = '[Entities] Set Selected Entity ID',
   SetSelectedYear = '[Advanced Search] Set Selected Year',
   SetSortDirection = '[Advanced Search] Set Sort Direction',
+}
+
+export interface AddEntitiesProps {
+  [AppStateKey.Entities]: Entity[];
+}
+
+export interface AddEntitiesErrorProps {
+  [AppStateKey.Errors]: unknown[];
+}
+
+export interface AddEntitiesSuccessProps {
+  [AppStateKey.Entities]: Entity[];
 }
 
 export interface GetSelectedEntityProps {

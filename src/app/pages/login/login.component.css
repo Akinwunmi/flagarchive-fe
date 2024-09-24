@@ -1,0 +1,36 @@
+:host {
+  align-items: flex-start;
+  display: grid;
+  gap: var(--flag-space-4xl);
+  grid-template-rows: auto 1fr auto;
+  margin-inline: auto;
+  max-width: 40rem;
+  padding: var(--flag-space-lg) var(--app-horizontal-padding);
+  width: 100%;
+}
+
+header {
+  align-items: center;
+  display: flex;
+  height: var(--flag-size-3xl);
+}
+
+section {
+  form {
+    display: grid;
+    gap: var(--flag-space-lg);
+
+    button {
+      margin-top: var(--flag-space-sm);
+    }
+  }
+}
+
+footer {
+  align-items: center;
+  color: var(--flag-color-grey-600);
+  display: flex;
+  gap: var(--flag-space-sm);
+  justify-content: center;
+  padding-bottom: var(--flag-space-4xl);
+}

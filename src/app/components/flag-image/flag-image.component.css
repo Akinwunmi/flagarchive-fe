@@ -1,5 +1,3 @@
-@use '@flagarchive/angular/core/styles' as *;
-
 :host {
   aspect-ratio: 3 / 2;
   display: flex;
@@ -28,22 +26,23 @@
     justify-content: center;
     position: absolute;
   }
+
+  &.placeholder {
+    background-color: var(--flag-color-primary-100);
+
+    img {
+      display: none;
+    }
+
+    .no-image {
+      display: flex;
+    }
+  }
 }
 
-:host(.placeholder) {
-  background-color: var(--flag-color-primary-100);
-
-  img {
-    display: none;
-  }
-
-  .no-image {
-    display: flex;
-  }
-}
-
-/* Fix for displaying images properly in Safari */
-// ? This is needed because some external SVG images do not have a viewBox attribute
+/* Fix for displaying images properly in Safari
+ * ? This is needed because some external SVG images do not have a viewBox attribute
+ */
 @supports (-webkit-backdrop-filter: blur(1px)) {
   img {
     height: 100%;

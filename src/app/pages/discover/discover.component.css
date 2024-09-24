@@ -6,7 +6,7 @@
   gap: var(--flag-space-lg);
   justify-content: space-between;
   overflow: hidden;
-  padding: var(--flag-space-md) var(--flag-space-sm);
+  padding: var(--flag-space-md) var(--app-horizontal-padding);
   position: sticky;
   top: var(--flag-size-xl);
   z-index: 1;
