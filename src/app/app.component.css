@@ -1,10 +1,17 @@
 :host {
+  --footer-height: 15rem;
+  --header-height: var(--flag-size-xl);
+
   display: block;
-  height: calc(100% - var(--flag-size-md));
-  margin-top: var(--flag-size-md);
+  height: 100%;
+
+  &.no-footer {
+    --footer-height: 0rem;
+  }
 }
 
 app-header {
+  height: var(--header-height);
   left: 0;
   position: fixed;
   top: 0;
@@ -14,6 +21,11 @@ app-header {
 
 main {
   display: flex;
-  min-height: calc(100% - 15rem);
+  min-height: calc(100% - (var(--header-height) + var(--footer-height)));
+  padding-top: var(--header-height);
   z-index: 1;
+}
+
+app-footer {
+  height: var(--footer-height);
 }

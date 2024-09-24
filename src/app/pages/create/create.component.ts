@@ -1,31 +1,36 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
+import { JsonPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { FlagFormFieldComponent } from '@flagarchive/angular';
+import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 
-import { EntityService } from '../../services';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { addEntities } from '../../state/actions';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FlagFormFieldComponent],
+  imports: [FlagFormFieldComponent, JsonPipe, ReactiveFormsModule, TranslateModule],
   selector: 'app-create',
   standalone: true,
   styleUrl: './create.component.css',
   templateUrl: './create.component.html',
 })
 export class CreateComponent {
-  readonly #destroyRef = inject(DestroyRef);
-  readonly #entityService = inject(EntityService);
+  readonly #fb = inject(FormBuilder);
+  readonly #store = inject(Store);
+
+  form = this.#fb.nonNullable.group({
+    entities: this.#fb.nonNullable.control(''),
+  });
 
   isValid = false;
 
-  #entities = [];
+  get #entities() {
+    return this.form.get('entities')!.value;
+  }
 
   upload() {
-    // ! Use state management to add entities
-    this.#entityService
-      .addEntities(this.#entities)
-      .pipe(takeUntilDestroyed(this.#destroyRef))
-      .subscribe();
+    this.#store.dispatch(addEntities({ entities: JSON.parse(this.#entities) }));
   }
 
   validate(event: Event) {
@@ -38,7 +43,6 @@ export class CreateComponent {
       return;
     }
 
-    this.#entities = JSON.parse(entitiesString);
     this.isValid = true;
   }
 }

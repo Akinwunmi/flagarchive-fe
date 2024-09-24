@@ -1,7 +1,36 @@
 :host {
+  align-items: flex-start;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  margin-inline: auto;
+  max-width: 40rem;
   padding: var(--flag-space-md) var(--flag-space-sm);
+  width: 100%;
 }
 
-textarea {
-  height: 50vh;
+header {
+  align-items: center;
+  display: flex;
+  height: var(--flag-size-3xl);
+}
+
+form {
+  display: grid;
+  gap: var(--flag-space-lg);
+  grid-template-rows: 1fr auto;
+  height: 100%;
+
+  flag-form-field {
+    grid-template-rows: auto 1fr;
+
+    textarea {
+      height: 100%;
+      min-height: var(--flag-size-3xl);
+      resize: vertical;
+    }
+  }
+
+  button {
+    justify-self: flex-end;
+  }
 }

@@ -14,10 +14,6 @@ export const HOME_ROUTES: Routes = [
         redirectTo: 'discover',
       },
       {
-        path: 'create',
-        loadChildren: () => import('../create').then(m => m.CREATE_ROUTES),
-      },
-      {
         path: 'discover',
         loadChildren: () => import('../discover').then(m => m.DISCOVER_ROUTES),
       },

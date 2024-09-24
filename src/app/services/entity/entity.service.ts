@@ -38,12 +38,12 @@ export class EntityService {
   }
 
   getEntitiesByParentId(id: string): Observable<Entity[]> {
-    const entities = query(this.#entities, where('parentId', '==', id), limit(60));
+    const entities = query(this.#entities, where('parentId', '==', id), limit(75));
     return collectionData(entities, { idField: 'baseId' }) as Observable<Entity[]>;
   }
 
   getEntitiesByType(types: string[]): Observable<Entity[]> {
-    const entities = query(this.#entities, where('type', 'in', types), limit(60));
+    const entities = query(this.#entities, where('type', 'in', types), limit(75));
     return collectionData(entities, { idField: 'baseId' }) as Observable<Entity[]>;
   }
 }
