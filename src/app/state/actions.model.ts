@@ -17,6 +17,8 @@ export enum ActionTypes {
   GetSelectedEntitySuccess = '[Entities] Get Selected Entity Success',
   SetFlagCategory = '[Advanced Search] Set Flag Category',
   SetLayout = '[Advanced Search] Set Layout',
+  SetMaxYear = '[Advanced Search] Set Max Year',
+  SetMinYear = '[Advanced Search] Set Min Year',
   SetSelectedEntityId = '[Entities] Set Selected Entity ID',
   SetSelectedYear = '[Advanced Search] Set Selected Year',
   SetSortDirection = '[Advanced Search] Set Sort Direction',
@@ -72,6 +74,14 @@ export interface SetFlagCategoryProps {
 
 export interface SetLayoutProps {
   layout: Layout;
+}
+
+export interface SetMaxYearProps {
+  year: number;
+}
+
+export interface SetMinYearProps {
+  year: number;
 }
 
 export interface SetSelectedEntityIdProps {

@@ -15,6 +15,8 @@ import {
   GetSelectedEntitySuccessProps,
   SetFlagCategoryProps,
   SetLayoutProps,
+  SetMaxYearProps,
+  SetMinYearProps,
   SetSelectedEntityIdProps,
   SetSelectedYearProps,
   SetSortDirectionProps,
@@ -77,6 +79,10 @@ export const setFlagCategory = createAction(
 );
 
 export const setLayout = createAction(ActionTypes.SetLayout, props<SetLayoutProps>());
+
+export const setMaxYear = createAction(ActionTypes.SetMaxYear, props<SetMaxYearProps>());
+
+export const setMinYear = createAction(ActionTypes.SetMinYear, props<SetMinYearProps>());
 
 export const setSelectedEntityId = createAction(
   ActionTypes.SetSelectedEntityId,
