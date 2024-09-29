@@ -39,7 +39,6 @@ export class EntityEffects {
   addEntities$ = createEffect(() =>
     this.#actions$.pipe(
       ofType(addEntities),
-      tap(({ entities }) => console.log(entities)),
       switchMap(({ entities }) =>
         this.#entityService.addEntities(entities).pipe(
           map(() => addEntitiesSuccess({ entities })),

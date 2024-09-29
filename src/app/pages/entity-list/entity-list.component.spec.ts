@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EntityListComponent } from './entity-list.component';
+import { provideRouter } from '@angular/router';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('EntityListComponent', () => {
   let component: EntityListComponent;
@@ -8,7 +10,8 @@ describe('EntityListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EntityListComponent]
+      imports: [EntityListComponent],
+      providers: [provideMockStore(), provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(EntityListComponent);

@@ -1,3 +1,4 @@
+import { signalStore, withState } from '@ngrx/signals';
 import { createReducer, on } from '@ngrx/store';
 
 import { DefaultMainEntity, FlagCategory, Layout, SortDirection } from '../models';
@@ -32,14 +33,19 @@ export const initialState: AppState = {
     [AdvancedSearchStateKey.SelectedYear]: currentYear,
     [AdvancedSearchStateKey.SortDirection]: SortDirection.Asc,
   },
-  [AppStateKey.Errors]: [],
   [AppStateKey.Entities]: {
     [EntitiesStateKey.All]: [],
     [EntitiesStateKey.Current]: [],
     [EntitiesStateKey.Main]: [],
     [EntitiesStateKey.SelectedId]: DefaultMainEntity.Continents,
   },
+  [AppStateKey.Errors]: [],
 };
+
+// TODO - Research how to use the signalStore properly
+export const AdvancedSearchStore = signalStore(withState(initialState[AppStateKey.AdvancedSearch]));
+export const EntitiesStore = signalStore(withState(initialState[AppStateKey.Entities]));
+export const ErrorsStore = signalStore(withState(initialState[AppStateKey.Errors]));
 
 export const reducer = createReducer(
   initialState,

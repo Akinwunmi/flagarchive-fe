@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { AppFooterComponent } from './app-footer.component';
 
@@ -8,7 +10,16 @@ describe('AppFooterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppFooterComponent],
+      imports: [
+        AppFooterComponent,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useValue: TranslateFakeLoader,
+          },
+        }),
+      ],
+      providers: [provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppFooterComponent);
