@@ -9,6 +9,8 @@ export enum AppStateKey {
 export enum AdvancedSearchStateKey {
   FlagCategory = 'flagCategory',
   Layout = 'layout',
+  MaxYear = 'maxYear',
+  MinYear = 'minYear',
   SelectedYear = 'selectedYear',
   SortDirection = 'sortDirection',
 }
@@ -30,6 +32,8 @@ export interface AppState {
 export interface AdvancedSearchState {
   [AdvancedSearchStateKey.FlagCategory]: FlagCategory;
   [AdvancedSearchStateKey.Layout]: Layout;
+  [AdvancedSearchStateKey.MaxYear]: number;
+  [AdvancedSearchStateKey.MinYear]: number;
   [AdvancedSearchStateKey.SelectedYear]: number;
   [AdvancedSearchStateKey.SortDirection]: SortDirection;
 }

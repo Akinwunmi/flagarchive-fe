@@ -1,3 +1,4 @@
+import { signalStore, withState } from '@ngrx/signals';
 import { createReducer, on } from '@ngrx/store';
 
 import { DefaultMainEntity, FlagCategory, Layout, SortDirection } from '../models';
@@ -13,27 +14,38 @@ import {
   getSelectedEntitySuccess,
   setFlagCategory,
   setLayout,
+  setMaxYear,
+  setMinYear,
   setSelectedEntityId,
   setSelectedYear,
   setSortDirection,
 } from './actions';
 import { AdvancedSearchStateKey, AppState, AppStateKey, EntitiesStateKey } from './reducers.model';
 
+const currentYear = new Date().getFullYear();
+
 export const initialState: AppState = {
   [AppStateKey.AdvancedSearch]: {
     [AdvancedSearchStateKey.FlagCategory]: FlagCategory.Official,
     [AdvancedSearchStateKey.Layout]: Layout.Grid,
-    [AdvancedSearchStateKey.SelectedYear]: new Date().getFullYear(),
+    [AdvancedSearchStateKey.MaxYear]: currentYear,
+    [AdvancedSearchStateKey.MinYear]: currentYear,
+    [AdvancedSearchStateKey.SelectedYear]: currentYear,
     [AdvancedSearchStateKey.SortDirection]: SortDirection.Asc,
   },
-  [AppStateKey.Errors]: [],
   [AppStateKey.Entities]: {
     [EntitiesStateKey.All]: [],
     [EntitiesStateKey.Current]: [],
     [EntitiesStateKey.Main]: [],
     [EntitiesStateKey.SelectedId]: DefaultMainEntity.Continents,
   },
+  [AppStateKey.Errors]: [],
 };
+
+// TODO - Research how to use the signalStore properly
+export const AdvancedSearchStore = signalStore(withState(initialState[AppStateKey.AdvancedSearch]));
+export const EntitiesStore = signalStore(withState(initialState[AppStateKey.Entities]));
+export const ErrorsStore = signalStore(withState(initialState[AppStateKey.Errors]));
 
 export const reducer = createReducer(
   initialState,
@@ -93,6 +105,20 @@ export const reducer = createReducer(
     [AppStateKey.AdvancedSearch]: {
       ...state[AppStateKey.AdvancedSearch],
       [AdvancedSearchStateKey.Layout]: layout,
+    },
+  })),
+  on(setMaxYear, (state, { year }) => ({
+    ...state,
+    [AppStateKey.AdvancedSearch]: {
+      ...state[AppStateKey.AdvancedSearch],
+      [AdvancedSearchStateKey.MaxYear]: year,
+    },
+  })),
+  on(setMinYear, (state, { year }) => ({
+    ...state,
+    [AppStateKey.AdvancedSearch]: {
+      ...state[AppStateKey.AdvancedSearch],
+      [AdvancedSearchStateKey.MinYear]: year,
     },
   })),
   on(setSelectedEntityId, (state, { id }) => ({

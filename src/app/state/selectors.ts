@@ -31,6 +31,14 @@ export const selectMainEntities = createSelector(
   state,
   (state: AppState) => state?.[AppStateKey.Entities]?.[EntitiesStateKey.Main],
 );
+export const selectMaxYear = createSelector(
+  state,
+  (state: AppState) => state?.[AppStateKey.AdvancedSearch]?.[AdvancedSearchStateKey.MaxYear],
+);
+export const selectMinYear = createSelector(
+  state,
+  (state: AppState) => state?.[AppStateKey.AdvancedSearch]?.[AdvancedSearchStateKey.MinYear],
+);
 export const selectYear = createSelector(
   state,
   (state: AppState) => state?.[AppStateKey.AdvancedSearch]?.[AdvancedSearchStateKey.SelectedYear],
