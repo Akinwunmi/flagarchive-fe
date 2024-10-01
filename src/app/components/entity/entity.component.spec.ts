@@ -35,4 +35,16 @@ describe('EntityComponent', () => {
     setup();
     expect(component).toBeTruthy();
   });
+
+  it('should return alt parent id', () => {
+    setup();
+    const result = component.setAltParentId('eu-nld');
+    expect(result).toBe('nld');
+  });
+
+  it('should return empty string for alt parent id', () => {
+    setup();
+    const result = component.setAltParentId('');
+    expect(result).toBe('');
+  });
 });
