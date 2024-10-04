@@ -4,6 +4,8 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 import { FIREBASE_CONFIG } from '../../firebase.config';
+import { ENTITY_STUB } from '../../mocks';
+import { EntityType } from '../../models';
 
 import { EntityService } from './entity.service';
 
@@ -23,5 +25,20 @@ describe('EntityService', () => {
 
   it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+
+  it('should get entity by id', async () => {
+    const entity = await service.getEntityById(ENTITY_STUB.id);
+    expect(entity).toBeTruthy();
+  });
+
+  it('should get all entities by parent id', async () => {
+    const entities = await service.getEntitiesByParentId(ENTITY_STUB.id);
+    expect(entities).toBeTruthy();
+  });
+
+  it('should get all entities by type', async () => {
+    const entities = await service.getEntitiesByType([EntityType.Continent]);
+    expect(entities).toBeTruthy();
   });
 });

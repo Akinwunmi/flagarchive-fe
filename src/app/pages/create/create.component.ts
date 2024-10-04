@@ -2,10 +2,9 @@ import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { FlagFormFieldComponent } from '@flagarchive/angular';
-import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { addEntities } from '../../state/actions';
+import { EntitiesStore } from '../../state';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,8 +15,8 @@ import { addEntities } from '../../state/actions';
   templateUrl: './create.component.html',
 })
 export class CreateComponent {
+  readonly #entitiesStore = inject(EntitiesStore);
   readonly #fb = inject(FormBuilder);
-  readonly #store = inject(Store);
 
   form = this.#fb.nonNullable.group({
     entities: this.#fb.nonNullable.control(''),
@@ -30,7 +29,7 @@ export class CreateComponent {
   }
 
   upload() {
-    this.#store.dispatch(addEntities({ entities: JSON.parse(this.#entities) }));
+    this.#entitiesStore.addEntities(JSON.parse(this.#entities));
   }
 
   validate(event: Event) {

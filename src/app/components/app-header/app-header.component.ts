@@ -9,11 +9,10 @@ import {
   FlagPillComponent,
   PillType,
 } from '@flagarchive/angular';
-import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AuthService, UserService } from '../../services';
-import { setSelectedEntityId } from '../../state/actions';
+import { EntitiesStore } from '../../state';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,8 +32,8 @@ import { setSelectedEntityId } from '../../state/actions';
 })
 export class AppHeaderComponent {
   readonly #authService = inject(AuthService);
+  readonly #entitiesStore = inject(EntitiesStore);
   readonly #router = inject(Router);
-  readonly #store = inject(Store);
   readonly #userService = inject(UserService);
 
   menu = viewChild.required(FlagDropdownDirective);
@@ -54,7 +53,7 @@ export class AppHeaderComponent {
   goToHome() {
     const id = 'af';
 
-    this.#store.dispatch(setSelectedEntityId({ id }));
+    this.#entitiesStore.updateSelectedEntityId(id);
     this.#router.navigate(['discover', 'entity', id]);
   }
 

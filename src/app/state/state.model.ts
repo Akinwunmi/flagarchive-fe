@@ -1,4 +1,4 @@
-import { Entity, FlagCategory, Layout, SortDirection } from '../models';
+import { FlagCategory, Layout, SortDirection, Entity } from '../models';
 
 export enum AppStateKey {
   AdvancedSearch = 'advancedSearch',
@@ -23,10 +23,14 @@ export enum EntitiesStateKey {
   SelectedId = 'selectedId',
 }
 
+export enum ErrorsStateKey {
+  All = 'all',
+}
+
 export interface AppState {
   [AppStateKey.AdvancedSearch]: AdvancedSearchState;
   [AppStateKey.Entities]: EntitiesState;
-  [AppStateKey.Errors]: unknown[];
+  [AppStateKey.Errors]: ErrorsState;
 }
 
 export interface AdvancedSearchState {
@@ -42,6 +46,10 @@ export interface EntitiesState {
   [EntitiesStateKey.All]: Entity[];
   [EntitiesStateKey.Current]: Entity[];
   [EntitiesStateKey.Main]: Entity[];
-  [EntitiesStateKey.Selected]?: Entity;
+  [EntitiesStateKey.Selected]: Entity | undefined;
   [EntitiesStateKey.SelectedId]: string;
+}
+
+export interface ErrorsState {
+  [ErrorsStateKey.All]: unknown[];
 }
