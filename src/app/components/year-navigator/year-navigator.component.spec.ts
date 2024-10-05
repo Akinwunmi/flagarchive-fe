@@ -1,5 +1,4 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { provideMockStore } from '@ngrx/store/testing';
 
 import { YearNavigatorComponent } from './year-navigator.component';
 
@@ -10,7 +9,6 @@ describe('YearNavigatorComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [YearNavigatorComponent],
-      providers: [provideMockStore()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(YearNavigatorComponent);

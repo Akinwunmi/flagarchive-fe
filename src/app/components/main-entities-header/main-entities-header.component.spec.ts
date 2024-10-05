@@ -1,7 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideRouter } from '@angular/router';
-import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
+import { FIREBASE_CONFIG } from '../../firebase.config';
 
 import { MainEntitiesHeaderComponent } from './main-entities-header.component';
 
@@ -20,7 +23,11 @@ describe('MainEntitiesHeaderComponent', () => {
           },
         }),
       ],
-      providers: [provideMockStore(), provideRouter([])],
+      providers: [
+        provideFirebaseApp(() => initializeApp(FIREBASE_CONFIG)),
+        provideFirestore(() => getFirestore()),
+        provideRouter([]),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MainEntitiesHeaderComponent);

@@ -3,7 +3,6 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { FIREBASE_CONFIG } from '../../firebase.config';
@@ -34,7 +33,6 @@ describe('AppHeaderComponent', () => {
         provideAuth(() => getAuth()),
         provideFirebaseApp(() => initializeApp(FIREBASE_CONFIG)),
         provideFirestore(() => getFirestore()),
-        provideMockStore({}),
         {
           provide: Router,
           useValue: routerSpy,

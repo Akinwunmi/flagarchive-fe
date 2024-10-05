@@ -3,7 +3,6 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideRouter } from '@angular/router';
-import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { AppComponent } from './app.component';
@@ -28,7 +27,6 @@ describe('AppComponent', () => {
         provideAuth(() => getAuth()),
         provideFirebaseApp(() => initializeApp(FIREBASE_CONFIG)),
         provideFirestore(() => getFirestore()),
-        provideMockStore(),
         provideRouter([]),
       ],
     }).compileComponents();

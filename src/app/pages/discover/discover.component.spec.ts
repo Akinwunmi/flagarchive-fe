@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { provideMockStore } from '@ngrx/store/testing';
 
 import { FIREBASE_CONFIG } from '../../firebase.config';
 
@@ -19,7 +18,6 @@ describe('DiscoverComponent', () => {
         provideAuth(() => getAuth()),
         provideFirebaseApp(() => initializeApp(FIREBASE_CONFIG)),
         provideFirestore(() => getFirestore()),
-        provideMockStore(),
       ],
     }).compileComponents();
 

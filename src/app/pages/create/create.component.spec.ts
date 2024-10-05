@@ -1,13 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
+import { FIREBASE_CONFIG } from '../../firebase.config';
+
 import { CreateComponent } from './create.component';
+import { EntitiesStore } from '../../state';
 
 describe('CreateComponent', () => {
   let component: CreateComponent;
   let fixture: ComponentFixture<CreateComponent>;
-  let store: MockStore;
+  let entitiesStore: any; // ! Find the correct type
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -20,12 +24,15 @@ describe('CreateComponent', () => {
           },
         }),
       ],
-      providers: [provideMockStore({})],
+      providers: [
+        provideFirebaseApp(() => initializeApp(FIREBASE_CONFIG)),
+        provideFirestore(() => getFirestore()),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CreateComponent);
     component = fixture.componentInstance;
-    store = TestBed.inject(MockStore);
+    entitiesStore = TestBed.inject(EntitiesStore);
   });
 
   function setup() {
@@ -50,10 +57,10 @@ describe('CreateComponent', () => {
   });
 
   it('should upload entities', () => {
-    const dispatchSpy = spyOn(store, 'dispatch');
+    const addEntitiesSpy = spyOn(entitiesStore, 'addEntities');
     component.form.get('entities')!.setValue('[]');
     setup();
     component.upload();
-    expect(dispatchSpy).toHaveBeenCalled();
+    expect(addEntitiesSpy).toHaveBeenCalled();
   });
 });
