@@ -9,7 +9,7 @@ export const ErrorsStore = signalStore(
   withMethods(store => ({
     addError(error: unknown) {
       patchState(store, state => ({
-        [ErrorsStateKey.All]: { ...state[ErrorsStateKey.All], error },
+        [ErrorsStateKey.All]: [...state[ErrorsStateKey.All], error],
       }));
     },
   })),

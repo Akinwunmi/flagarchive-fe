@@ -1,10 +1,10 @@
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideFirestore, getFirestore, FirestoreError } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 import { FIREBASE_CONFIG } from '../../firebase.config';
 import { AuthService } from '../../services';
@@ -60,5 +60,17 @@ describe('LoginComponent', () => {
     setup();
     component.logIn();
     expect(navigateSpy).toHaveBeenCalledWith(['']);
+  }));
+
+  it('should set error message after failed log in', fakeAsync(() => {
+    const errorCode = 'auth/user-not-found';
+    spyOn(authService, 'logIn').and.callFake(() =>
+      throwError(() => ({ message: '', code: errorCode }) as unknown as FirestoreError),
+    );
+
+    setup();
+    component.logIn();
+
+    expect(component.errorMessage()).toBe(errorCode);
   }));
 });

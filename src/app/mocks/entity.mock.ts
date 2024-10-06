@@ -1,31 +1,68 @@
 import { Entity } from '../models';
 
-export const ENTITY_STUB: Entity = {
-  baseId: 'abc1DefGhij2klMnopqR',
-  id: 'af-com',
-  imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/94/Flag_of_the_Comoros.svg',
-  translationKey: 'comoros',
-  type: 'country',
-};
-
 export const ENTITIES_STUB: Entity[] = [
   {
-    baseId: 'abc1DefGhij2klMnopqT',
+    baseId: 'foo',
+    id: 'af-com',
+    parentId: 'af',
+    ranges: [
+      {
+        altParentId: 'eu-fra',
+        end: 1975,
+        start: 1963,
+      },
+      {
+        start: 1975,
+      },
+    ],
+    translationKey: 'comoros',
+    type: 'country',
+  },
+  {
+    baseId: 'bar',
+    id: 'eu-nld-dren-dewol-zuidwo',
+    parentId: 'eu-nld-dren-dewol',
+    translationKey: 'zuidwolde',
+    type: 'village',
+  },
+  {
+    baseId: 'baz',
+    id: 'eu-nld-gron-hogel-zuidwo',
+    parentId: 'eu-nld-gron-hogel',
+    translationKey: 'zuidwolde',
+    type: 'village',
+  },
+  {
+    baseId: 'qux',
+    id: 'af',
+    translationKey: 'africa',
+    type: 'continent',
+  },
+  {
+    baseId: 'quux',
     id: 'af-cog',
-    imageUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/9/92/Flag_of_the_Republic_of_the_Congo.svg',
+    parentId: 'af',
     translationKey: 'republic_of_the_congo',
     type: 'country',
   },
-  ENTITY_STUB,
-  ENTITY_STUB, // Duplicate so all sorting probabilities are covered in tests
   {
-    baseId: 'abc1DefGhij2klMnopqS',
+    baseId: 'corge',
     id: 'af-cod',
-    imageUrl:
-      // eslint-disable-next-line max-len
-      'https://upload.wikimedia.org/wikipedia/commons/6/6f/Flag_of_the_Democratic_Republic_of_the_Congo.svg',
+    parentId: 'af',
     translationKey: 'democratic_republic_of_the_congo',
     type: 'country',
+  },
+  {
+    baseId: 'grault',
+    altId: 'as-cyp',
+    id: 'eu-cyp',
+    translationKey: 'cyprus',
+    type: 'country',
+  },
+  {
+    baseId: 'garply',
+    id: 'oi-ioc',
+    translationKey: 'international_olympic_committee',
+    type: 'organization',
   },
 ];

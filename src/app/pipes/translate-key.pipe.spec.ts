@@ -5,4 +5,9 @@ describe('TranslationKeyPipe', () => {
     const pipe = new TranslationKeyPipe();
     expect(pipe).toBeTruthy();
   });
+
+  it('should return a dash if key is undefined', () => {
+    const pipe = new TranslationKeyPipe();
+    expect(pipe.transform('prefix')).toBe('\u2014');
+  });
 });

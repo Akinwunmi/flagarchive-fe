@@ -11,7 +11,7 @@ import { EntitiesStore } from '../../state';
 describe('CreateComponent', () => {
   let component: CreateComponent;
   let fixture: ComponentFixture<CreateComponent>;
-  let entitiesStore: any; // ! Find the correct type
+  let entitiesStore: InstanceType<typeof EntitiesStore>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

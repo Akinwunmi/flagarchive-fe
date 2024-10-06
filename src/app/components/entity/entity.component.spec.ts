@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { ENTITY_STUB } from '../../mocks';
+import { ENTITIES_STUB } from '../../mocks';
 
 import { EntityComponent } from './entity.component';
 
@@ -27,7 +27,7 @@ describe('EntityComponent', () => {
   });
 
   function setup() {
-    fixture.componentRef.setInput('entity', ENTITY_STUB);
+    fixture.componentRef.setInput('entity', ENTITIES_STUB[0]);
     fixture.detectChanges();
   }
 

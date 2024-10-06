@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl } from '@angular/forms';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { ENTITY_STUB } from '../../mocks';
+import { ENTITIES_STUB } from '../../mocks';
 
 import { FormFieldInputComponent } from './form-field-input.component';
 
@@ -29,7 +29,7 @@ describe('FormFieldInputComponent', () => {
 
   function setup() {
     fixture.componentRef.setInput('control', new FormControl());
-    fixture.componentRef.setInput('translationKey', ENTITY_STUB.translationKey);
+    fixture.componentRef.setInput('translationKey', ENTITIES_STUB[0].translationKey);
     fixture.detectChanges();
   }
 

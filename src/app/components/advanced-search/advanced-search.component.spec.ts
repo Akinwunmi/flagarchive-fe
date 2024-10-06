@@ -19,4 +19,9 @@ describe('AdvancedSearchComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should set menu as open', () => {
+    component.setMenuOpen();
+    expect(component.isMenuOpen()).toBeTrue();
+  });
 });
