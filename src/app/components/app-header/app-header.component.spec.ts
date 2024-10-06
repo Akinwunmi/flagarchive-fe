@@ -2,16 +2,21 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { provideMockStore } from '@ngrx/store/testing';
+import { Router } from '@angular/router';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { FIREBASE_CONFIG } from '../../firebase.config';
+import { DefaultMainEntity } from '../../models';
+import { AuthService } from '../../services';
 
 import { AppHeaderComponent } from './app-header.component';
 
 describe('AppHeaderComponent', () => {
+  const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+  let authService: AuthService;
   let component: AppHeaderComponent;
   let fixture: ComponentFixture<AppHeaderComponent>;
+  let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -28,16 +33,53 @@ describe('AppHeaderComponent', () => {
         provideAuth(() => getAuth()),
         provideFirebaseApp(() => initializeApp(FIREBASE_CONFIG)),
         provideFirestore(() => getFirestore()),
-        provideMockStore({}),
+        {
+          provide: Router,
+          useValue: routerSpy,
+        },
       ],
     }).compileComponents();
 
+    authService = TestBed.inject(AuthService);
     fixture = TestBed.createComponent(AppHeaderComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    router = TestBed.inject(Router);
   });
 
+  function setup() {
+    fixture.detectChanges();
+  }
+
   it('should create', () => {
+    setup();
     expect(component).toBeTruthy();
+  });
+
+  it('should navigate to create page', () => {
+    const navigateSpy = router.navigate as jasmine.Spy;
+    setup();
+    component.goToCreate();
+    expect(navigateSpy).toHaveBeenCalledWith(['create']);
+  });
+
+  it('should navigate to home page', () => {
+    const navigateSpy = router.navigate as jasmine.Spy;
+    setup();
+    component.goToHome();
+    expect(navigateSpy).toHaveBeenCalledWith(['discover', 'entity', DefaultMainEntity.Continents]);
+  });
+
+  it('should navigate to login page', () => {
+    const navigateSpy = router.navigate as jasmine.Spy;
+    setup();
+    component.goToLogin();
+    expect(navigateSpy).toHaveBeenCalledWith(['login']);
+  });
+
+  it('should log out', () => {
+    const logOutSpy = spyOn(authService, 'logOut');
+    setup();
+    component.logOut();
+    expect(logOutSpy).toHaveBeenCalled();
   });
 });

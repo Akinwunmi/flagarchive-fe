@@ -5,17 +5,20 @@ import {
   Component,
   DestroyRef,
   OnInit,
+  computed,
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { combineLatest } from 'rxjs';
 
 import { EntityComponent } from '../../components';
 import { Entity } from '../../models';
-import { getEntities } from '../../state/actions';
-import { selectEntities, selectEntityId, selectSortDirection } from '../../state/selectors';
+import {
+  AdvancedSearchStateKey,
+  AdvancedSearchStore,
+  EntitiesStateKey,
+  EntitiesStore,
+} from '../../state';
 import { sortBy } from '../../utils';
 
 @Component({
@@ -27,24 +30,31 @@ import { sortBy } from '../../utils';
   templateUrl: './entity-list.component.html',
 })
 export class EntityListComponent implements OnInit {
+  readonly #advancedSearchStore = inject(AdvancedSearchStore);
   readonly #cdr = inject(ChangeDetectorRef);
   readonly #destroyRef = inject(DestroyRef);
+  readonly #entitiesStore = inject(EntitiesStore);
   readonly #route = inject(ActivatedRoute);
   readonly #router = inject(Router);
-  readonly #store = inject(Store);
 
-  entities!: Entity[];
+  sortDirection = this.#advancedSearchStore[AdvancedSearchStateKey.SortDirection];
+  #selectedEntityId = this.#entitiesStore[EntitiesStateKey.SelectedId];
 
-  #selectedEntityId!: string;
+  entities = computed(() =>
+    sortBy<Entity>(
+      this.#entitiesStore[EntitiesStateKey.Current](),
+      'translationKey',
+      this.sortDirection(),
+    ),
+  );
 
   ngOnInit() {
     const id = this.#router.url.split('/').pop();
     this.#getEntities(id);
-    this.#setEntityIdAndEntities();
 
     this.#router.events.pipe(takeUntilDestroyed(this.#destroyRef)).subscribe(() => {
       const id = this.#router.url.split('/').pop();
-      if (id !== this.#selectedEntityId) {
+      if (id !== this.#selectedEntityId()) {
         this.#getEntities(id);
       }
       this.#cdr.markForCheck();
@@ -52,7 +62,7 @@ export class EntityListComponent implements OnInit {
   }
 
   getEntitiesAndNavigate(entity: Entity) {
-    const id = entity.altId?.startsWith(this.#selectedEntityId) ? entity.altId : entity.id;
+    const id = entity.altId?.startsWith(this.#selectedEntityId()) ? entity.altId : entity.id;
 
     this.#getEntities(id);
     this.#router.navigate(['..', id], { relativeTo: this.#route });
@@ -60,21 +70,7 @@ export class EntityListComponent implements OnInit {
 
   #getEntities(id?: string) {
     if (id) {
-      this.#store.dispatch(getEntities({ id }));
+      this.#entitiesStore.getEntities(id);
     }
-  }
-
-  #setEntityIdAndEntities() {
-    combineLatest([
-      this.#store.select(selectEntityId),
-      this.#store.select(selectEntities),
-      this.#store.select(selectSortDirection),
-    ])
-      .pipe(takeUntilDestroyed(this.#destroyRef))
-      .subscribe(([id, entities, sortDirection]) => {
-        this.#selectedEntityId = id;
-        this.entities = sortBy<Entity>(entities, 'translationKey', sortDirection) ?? [];
-        this.#cdr.markForCheck();
-      });
   }
 }

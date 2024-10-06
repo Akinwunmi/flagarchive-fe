@@ -1,28 +1,22 @@
 import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   computed,
-  DestroyRef,
   inject,
   input,
   OnDestroy,
-  OnInit,
   signal,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   FlagButtonDirective,
   FlagDropdownDirective,
   FlagIconComponent,
   FlagYearPickerComponent,
 } from '@flagarchive/angular';
-import { Store } from '@ngrx/store';
-import { interval, map, Subject, takeUntil } from 'rxjs';
+import { interval, Subject, takeUntil } from 'rxjs';
 
-import { setSelectedYear } from '../../state/actions';
-import { selectYear } from '../../state/selectors';
+import { AdvancedSearchStateKey, AdvancedSearchStore } from '../../state';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -38,10 +32,8 @@ import { selectYear } from '../../state/selectors';
   styleUrl: './year-navigator.component.css',
   templateUrl: './year-navigator.component.html',
 })
-export class YearNavigatorComponent implements OnDestroy, OnInit {
-  readonly #cdr = inject(ChangeDetectorRef);
-  readonly #destroyRef = inject(DestroyRef);
-  readonly #store = inject(Store);
+export class YearNavigatorComponent implements OnDestroy {
+  readonly #advancedSearchStore = inject(AdvancedSearchStore);
 
   max = input(new Date().getFullYear());
   min = input(new Date().getFullYear());
@@ -52,23 +44,12 @@ export class YearNavigatorComponent implements OnDestroy, OnInit {
   isPlaying = computed(() => this.#isPlayingBackward() || this.#isPlayingForward());
 
   dropdownIsOpen = false;
-  selectedYear = 0;
+  selectedYear = computed(() =>
+    Math.min(this.max(), this.#advancedSearchStore[AdvancedSearchStateKey.SelectedYear]()),
+  );
 
   #stop$ = new Subject<void>();
   #playSpeed$ = interval(750);
-
-  ngOnInit() {
-    this.#store
-      .select(selectYear)
-      .pipe(
-        map(selectedYear => selectedYear),
-        takeUntilDestroyed(this.#destroyRef),
-      )
-      .subscribe(selectedYear => {
-        this.selectedYear = Math.min(this.max(), selectedYear);
-        this.#cdr.markForCheck();
-      });
-  }
 
   ngOnDestroy() {
     this.#stop$.next();
@@ -76,12 +57,12 @@ export class YearNavigatorComponent implements OnDestroy, OnInit {
   }
 
   previous() {
-    this.setSelectedYear(this.selectedYear - 1);
+    this.setSelectedYear(this.selectedYear() - 1);
     this.stop();
   }
 
   next() {
-    this.setSelectedYear(this.selectedYear + 1);
+    this.setSelectedYear(this.selectedYear() + 1);
     this.stop();
   }
 
@@ -89,13 +70,13 @@ export class YearNavigatorComponent implements OnDestroy, OnInit {
     this.#isPlayingBackward.set(!!backward);
     this.#isPlayingForward.set(!backward);
     this.#playSpeed$.pipe(takeUntil(this.#stop$)).subscribe(() => {
-      const maxReached = this.#isPlayingForward() && this.max() === this.selectedYear;
-      const minReached = this.#isPlayingBackward() && this.min() === this.selectedYear;
+      const maxReached = this.#isPlayingForward() && this.max() === this.selectedYear();
+      const minReached = this.#isPlayingBackward() && this.min() === this.selectedYear();
       if (maxReached || minReached) {
         this.stop();
       }
       this.setSelectedYear(
-        this.#isPlayingBackward() ? this.selectedYear - 1 : this.selectedYear + 1,
+        this.#isPlayingBackward() ? this.selectedYear() - 1 : this.selectedYear() + 1,
       );
     });
   }
@@ -112,7 +93,7 @@ export class YearNavigatorComponent implements OnDestroy, OnInit {
   }
 
   setSelectedYear(year: number) {
-    this.#store.dispatch(setSelectedYear({ year }));
+    this.#advancedSearchStore.updateSelectedYear(year);
     this.dropdownIsOpen = false;
   }
 }

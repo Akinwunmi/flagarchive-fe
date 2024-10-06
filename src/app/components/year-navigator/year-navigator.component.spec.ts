@@ -1,7 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { YearNavigatorComponent } from './year-navigator.component';
-import { provideMockStore } from '@ngrx/store/testing';
 
 describe('YearNavigatorComponent', () => {
   let component: YearNavigatorComponent;
@@ -10,15 +9,75 @@ describe('YearNavigatorComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [YearNavigatorComponent],
-      providers: [provideMockStore()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(YearNavigatorComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
+  function setup() {
+    const currentYear = new Date().getFullYear();
+    fixture.componentRef.setInput('max', currentYear);
+    fixture.componentRef.setInput('min', 2019);
+    fixture.detectChanges();
+  }
+
   it('should create', () => {
+    setup();
     expect(component).toBeTruthy();
+  });
+
+  it('should have 2021 as selected year', () => {
+    setup();
+    component.setSelectedYear(2021);
+    expect(component.selectedYear()).toBe(2021);
+  });
+
+  it('should decrease selected year by 1', () => {
+    setup();
+    component.setSelectedYear(2021);
+    component.previous();
+    expect(component.selectedYear()).toBe(2020);
+  });
+
+  it('should increase selected year by 1', () => {
+    setup();
+    component.setSelectedYear(2021);
+    component.next();
+    expect(component.selectedYear()).toBe(2022);
+  });
+
+  it('should play and stop', () => {
+    setup();
+    expect(component.isPlaying()).toBeFalse();
+    component.play();
+    expect(component.isPlaying()).toBeTrue();
+    component.stop();
+    expect(component.isPlaying()).toBeFalse();
+  });
+
+  it('should stop when max year is reached', fakeAsync(() => {
+    setup();
+    component.setSelectedYear(2021);
+    fixture.componentRef.setInput('max', 2021);
+    component.play();
+    tick(750);
+    expect(component.isPlaying()).toBeFalse();
+  }));
+
+  it('should stop when min year is reached', fakeAsync(() => {
+    setup();
+    component.setSelectedYear(2021);
+    fixture.componentRef.setInput('min', 2021);
+    component.play(true);
+    tick(750);
+    expect(component.isPlaying()).toBeFalse();
+  }));
+
+  it('should set dropdown state', () => {
+    setup();
+    component.setDropdownState();
+    expect(component.dropdownIsOpen).toBeTrue();
+    expect(component.isPlaying()).toBeFalse();
   });
 });

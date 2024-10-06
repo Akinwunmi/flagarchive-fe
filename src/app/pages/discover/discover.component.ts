@@ -1,9 +1,7 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FlagSkeletonComponent } from '@flagarchive/angular';
-import { Store } from '@ngrx/store';
-import { map } from 'rxjs';
 
 import {
   AdvancedSearchComponent,
@@ -11,8 +9,7 @@ import {
   MainEntitiesHeaderComponent,
 } from '../../components';
 import { EntityType } from '../../models';
-import { getMainEntities } from '../../state/actions';
-import { selectEntity, selectMainEntities } from '../../state/selectors';
+import { EntitiesStateKey, EntitiesStore } from '../../state';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,16 +27,19 @@ import { selectEntity, selectMainEntities } from '../../state/selectors';
   templateUrl: './discover.component.html',
 })
 export class DiscoverComponent implements OnInit {
-  readonly #store = inject(Store);
+  readonly #entitiesStore = inject(EntitiesStore);
 
-  selectedEntity$ = this.#store.select(selectEntity);
-  mainEntities$ = this.#store.select(selectMainEntities);
+  mainEntities = this.#entitiesStore[EntitiesStateKey.Main];
+  selectedEntity = this.#entitiesStore[EntitiesStateKey.Selected];
 
-  isMainEntity$ = this.selectedEntity$.pipe(
-    map(entity => entity?.type && Object.values(EntityType).includes(entity.type as EntityType)),
-  );
+  isMainEntity = computed(() => {
+    const selectedEntity = this.selectedEntity();
+    return (
+      selectedEntity?.type && Object.values(EntityType).includes(selectedEntity.type as EntityType)
+    );
+  });
 
   ngOnInit() {
-    this.#store.dispatch(getMainEntities());
+    this.#entitiesStore.getMainEntities();
   }
 }

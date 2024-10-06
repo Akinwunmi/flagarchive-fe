@@ -1,7 +1,7 @@
 <section class="header">
-  @if (selectedEntity$ | async; as selectedEntity) {
-    @if (isMainEntity$ | async) {
-      <app-main-entities-header [mainEntities]="(mainEntities$ | async) ?? []" />
+  @if (selectedEntity(); as selectedEntity) {
+    @if (isMainEntity()) {
+      <app-main-entities-header [mainEntities]="mainEntities()" />
     } @else {
       <app-entity-header [entity]="selectedEntity" />
     }

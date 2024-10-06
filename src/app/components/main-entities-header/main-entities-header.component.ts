@@ -14,13 +14,12 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { FlagIconComponent } from '@flagarchive/angular';
-import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { filter, map, startWith } from 'rxjs';
 
 import { DefaultMainEntity, DiscoverSection, Entity, EntityType } from '../../models';
 import { TranslationKeyPipe } from '../../pipes';
-import { setSelectedEntityId } from '../../state/actions';
+import { EntitiesStore } from '../../state';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,9 +32,9 @@ import { setSelectedEntityId } from '../../state/actions';
 export class MainEntitiesHeaderComponent implements OnInit {
   readonly #cdr = inject(ChangeDetectorRef);
   readonly #destroyRef = inject(DestroyRef);
+  readonly #entitiesStore = inject(EntitiesStore);
   readonly #route = inject(ActivatedRoute);
   readonly #router = inject(Router);
-  readonly #store = inject(Store);
 
   mainEntities = input.required<Entity[]>();
 
@@ -79,7 +78,7 @@ export class MainEntitiesHeaderComponent implements OnInit {
 
   selectMainEntity(id: string) {
     this.selectedMainEntityId.set(id);
-    this.#store.dispatch(setSelectedEntityId({ id: id }));
+    this.#entitiesStore.updateSelectedEntityId(id);
     this.#router.navigate(['entity', id], { relativeTo: this.#route });
   }
 

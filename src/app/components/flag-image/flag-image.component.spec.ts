@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ENTITY_STUB } from '../../mocks';
+import { ENTITIES_STUB } from '../../mocks';
 
 import { FlagImageComponent } from './flag-image.component';
 
@@ -18,13 +18,27 @@ describe('FlagImageComponent', () => {
   });
 
   function setup() {
-    fixture.componentRef.setInput('src', ENTITY_STUB.imageUrl);
-    fixture.componentRef.setInput('alt', ENTITY_STUB.translationKey);
+    fixture.componentRef.setInput('src', ENTITIES_STUB[0].imageUrl);
+    fixture.componentRef.setInput('alt', ENTITIES_STUB[0].translationKey);
     fixture.detectChanges();
   }
 
   it('should create', () => {
     setup();
     expect(component).toBeTruthy();
+  });
+
+  it('should handle image error', () => {
+    setup();
+    component.handleImageError();
+
+    expect(component.placeholderClass).toBeTrue();
+  });
+
+  it('should handle image load', () => {
+    setup();
+    component.handleImageLoad();
+
+    expect(component.placeholderClass).toBeFalse();
   });
 });

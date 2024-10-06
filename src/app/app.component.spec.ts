@@ -1,14 +1,17 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideRouter } from '@angular/router';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { AppComponent } from './app.component';
 import { FIREBASE_CONFIG } from './firebase.config';
-import { provideMockStore } from '@ngrx/store/testing';
 
 describe('AppComponent', () => {
+  let app: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -24,14 +27,20 @@ describe('AppComponent', () => {
         provideAuth(() => getAuth()),
         provideFirebaseApp(() => initializeApp(FIREBASE_CONFIG)),
         provideFirestore(() => getFirestore()),
-        provideMockStore(),
+        provideRouter([]),
       ],
     }).compileComponents();
+
+    fixture = TestBed.createComponent(AppComponent);
+    app = fixture.componentInstance;
   });
 
+  function setup() {
+    fixture.detectChanges();
+  }
+
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
+    setup();
     expect(app).toBeTruthy();
   });
 });

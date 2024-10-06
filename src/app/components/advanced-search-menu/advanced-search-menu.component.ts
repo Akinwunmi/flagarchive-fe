@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import {
   FlagButtonDirective,
   FlagCardComponent,
@@ -7,12 +6,10 @@ import {
   FlagIconComponent,
   FlagListItemComponent,
 } from '@flagarchive/angular';
-import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FilterOption, FlagCategory, Layout, SortDirection } from '../../models';
-import { setFlagCategory, setLayout, setSortDirection } from '../../state/actions';
-import { selectFlagCategory, selectLayout, selectSortDirection } from '../../state/selectors';
+import { AdvancedSearchStateKey, AdvancedSearchStore } from '../../state';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,11 +27,11 @@ import { selectFlagCategory, selectLayout, selectSortDirection } from '../../sta
   templateUrl: './advanced-search-menu.component.html',
 })
 export class AdvancedSearchMenuComponent {
-  readonly #store = inject(Store);
+  readonly #advancedSearchStore = inject(AdvancedSearchStore);
 
-  flagCategory = toSignal(this.#store.select(selectFlagCategory));
-  #layout = toSignal(this.#store.select(selectLayout));
-  #sortDirection = toSignal(this.#store.select(selectSortDirection));
+  flagCategory = this.#advancedSearchStore[AdvancedSearchStateKey.FlagCategory];
+  #layout = this.#advancedSearchStore[AdvancedSearchStateKey.Layout];
+  #sortDirection = this.#advancedSearchStore[AdvancedSearchStateKey.SortDirection];
 
   flagCategoryOptions = computed<FilterOption<FlagCategory>[]>(() =>
     Object.values(FlagCategory)
@@ -70,15 +67,15 @@ export class AdvancedSearchMenuComponent {
     );
   }
 
-  setFlagCategory(category: FlagCategory) {
-    this.#store.dispatch(setFlagCategory({ category }));
+  updateFlagCategory(category: FlagCategory) {
+    this.#advancedSearchStore.updateFlagCategory(category);
   }
 
-  setLayout(layout: Layout) {
-    this.#store.dispatch(setLayout({ layout }));
+  updateLayout(layout: Layout) {
+    this.#advancedSearchStore.updateLayout(layout);
   }
 
-  setSortDirection(direction: SortDirection) {
-    this.#store.dispatch(setSortDirection({ direction }));
+  updateSortDirection(direction: SortDirection) {
+    this.#advancedSearchStore.updateSortDirection(direction);
   }
 }

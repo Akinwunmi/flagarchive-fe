@@ -9,7 +9,7 @@
           flagButton
           secondary
           [attr.raised]="option.active || undefined"
-          (click)="setLayout(option.value)"
+          (click)="updateLayout(option.value)"
         >
           <flag-icon>{{ option.icon }}</flag-icon>
         </button>
@@ -28,7 +28,7 @@
           flagButton
           secondary
           [attr.raised]="option.active || undefined"
-          (click)="setFlagCategory(option.value)"
+          (click)="updateFlagCategory(option.value)"
         >
           {{ option.label ?? '' | translate }}
         </button>
@@ -46,7 +46,7 @@
           flagButton
           secondary
           [attr.raised]="option.active || undefined"
-          (click)="setSortDirection(option.value)"
+          (click)="updateSortDirection(option.value)"
         >
           {{ option.label ?? '' | translate }}
         </button>

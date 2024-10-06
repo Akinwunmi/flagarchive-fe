@@ -1,5 +1,5 @@
-@let MAX_SELECTED_YEAR = max() === selectedYear;
-@let MIN_SELECTED_YEAR = min() === selectedYear;
+@let MAX_SELECTED_YEAR = max() === selectedYear();
+@let MIN_SELECTED_YEAR = min() === selectedYear();
 
 <button flagButton [disabled]="MIN_SELECTED_YEAR" (click)="previous()">
   <flag-icon>keyboard_arrow_left</flag-icon>
@@ -13,7 +13,7 @@
   (click)="setDropdownState()"
   (keyup)="setDropdownState()"
 >
-  {{ selectedYear }}
+  {{ selectedYear() }}
 </button>
 <button flagButton [disabled]="MAX_SELECTED_YEAR" (click)="next()">
   <flag-icon>keyboard_arrow_right</flag-icon>
@@ -35,7 +35,7 @@
   <flag-year-picker
     [min]="min()"
     [max]="max()"
-    [selected]="selectedYear"
+    [selected]="selectedYear()"
     (selectedChange)="setSelectedYear($event)"
   />
 </ng-template>
