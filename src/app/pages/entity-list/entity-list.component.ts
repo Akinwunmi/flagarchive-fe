@@ -5,7 +5,6 @@ import {
   Component,
   DestroyRef,
   OnInit,
-  computed,
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -19,7 +18,6 @@ import {
   EntitiesStateKey,
   EntitiesStore,
 } from '../../state';
-import { sortBy } from '../../utils';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,16 +35,10 @@ export class EntityListComponent implements OnInit {
   readonly #route = inject(ActivatedRoute);
   readonly #router = inject(Router);
 
+  entities = this.#entitiesStore[EntitiesStateKey.FilteredEntities];
   sortDirection = this.#advancedSearchStore[AdvancedSearchStateKey.SortDirection];
-  #selectedEntityId = this.#entitiesStore[EntitiesStateKey.SelectedId];
 
-  entities = computed(() =>
-    sortBy<Entity>(
-      this.#entitiesStore[EntitiesStateKey.Current](),
-      'translationKey',
-      this.sortDirection(),
-    ),
-  );
+  #selectedEntityId = this.#entitiesStore[EntitiesStateKey.SelectedId];
 
   ngOnInit() {
     const id = this.#router.url.split('/').pop();

@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
+import { ErrorsStateKey } from '../state.model';
+
 import { ErrorsStore } from './errors.store';
-import { ErrorsStateKey } from './state.model';
 
 describe('ErrorsStore', () => {
   let store: InstanceType<typeof ErrorsStore>;

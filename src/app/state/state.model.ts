@@ -18,6 +18,7 @@ export enum AdvancedSearchStateKey {
 export enum EntitiesStateKey {
   All = 'all',
   Current = 'current',
+  FilteredEntities = 'filteredEntities',
   Main = 'main',
   Selected = 'selected',
   SelectedId = 'selectedId',

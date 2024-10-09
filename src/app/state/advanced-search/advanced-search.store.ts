@@ -1,9 +1,8 @@
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 
-import { FlagCategory, Layout, SortDirection } from '../models';
-
-import { initialState } from './state';
-import { AppStateKey, AdvancedSearchStateKey } from './state.model';
+import { FlagCategory, Layout, SortDirection } from '../../models';
+import { initialState } from '../state';
+import { AppStateKey, AdvancedSearchStateKey } from '../state.model';
 
 export const AdvancedSearchStore = signalStore(
   { providedIn: 'root' },
