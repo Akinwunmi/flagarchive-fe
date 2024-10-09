@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
+import { AdvancedSearchStateKey } from '../state.model';
+
 import { AdvancedSearchStore } from './advanced-search.store';
-import { AdvancedSearchStateKey } from './state.model';
 
 describe('AdvancedSearchStore', () => {
   let store: InstanceType<typeof AdvancedSearchStore>;

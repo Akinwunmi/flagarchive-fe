@@ -1,20 +1,26 @@
-import { inject } from '@angular/core';
+import { computed, inject } from '@angular/core';
 import { tapResponse } from '@ngrx/operators';
-import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
+import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { pipe, switchMap, tap } from 'rxjs';
 
-import { Entity, EntityRange, EntityType } from '../models';
-import { EntityService } from '../services';
+import { Entity, EntityType } from '../../models';
+import { EntityService } from '../../services';
+import { AdvancedSearchStore } from '../advanced-search';
+import { ErrorsStore } from '../errors';
+import { initialState } from '../state';
+import { AppStateKey, EntitiesStateKey } from '../state.model';
 
-import { AdvancedSearchStore } from './advanced-search.store';
-import { ErrorsStore } from './errors.store';
-import { initialState } from './state';
-import { AdvancedSearchStateKey, AppStateKey, EntitiesStateKey } from './state.model';
+import { setFilteredEntities, setYears } from './entities.utils';
 
 export const EntitiesStore = signalStore(
   { providedIn: 'root' },
   withState(initialState[AppStateKey.Entities]),
+  withComputed((store, advancedSearchStore = inject(AdvancedSearchStore)) => ({
+    [EntitiesStateKey.FilteredEntities]: computed(() =>
+      setFilteredEntities(store[EntitiesStateKey.Current](), advancedSearchStore),
+    ),
+  })),
   withMethods(
     (
       store,
@@ -54,21 +60,7 @@ export const EntitiesStore = signalStore(
               tapResponse({
                 next: entities => {
                   patchState(store, { [EntitiesStateKey.Current]: entities });
-
-                  const selectedYear = advancedSearchStore[AdvancedSearchStateKey.SelectedYear];
-                  const entityRanges = entities.map(entity => entity.ranges);
-                  const [minYear, maxYear] = setYears(entityRanges, parentEntity.ranges);
-
-                  advancedSearchStore.updateMaxYear(maxYear);
-                  advancedSearchStore.updateMinYear(minYear);
-
-                  if (selectedYear() < minYear) {
-                    advancedSearchStore.updateSelectedYear(minYear);
-                  }
-
-                  if (selectedYear() > maxYear) {
-                    advancedSearchStore.updateSelectedYear(maxYear);
-                  }
+                  setYears(entities, parentEntity, advancedSearchStore);
                 },
                 error: error => errorsStore.addError(error),
               }),
@@ -94,32 +86,3 @@ export const EntitiesStore = signalStore(
     }),
   ),
 );
-
-function getLastYear(defaultYear: number, ranges?: EntityRange[]): number {
-  return ranges?.slice(-1)[0]?.end ?? defaultYear;
-}
-
-function getFirstYear(defaultYear: number, ranges?: EntityRange[]): number {
-  return ranges?.[0]?.start ?? defaultYear;
-}
-
-function setYears(
-  listOfRanges: (EntityRange[] | undefined)[],
-  parentRanges?: EntityRange[],
-): [number, number] {
-  const currentYear = new Date().getFullYear();
-  let maxYear = currentYear;
-  let minYear = currentYear;
-
-  if (listOfRanges.length) {
-    maxYear = Math.max(...listOfRanges.map(ranges => getLastYear(currentYear, ranges)));
-    minYear = Math.min(...listOfRanges.map(ranges => getFirstYear(maxYear, ranges)));
-  }
-
-  if (maxYear === currentYear && minYear === currentYear) {
-    maxYear = getLastYear(currentYear, parentRanges);
-    minYear = getFirstYear(maxYear, parentRanges);
-  }
-
-  return [minYear, maxYear];
-}

@@ -1,7 +1,7 @@
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 
-import { initialState } from './state';
-import { AppStateKey, ErrorsStateKey } from './state.model';
+import { initialState } from '../state';
+import { AppStateKey, ErrorsStateKey } from '../state.model';
 
 export const ErrorsStore = signalStore(
   { providedIn: 'root' },

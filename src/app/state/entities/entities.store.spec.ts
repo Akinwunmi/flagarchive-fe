@@ -1,13 +1,13 @@
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Subject, throwError } from 'rxjs';
 
-import { ENTITIES_STUB, EntityServiceStub } from '../mocks';
-import { Entity, EntityType } from '../models';
-import { EntityService } from '../services';
+import { ENTITIES_STUB, EntityServiceStub } from '../../mocks';
+import { Entity, EntityType } from '../../models';
+import { EntityService } from '../../services';
+import { AdvancedSearchStore } from '../advanced-search';
+import { AdvancedSearchStateKey, EntitiesStateKey } from '../state.model';
 
-import { AdvancedSearchStore } from './advanced-search.store';
 import { EntitiesStore } from './entities.store';
-import { AdvancedSearchStateKey, EntitiesStateKey } from './state.model';
 
 describe('EntitiesStore', () => {
   let advancedSearchStore: InstanceType<typeof AdvancedSearchStore>;
