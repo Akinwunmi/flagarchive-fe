@@ -20,6 +20,11 @@ export const EntitiesStore = signalStore(
     [EntitiesStateKey.FilteredEntities]: computed(() =>
       setFilteredEntities(store[EntitiesStateKey.Current](), advancedSearchStore),
     ),
+    // ? Is this the correct way?
+    [EntitiesStateKey.Selected]: computed(() => {
+      const entity = store[EntitiesStateKey.FoundEntity]();
+      return setFilteredEntities(entity ? [entity] : [], advancedSearchStore)[0] ?? undefined;
+    }),
   })),
   withMethods(
     (
@@ -50,7 +55,7 @@ export const EntitiesStore = signalStore(
           switchMap(id =>
             entityService.getEntityById(id).pipe(
               tapResponse({
-                next: entity => patchState(store, { [EntitiesStateKey.Selected]: entity }),
+                next: entity => patchState(store, { [EntitiesStateKey.FoundEntity]: entity }),
                 error: error => errorsStore.addError(error),
               }),
             ),

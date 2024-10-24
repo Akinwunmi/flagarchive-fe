@@ -1,19 +1,18 @@
-@let NAME_TRANSLATION = 'ENTITIES' | translationKey: entity().translationKey | translate;
+@let NAME_TRANSLATION = 'ENTITIES' | translationKey: translationKey() | translate;
 
 <figure [ngClass]="{ card: card() }">
-  <app-flag-image
-    [src]="entity().imageUrl ?? ''"
-    [alt]="NAME_TRANSLATION"
-    [placeholder]="!entity().imageUrl"
-  />
+  <app-flag-image [src]="url() ?? ''" [alt]="NAME_TRANSLATION" [placeholder]="!url()" />
   <figcaption>
-    @if (entity().altParentId; as altParentId) {
+    @if (altParentId()) {
       <span class="alt-parent">
-        {{ setAltParentId(altParentId) }}
+        {{ setAltParentId(altParentId()) }}
       </span>
     }
     <span class="name">
       {{ NAME_TRANSLATION }}
     </span>
   </figcaption>
+  @if (range(); as range) {
+    <flag-pill> {{ range.start }} &ndash; {{ range.end }} </flag-pill>
+  }
 </figure>

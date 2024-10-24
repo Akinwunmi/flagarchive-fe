@@ -43,8 +43,6 @@ export class AppHeaderComponent {
   currentUser = this.#authService.currentUser;
   isAdmin = this.#userService.isAdmin;
 
-  isMenuOpen = false;
-
   goToCreate() {
     this.#closeMenu();
     this.#router.navigate(['create']);
@@ -70,6 +68,5 @@ export class AppHeaderComponent {
 
   #closeMenu() {
     this.menu().close();
-    this.isMenuOpen = false;
   }
 }

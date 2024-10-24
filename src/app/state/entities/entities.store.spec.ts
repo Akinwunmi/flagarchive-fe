@@ -81,7 +81,7 @@ describe('EntitiesStore', () => {
     id$.next(id);
     tick(50);
 
-    expect(entitiesStore[EntitiesStateKey.Selected]()).toEqual(undefined);
+    expect(entitiesStore[EntitiesStateKey.FoundEntity]()).toEqual(undefined);
   }));
 
   it('should handle get entities by parent id error', fakeAsync(() => {

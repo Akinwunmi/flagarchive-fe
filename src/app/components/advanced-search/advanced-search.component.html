@@ -1,13 +1,10 @@
 <app-year-navigator [max]="maxYear()" [min]="minYear()" />
-<button
-  flagButton
-  secondary
-  [flagDropdownTrigger]="advancedSearchDropdown"
-  [isOpen]="isMenuOpen()"
-  (click)="setMenuOpen()"
->
-  <flag-icon>tune</flag-icon>
-</button>
+<div>
+  <app-flag-categories-button />
+  <button flagButton secondary [flagDropdownTrigger]="advancedSearchDropdown">
+    <flag-icon>tune</flag-icon>
+  </button>
+</div>
 
 <ng-template #advancedSearchDropdown>
   <app-advanced-search-menu />

@@ -7,11 +7,9 @@ export function setFilteredEntities(
   entities: Entity[],
   advancedSearchStore: InstanceType<typeof AdvancedSearchStore>,
 ): Entity[] {
-  const filteredEntities = entities
-    .filter(entity => isEntityInRange(entity, advancedSearchStore))
-    .map(entity => setEntityByActiveRange(entity, advancedSearchStore));
-  return sortBy<Entity>(
-    filteredEntities,
+  const filteredEntities = entities.filter(entity => isEntityInRange(entity, advancedSearchStore));
+  return sortBy<Entity, 'translationKey'>(
+    filteredEntities.map(entity => setEntityByActiveRange(entity, advancedSearchStore)),
     'translationKey',
     advancedSearchStore[AdvancedSearchStateKey.SortDirection](),
   );
@@ -94,8 +92,10 @@ function setEntityByActiveRange(
   return {
     ...entity,
     altParentId: activeRange?.altParentId ?? entity.altParentId,
+    flags: activeRange?.flags ?? entity.flags,
     imageUrl: activeRange?.imageUrl ?? entity.imageUrl,
     parentId: activeRange?.parentId ?? entity.parentId,
     translationKey: activeRange?.translationKey ?? entity.translationKey,
+    type: activeRange?.type ?? entity.type,
   };
 }

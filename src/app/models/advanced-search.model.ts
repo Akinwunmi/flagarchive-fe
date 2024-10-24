@@ -1,9 +1,9 @@
 export enum FlagCategory {
-  Civil = 'civil',
-  DeFacto = 'de_facto',
-  DeJure = 'de_jure',
-  Naval = 'naval',
+  CivilEnsign = 'civil_ensign',
+  NavalEnsign = 'naval_ensign',
+  NavalJack = 'naval_jack',
   Official = 'official',
+  PresidentialStandard = 'presidential_standard',
 }
 
 export enum Layout {

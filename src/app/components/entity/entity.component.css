@@ -29,6 +29,11 @@ figure {
     }
   }
 
+  flag-pill {
+    margin-left: calc(var(--flag-space-xs) * -1);
+    width: fit-content;
+  }
+
   &.card {
     gap: var(--flag-space-xs);
     grid-template-columns: auto;

@@ -1,30 +1,38 @@
+import { Dialog } from '@angular/cdk/dialog';
 import {
   ChangeDetectionStrategy,
   Component,
   HostBinding,
   HostListener,
+  TemplateRef,
   computed,
   inject,
   input,
+  viewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   BreadcrumbItem,
   FlagBreadcrumbComponent,
   FlagButtonDirective,
+  FlagDialogComponent,
   FlagIconComponent,
 } from '@flagarchive/angular';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { Entity } from '../../models';
-import { FlagImageComponent } from '../flag-image';
 import { TranslationKeyPipe } from '../../pipes';
+import { AdvancedSearchStateKey, AdvancedSearchStore } from '../../state';
+import { getActiveRange } from '../../utils';
+import { FlagDetailsComponent } from '../flag-details';
+import { FlagImageComponent } from '../flag-image';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     FlagBreadcrumbComponent,
     FlagButtonDirective,
+    FlagDetailsComponent,
     FlagIconComponent,
     FlagImageComponent,
     TranslateModule,
@@ -36,12 +44,21 @@ import { TranslationKeyPipe } from '../../pipes';
   templateUrl: './entity-header.component.html',
 })
 export class EntityHeaderComponent {
+  readonly #advancedSearchStore = inject(AdvancedSearchStore);
+  readonly #dialog = inject(Dialog);
   readonly #route = inject(ActivatedRoute);
   readonly #router = inject(Router);
 
   entity = input.required<Entity>();
 
+  detailsDialog = viewChild.required<TemplateRef<FlagDialogComponent>>('detailsDialog');
+
+  flagCategory = this.#advancedSearchStore[AdvancedSearchStateKey.FlagCategory];
+
   breadcrumb = computed(() => this.#getBreadcrumb());
+  url = computed(() => this.#setUrl());
+
+  #selectedYear = this.#advancedSearchStore[AdvancedSearchStateKey.SelectedYear];
 
   @HostBinding('class.expanded') isExpanded = true;
 
@@ -56,6 +73,10 @@ export class EntityHeaderComponent {
     this.#router.navigate(route || [], { relativeTo: this.#route });
   }
 
+  openDetails() {
+    this.#dialog.open<FlagDialogComponent>(this.detailsDialog());
+  }
+
   toggleState() {
     this.isExpanded = !this.isExpanded;
   }
@@ -68,5 +89,11 @@ export class EntityHeaderComponent {
       const link = `entity/${ids.slice(0, index + 1).join('-')}`;
       return [...list, { link, title: id.toUpperCase() }];
     }, []);
+  }
+
+  #setUrl(): string | undefined {
+    const { ranges, flags } = this.entity();
+    const activeRange = getActiveRange(this.#selectedYear(), ranges);
+    return (activeRange?.flags ?? flags)?.[this.flagCategory()].url;
   }
 }

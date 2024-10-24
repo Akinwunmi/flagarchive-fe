@@ -22,8 +22,8 @@ export const initialState: AppState = {
   [AppStateKey.Entities]: {
     [EntitiesStateKey.All]: [],
     [EntitiesStateKey.Current]: [],
+    [EntitiesStateKey.FoundEntity]: undefined,
     [EntitiesStateKey.Main]: [],
-    [EntitiesStateKey.Selected]: undefined,
     [EntitiesStateKey.SelectedId]: DefaultMainEntity.Continents,
   },
   [AppStateKey.Errors]: {

@@ -1,11 +1,12 @@
 @let NAME_TRANSLATION = 'ENTITIES' | translationKey: entity().translationKey | translate;
+@let TYPE_TRANSLATION = 'ENTITY_TYPES' | translationKey: entity().type | translate;
 
 <section class="content">
   <div>
     <flag-breadcrumb [items]="breadcrumb()" (selectedItem)="goToEntity($event)" />
     @if (isExpanded || !isMobile) {
       <h2>{{ NAME_TRANSLATION }}</h2>
-      <h3>{{ 'ENTITY_TYPES' | translationKey: entity().type | translate }}</h3>
+      <h3>{{ TYPE_TRANSLATION }}</h3>
     }
   </div>
   <button flagButton ghost type="button" (click)="toggleState()">
@@ -19,12 +20,12 @@
   </button>
 </section>
 <div class="actions">
-  <button flagButton raised rounded disabled>
+  <button flagButton raised rounded (click)="openDetails()">
     <flag-icon>info_i</flag-icon>
   </button>
 </div>
-<app-flag-image
-  [src]="entity().imageUrl ?? ''"
-  [alt]="NAME_TRANSLATION"
-  [placeholder]="!entity().imageUrl"
-/>
+<app-flag-image [src]="url() ?? ''" [alt]="NAME_TRANSLATION" [placeholder]="!url()" />
+
+<ng-template #detailsDialog>
+  <app-flag-details [entity]="entity()" />
+</ng-template>
