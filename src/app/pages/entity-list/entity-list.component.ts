@@ -18,6 +18,7 @@ import {
   EntitiesStateKey,
   EntitiesStore,
 } from '../../state';
+import { getActiveRange } from '../../utils';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -39,6 +40,7 @@ export class EntityListComponent implements OnInit {
   sortDirection = this.#advancedSearchStore[AdvancedSearchStateKey.SortDirection];
 
   #selectedEntityId = this.#entitiesStore[EntitiesStateKey.SelectedId];
+  #selectedYear = this.#advancedSearchStore[AdvancedSearchStateKey.SelectedYear];
 
   ngOnInit() {
     const id = this.#router.url.split('/').pop();
@@ -51,6 +53,10 @@ export class EntityListComponent implements OnInit {
       }
       this.#cdr.markForCheck();
     });
+  }
+
+  getActiveRange(entity: Entity) {
+    return getActiveRange(this.#selectedYear(), entity.ranges);
   }
 
   getEntitiesAndNavigate(entity: Entity) {

@@ -10,12 +10,14 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { FilterOption, FlagCategory, Layout, SortDirection } from '../../models';
 import { AdvancedSearchStateKey, AdvancedSearchStore } from '../../state';
+import { FlagCategoriesButtonComponent } from '../flag-categories-button';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     FlagButtonDirective,
     FlagCardComponent,
+    FlagCategoriesButtonComponent,
     FlagDropdownDirective,
     FlagIconComponent,
     FlagListItemComponent,

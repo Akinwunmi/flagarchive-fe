@@ -37,9 +37,9 @@ describe('AdvancedSearchMenuComponent', () => {
 
   it('should get the selected flag category label', () => {
     setup();
-    component.updateFlagCategory(FlagCategory.Naval);
+    component.updateFlagCategory(FlagCategory.NavalJack);
     const label = component.getSelectedFlagCategoryLabel();
-    expect(label).toEqual(`ADVANCED_SEARCH.FLAG_CATEGORY.${FlagCategory.Naval.toUpperCase()}`);
+    expect(label).toEqual(`ADVANCED_SEARCH.FLAG_CATEGORY.${FlagCategory.NavalJack.toUpperCase()}`);
   });
 
   it('should get the fallback flag category label', () => {

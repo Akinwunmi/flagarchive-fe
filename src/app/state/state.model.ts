@@ -19,6 +19,7 @@ export enum EntitiesStateKey {
   All = 'all',
   Current = 'current',
   FilteredEntities = 'filteredEntities',
+  FoundEntity = 'foundEntity',
   Main = 'main',
   Selected = 'selected',
   SelectedId = 'selectedId',
@@ -46,8 +47,8 @@ export interface AdvancedSearchState {
 export interface EntitiesState {
   [EntitiesStateKey.All]: Entity[];
   [EntitiesStateKey.Current]: Entity[];
+  [EntitiesStateKey.FoundEntity]: Entity | undefined;
   [EntitiesStateKey.Main]: Entity[];
-  [EntitiesStateKey.Selected]: Entity | undefined;
   [EntitiesStateKey.SelectedId]: string;
 }
 

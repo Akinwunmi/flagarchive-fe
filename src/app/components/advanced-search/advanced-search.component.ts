@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   FlagButtonDirective,
   FlagDropdownDirective,
@@ -7,6 +7,7 @@ import {
 
 import { AdvancedSearchStateKey, AdvancedSearchStore } from '../../state';
 import { AdvancedSearchMenuComponent } from '../advanced-search-menu';
+import { FlagCategoriesButtonComponent } from '../flag-categories-button';
 import { YearNavigatorComponent } from '../year-navigator';
 
 @Component({
@@ -14,6 +15,7 @@ import { YearNavigatorComponent } from '../year-navigator';
   imports: [
     AdvancedSearchMenuComponent,
     FlagButtonDirective,
+    FlagCategoriesButtonComponent,
     FlagDropdownDirective,
     FlagIconComponent,
     YearNavigatorComponent,
@@ -26,12 +28,6 @@ import { YearNavigatorComponent } from '../year-navigator';
 export class AdvancedSearchComponent {
   readonly #advancedSearchStore = inject(AdvancedSearchStore);
 
-  isMenuOpen = signal(false);
-
   maxYear = this.#advancedSearchStore[AdvancedSearchStateKey.MaxYear];
   minYear = this.#advancedSearchStore[AdvancedSearchStateKey.MinYear];
-
-  setMenuOpen() {
-    this.isMenuOpen.set(true);
-  }
 }

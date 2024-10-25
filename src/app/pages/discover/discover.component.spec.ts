@@ -2,6 +2,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 
 import { FIREBASE_CONFIG } from '../../firebase.config';
@@ -18,7 +19,15 @@ describe('DiscoverComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DiscoverComponent],
+      imports: [
+        DiscoverComponent,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateFakeLoader,
+          },
+        }),
+      ],
       providers: [
         provideAuth(() => getAuth()),
         provideFirebaseApp(() => initializeApp(FIREBASE_CONFIG)),

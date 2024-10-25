@@ -74,11 +74,11 @@
   },
   "ADVANCED_SEARCH": {
     "FLAG_CATEGORY": {
-      "CIVIL": "Civil",
-      "DE_FACTO": "De facto",
-      "DE_JURE": "De jure",
-      "NAVAL": "Naval",
-      "OFFICIAL": "Official"
+      "CIVIL_ENSIGN": "Civil Ensign",
+      "NAVAL_ENSIGN": "Naval Ensign",
+      "NAVAL_JACK": "Naval Jack",
+      "OFFICIAL": "Official",
+      "PRESIDENTIAL_STANDARD": "Presidential standard"
     },
     "SORTING": {
       "NAME": {
@@ -89,6 +89,8 @@
   },
   "DISCOVER": {
     "CONTINENTS": "Continents",
+    "FLAG_DETAILS": "Flag details",
+    "FLAG_HISTORY": "Flag history",
     "HAS_PARENT": "Has parent {{ type }}",
     "ORGANIZATIONS": "Organizations",
     "PARENT": "Parent"
@@ -244,6 +246,7 @@
     "BARNEVELD": "Barneveld",
     "BARRADIEL": "Barradiel",
     "BELARUS": "Belarus",
+    "BELGIAN_CONGO": "Belgian Congo",
     "BELGIUM": "Belgium",
     "BELIZE": "Belize",
     "BENIN": "Benin",
@@ -307,6 +310,8 @@
     "COMOROS": "Comoros",
     "CONGO": "Congo",
     "CONGO_DR": "Congo, the Democratic Republic of the",
+    "CONGO_FREE_STATE": "Congo Free State",
+    "CONGO_LEOPOLDVILLE": "Congo-Léopoldville",
     "CONNECTICUT": "Connecticut",
     "COOK_ISLANDS": "Cook Islands",
     "COSTA_RICA": "Costa Rica",
