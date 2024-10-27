@@ -1,5 +1,5 @@
-@let NAME_TRANSLATION = 'ENTITIES' | translationKey: entity().translationKey | translate;
-@let TYPE_TRANSLATION = 'ENTITY_TYPES' | translationKey: entity().type | translate;
+@let NAME_TRANSLATION = 'ENTITIES' | translationKey: entity()?.translationKey | translate;
+@let TYPE_TRANSLATION = 'ENTITY_TYPES' | translationKey: entity()?.type | translate;
 
 <flag-dialog [large]="true">
   <flag-dialog-header (close)="closeDetails()">
@@ -21,10 +21,10 @@
       <h2>{{ 'DISCOVER.FLAG_HISTORY' | translate }}</h2>
       <app-flag-categories-button />
     </header>
-    @if (entity().ranges; as ranges) {
+    @if (entity(); as entity) {
       <div class="flags">
-        @for (range of ranges; track $index) {
-          <app-entity [entity]="entity()" [range]="range" />
+        @for (range of entity.ranges; track $index) {
+          <app-entity [entity]="entity" [range]="range" />
         }
       </div>
     }
