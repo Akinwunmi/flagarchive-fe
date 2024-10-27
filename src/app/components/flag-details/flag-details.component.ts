@@ -1,12 +1,17 @@
 import { DialogRef } from '@angular/cdk/dialog';
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { FlagDialogComponent, FlagPillComponent } from '@flagarchive/angular';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { DIALOG_IMPORTS } from '../../constants';
-import { Entity, FlagCategory } from '../../models';
+import { FlagCategory } from '../../models';
 import { TranslationKeyPipe } from '../../pipes';
-import { AdvancedSearchStateKey, AdvancedSearchStore } from '../../state';
+import {
+  AdvancedSearchStateKey,
+  AdvancedSearchStore,
+  EntitiesStateKey,
+  EntitiesStore,
+} from '../../state';
 import { getActiveRange } from '../../utils';
 import { FlagImageComponent } from '../flag-image';
 import { EntityComponent } from '../entity';
@@ -31,9 +36,9 @@ import { FlagCategoriesButtonComponent } from '../flag-categories-button';
 export class FlagDetailsComponent {
   readonly #advancedSearchStore = inject(AdvancedSearchStore);
   readonly #dialogRef = inject(DialogRef<FlagDialogComponent>);
+  readonly #entitiesStore = inject(EntitiesStore);
 
-  entity = input.required<Entity>();
-
+  entity = this.#entitiesStore[EntitiesStateKey.FoundEntity];
   flagCategory = this.#advancedSearchStore[AdvancedSearchStateKey.FlagCategory];
   selectedYear = this.#advancedSearchStore[AdvancedSearchStateKey.SelectedYear];
 
@@ -46,7 +51,12 @@ export class FlagDetailsComponent {
   }
 
   #setUrl(): string | undefined {
-    const { ranges, flags } = this.entity();
+    const entity = this.entity();
+    if (!entity) {
+      return;
+    }
+
+    const { ranges, flags } = entity;
     const activeRange = getActiveRange(this.selectedYear(), ranges);
     return (activeRange?.flags ?? flags)?.[this.flagCategory()].url;
   }
