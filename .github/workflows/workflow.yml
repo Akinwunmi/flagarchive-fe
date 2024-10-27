@@ -1,10 +1,10 @@
 name: Build Angular project
 on:
   push:
-    branches: [ "staging" ]
+    branches: ['staging']
   pull_request:
-    branches: [ "staging" ]
-jobs: 
+    branches: ['staging']
+jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
@@ -19,7 +19,9 @@ jobs:
           cache: 'npm'
       - name: Install packages
         run: npm ci
-      - name: Linting 
+      - name: Linting
         run: npm run lint
+      - name: Test
+        run: npm run test
       - name: Build
         run: npm run build
