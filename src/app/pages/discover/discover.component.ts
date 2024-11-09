@@ -1,27 +1,45 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { FlagSkeletonComponent } from '@flagarchive/angular';
 
-import { MainEntitiesHeaderComponent } from '../../components';
-import { selectActiveEntityId, selectMainEntities } from '../../state/selectors';
-import { getMainEntities } from '../../state/actions';
+import {
+  AdvancedSearchComponent,
+  EntityHeaderComponent,
+  MainEntitiesHeaderComponent,
+} from '../../components';
+import { EntityType } from '../../models';
+import { EntitiesStateKey, EntitiesStore } from '../../state';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [AsyncPipe, MainEntitiesHeaderComponent, RouterOutlet],
+  imports: [
+    AdvancedSearchComponent,
+    AsyncPipe,
+    EntityHeaderComponent,
+    FlagSkeletonComponent,
+    MainEntitiesHeaderComponent,
+    RouterOutlet,
+  ],
   selector: 'app-discover',
   standalone: true,
-  styleUrl: './discover.component.scss',
+  styleUrl: './discover.component.css',
   templateUrl: './discover.component.html',
 })
 export class DiscoverComponent implements OnInit {
-  readonly #store = inject(Store);
+  readonly #entitiesStore = inject(EntitiesStore);
 
-  activeEntityId$ = this.#store.select(selectActiveEntityId);
-  mainEntities$ = this.#store.select(selectMainEntities);
+  mainEntities = this.#entitiesStore[EntitiesStateKey.Main];
+  selectedEntity = this.#entitiesStore[EntitiesStateKey.Selected];
+
+  isMainEntity = computed(() => {
+    const selectedEntity = this.selectedEntity();
+    return (
+      selectedEntity?.type && Object.values(EntityType).includes(selectedEntity.type as EntityType)
+    );
+  });
 
   ngOnInit() {
-    this.#store.dispatch(getMainEntities());
+    this.#entitiesStore.getMainEntities();
   }
 }

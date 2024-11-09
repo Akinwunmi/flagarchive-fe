@@ -1,0 +1,32 @@
+@let NAME_TRANSLATION = 'ENTITIES' | translationKey: entity()?.translationKey | translate;
+@let TYPE_TRANSLATION = 'ENTITY_TYPES' | translationKey: entity()?.type | translate;
+
+<flag-dialog [large]="true">
+  <flag-dialog-header (close)="closeDetails()">
+    {{ 'DISCOVER.FLAG_DETAILS' | translate }}
+  </flag-dialog-header>
+  <flag-dialog-content>
+    <div class="flag">
+      <app-flag-image [src]="url() ?? ''" [alt]="NAME_TRANSLATION" [placeholder]="!url()" />
+    </div>
+    <h2>{{ NAME_TRANSLATION }}</h2>
+    <div class="type">
+      <flag-pill>
+        {{ selectedYear() }}
+      </flag-pill>
+      <h3>{{ TYPE_TRANSLATION }}</h3>
+    </div>
+    <hr />
+    <header class="flag-history-header">
+      <h2>{{ 'DISCOVER.FLAG_HISTORY' | translate }}</h2>
+      <app-flag-categories-button />
+    </header>
+    @if (entity(); as entity) {
+      <div class="flags">
+        @for (range of entity.ranges; track $index) {
+          <app-entity [entity]="entity" [range]="range" />
+        }
+      </div>
+    }
+  </flag-dialog-content>
+</flag-dialog>

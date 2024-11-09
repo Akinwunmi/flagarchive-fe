@@ -1,1 +1,31 @@
-<p>entity-header works!</p>
+@let NAME_TRANSLATION = 'ENTITIES' | translationKey: entity().translationKey | translate;
+@let TYPE_TRANSLATION = 'ENTITY_TYPES' | translationKey: entity().type | translate;
+
+<section class="content">
+  <div>
+    <flag-breadcrumb [items]="breadcrumb()" (selectedItem)="goToEntity($event)" />
+    @if (isExpanded || !isMobile) {
+      <h2>{{ NAME_TRANSLATION }}</h2>
+      <h3>{{ TYPE_TRANSLATION }}</h3>
+    }
+  </div>
+  <button flagButton ghost type="button" (click)="toggleState()">
+    <flag-icon>
+      @if (isExpanded) {
+        keyboard_arrow_up
+      } @else {
+        keyboard_arrow_down
+      }
+    </flag-icon>
+  </button>
+</section>
+<div class="actions">
+  <button flagButton raised rounded (click)="openDetails()">
+    <flag-icon>info_i</flag-icon>
+  </button>
+</div>
+<app-flag-image [src]="url() ?? ''" [alt]="NAME_TRANSLATION" [placeholder]="!url()" />
+
+<ng-template #detailsDialog>
+  <app-flag-details />
+</ng-template>

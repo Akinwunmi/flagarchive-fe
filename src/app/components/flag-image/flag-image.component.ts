@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, HostBinding, input } from '@angular/core';
+import { FlagIconComponent } from '@flagarchive/angular';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [FlagIconComponent],
   selector: 'app-flag-image',
   standalone: true,
-  styleUrl: './flag-image.component.scss',
+  styleUrl: './flag-image.component.css',
   templateUrl: './flag-image.component.html',
 })
 export class FlagImageComponent {
@@ -26,5 +28,4 @@ export class FlagImageComponent {
   handleImageLoad() {
     this.#placeholderClass = false;
   }
-
 }

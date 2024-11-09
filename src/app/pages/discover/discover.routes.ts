@@ -6,8 +6,13 @@ export const DISCOVER_ROUTES: Routes = [
   {
     path: '',
     component: DiscoverComponent,
-    title: 'Discover',
+    title: 'Flag Archive - Discover',
     children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'entity'
+      },
       {
         path: 'entity',
         loadChildren: () => import('../entity-list').then(m => m.ENTITY_LIST_ROUTES),

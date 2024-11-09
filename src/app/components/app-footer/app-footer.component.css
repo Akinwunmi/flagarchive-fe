@@ -1,0 +1,28 @@
+:host {
+  justify-content: space-between;
+  background-color: var(--flag-color-white);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+section {
+  display: grid;
+  gap: var(--flag-space-2xl);
+  padding: var(--flag-space-lg) var(--flag-space-sm);
+
+  &.copyright {
+    background-color: var(--flag-color-secondary-100);
+    color: var(--flag-color-secondary-700);
+  }
+
+  h5 {
+    font-size: var(--flag-font-size-sm);
+    font-weight: var(--flag-font-weight-regular);
+  }
+
+  div {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

@@ -1,4 +1,15 @@
-<app-main-entities-header [mainEntities]="(mainEntities$ | async) ?? []" />
-<section>
+<section class="header">
+  @if (selectedEntity(); as selectedEntity) {
+    @if (isMainEntity()) {
+      <app-main-entities-header [mainEntities]="mainEntities()" />
+    } @else {
+      <app-entity-header [entity]="selectedEntity" />
+    }
+  } @else {
+    <flag-skeleton [loading]="true" />
+  }
+  <app-advanced-search />
+</section>
+<section class="content">
   <router-outlet />
 </section>

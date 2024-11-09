@@ -1,0 +1,28 @@
+:host {
+  background-color: var(--flag-color-grey-200);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  padding: var(--flag-space-sm) var(--app-horizontal-padding) 0;
+}
+
+.title {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  gap: var(--flag-space-sm);
+  text-transform: uppercase;
+
+  img {
+    width: var(--flag-size-sm);
+  }
+
+  flag-pill {
+    text-transform: initial;
+  }
+}
+
+.menu-list {
+  display: flex;
+  gap: var(--flag-space-sm);
+}

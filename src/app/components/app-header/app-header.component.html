@@ -1,8 +1,35 @@
 <div class="title" role="button" tabindex="0" (click)="goToHome()" (keydown)="goToHome()">
   <img src="images/logo.svg" alt="Flag Archive Logo" />
-  Flag Archive
-  <flag-pill [type]="pillType.Secondary">alpha</flag-pill>
+  {{ 'COMMON.APP_NAME' | translate }}
+  <flag-pill [type]="pillType.Secondary">Beta 2.0</flag-pill>
 </div>
-<button flagButton ghost>
-  <flag-icon>menu</flag-icon>
-</button>
+<div class="menu-list">
+  <button flagButton ghost>
+    <flag-icon>translate</flag-icon>
+  </button>
+  <button flagButton ghost [flagDropdownTrigger]="menuTemplate">
+    <flag-icon>menu</flag-icon>
+  </button>
+</div>
+
+<ng-template #menuTemplate>
+  <flag-card>
+    @if (currentUser()) {
+      @if (isAdmin()) {
+        <flag-list-item role="button" (click)="goToCreate()">
+          <flag-icon>create</flag-icon>
+          {{ 'COMMON.CREATE' | translate }}
+        </flag-list-item>
+      }
+      <flag-list-item role="button" (click)="logOut()">
+        <flag-icon>logout</flag-icon>
+        {{ 'COMMON.LOGOUT' | translate }}
+      </flag-list-item>
+    } @else {
+      <flag-list-item role="button" (click)="goToLogin()">
+        <flag-icon>login</flag-icon>
+        {{ 'COMMON.LOGIN' | translate }}
+      </flag-list-item>
+    }
+  </flag-card>
+</ng-template>

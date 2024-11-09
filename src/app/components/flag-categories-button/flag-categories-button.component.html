@@ -1,0 +1,18 @@
+<button flagButton secondary [flagDropdownTrigger]="dropdown">
+  {{ 'ADVANCED_SEARCH.FLAG_CATEGORY' | translationKey: flagCategory() | translate }}
+  <flag-icon>keyboard_arrow_down</flag-icon>
+</button>
+
+<ng-template #dropdown>
+  <flag-card>
+    @for (category of flagCategories; track $index) {
+      <flag-list-item
+        role="button"
+        [active]="category === flagCategory()"
+        (click)="updateFlagCategory(category)"
+      >
+        {{ 'ADVANCED_SEARCH.FLAG_CATEGORY' | translationKey: category | translate }}
+      </flag-list-item>
+    }
+  </flag-card>
+</ng-template>

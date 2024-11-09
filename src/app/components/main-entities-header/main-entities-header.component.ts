@@ -1,7 +1,9 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
+  DestroyRef,
   HostListener,
   OnInit,
   computed,
@@ -9,62 +11,78 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { FlagIconComponent } from '@flagarchive/angular';
-import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
+import { filter, map, startWith } from 'rxjs';
 
 import { DefaultMainEntity, DiscoverSection, Entity, EntityType } from '../../models';
-import { setActiveEntityId } from '../../state/actions';
+import { TranslationKeyPipe } from '../../pipes';
+import { EntitiesStore } from '../../state';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FlagIconComponent, NgClass, NgTemplateOutlet],
+  imports: [FlagIconComponent, NgClass, NgTemplateOutlet, TranslateModule, TranslationKeyPipe],
   selector: 'app-main-entities-header',
   standalone: true,
-  styleUrl: './main-entities-header.component.scss',
+  styleUrl: './main-entities-header.component.css',
   templateUrl: './main-entities-header.component.html',
 })
 export class MainEntitiesHeaderComponent implements OnInit {
+  readonly #cdr = inject(ChangeDetectorRef);
+  readonly #destroyRef = inject(DestroyRef);
+  readonly #entitiesStore = inject(EntitiesStore);
   readonly #route = inject(ActivatedRoute);
   readonly #router = inject(Router);
-  readonly #store = inject(Store);
 
   mainEntities = input.required<Entity[]>();
 
-  activeMainEntityId = signal<string>(DefaultMainEntity.Continents);
+  selectedMainEntityId = signal<string>(DefaultMainEntity.Continents);
 
-  continents = computed(() => this.mainEntities()?.filter(entity =>
-    entity.type === EntityType.Continent,
-  ));
-  organizations = computed(() => this.mainEntities()?.filter(entity =>
-    entity.type === EntityType.Organization,
-  ));
+  continents = computed(() => this.#getEntities(EntityType.Continent));
+  organizations = computed(() => this.#getEntities(EntityType.Organization));
 
-  activeSection = computed(() => this.activeMainEntityId().startsWith('o')
-    ? DiscoverSection.Organizations
-    : DiscoverSection.Continents,
+  activeSection = computed(() =>
+    this.selectedMainEntityId().startsWith('o')
+      ? DiscoverSection.Organizations
+      : DiscoverSection.Continents,
   );
 
   defaultMainEntity = DefaultMainEntity;
   discoverSection = DiscoverSection;
-  
+
   isMobile = window.innerWidth < 640;
-  
+
   @HostListener('window:resize')
   onWindowResize() {
     this.isMobile = window.innerWidth < 640;
   }
 
   ngOnInit() {
-    const id = this.#router.url.split('/').pop();
-    if (id) {
-      this.activeMainEntityId.set(id);
-    }
+    const initialId = this.#router.url.split('/').pop();
+    this.#router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        map(event => event.url.split('/').pop()),
+        startWith(initialId),
+        takeUntilDestroyed(this.#destroyRef),
+      )
+      .subscribe(id => {
+        if (id && id !== this.selectedMainEntityId()) {
+          this.selectedMainEntityId.set(id);
+        }
+        this.#cdr.markForCheck();
+      });
   }
 
-  setActiveMainEntity(id: string) {
-    this.activeMainEntityId.set(id);
-    this.#store.dispatch(setActiveEntityId({ id: id }));
+  selectMainEntity(id: string) {
+    this.selectedMainEntityId.set(id);
+    this.#entitiesStore.updateSelectedEntityId(id);
     this.#router.navigate(['entity', id], { relativeTo: this.#route });
+  }
+
+  #getEntities(type: EntityType): Entity[] {
+    return this.mainEntities().filter(entity => entity.type === type);
   }
 }
