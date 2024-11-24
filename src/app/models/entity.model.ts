@@ -7,13 +7,13 @@ export interface Entity {
   type: string;
   altId?: string;
   altParentId?: string;
-  imageUrl?: string;
   flags?: Record<FlagCategory, EntityFlag>;
   parentId?: string;
   ranges?: EntityRange[];
 }
 
 export interface EntityFlag {
+  ranges?: EntityFlagRange[];
   url: string;
 }
 
@@ -22,15 +22,22 @@ export enum EntityType {
   Organization = 'organization',
 }
 
-export interface EntityRange {
+interface EntityStartEnd {
   start: number;
-  altParentId?: string;
   end?: number;
-  flags?: Record<FlagCategory, EntityFlag>;
-  imageUrl?: string;
+}
+
+export interface EntityFlagRange extends EntityStartEnd {
+  url?: string;
+}
+
+export interface EntityRange extends EntityStartEnd {
+  altParentId?: string;
   parentId?: string;
   translationKey?: string;
   type?: string;
 }
+
+export type EntityFullRange = EntityFlagRange & EntityRange;
 
 export type EntityWithoutBaseId = Omit<Entity, 'baseId'>;

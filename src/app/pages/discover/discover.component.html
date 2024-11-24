@@ -1,9 +1,9 @@
 <section class="header">
-  @if (selectedEntity(); as selectedEntity) {
+  @if (selected().entity; as selectedEntity) {
     @if (isMainEntity()) {
       <app-main-entities-header [mainEntities]="mainEntities()" />
     } @else {
-      <app-entity-header [entity]="selectedEntity" />
+      <app-entity-header [entity]="selected().entity" />
     }
   } @else {
     <flag-skeleton [loading]="true" />

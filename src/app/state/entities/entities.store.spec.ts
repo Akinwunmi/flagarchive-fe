@@ -5,7 +5,6 @@ import { ENTITIES_STUB, EntityServiceStub } from '../../mocks';
 import { Entity, EntityType } from '../../models';
 import { EntityService } from '../../services';
 import { AdvancedSearchStore } from '../advanced-search';
-import { AdvancedSearchStateKey, EntitiesStateKey } from '../state.model';
 
 import { EntitiesStore } from './entities.store';
 
@@ -37,7 +36,7 @@ describe('EntitiesStore', () => {
     entities$.next(entities);
     tick(50);
 
-    expect(entitiesStore[EntitiesStateKey.All]()).toEqual(ENTITIES_STUB);
+    expect(entitiesStore.all()).toEqual(ENTITIES_STUB);
   }));
 
   it('should handle add entities error', fakeAsync(() => {
@@ -50,7 +49,7 @@ describe('EntitiesStore', () => {
     entities$.next(entities);
     tick(50);
 
-    expect(entitiesStore[EntitiesStateKey.All]()).toEqual([]);
+    expect(entitiesStore.all()).toEqual([]);
   }));
 
   it('should get entities', fakeAsync(() => {
@@ -66,9 +65,9 @@ describe('EntitiesStore', () => {
     id$.next(id);
     tick(50);
 
-    expect(entitiesStore[EntitiesStateKey.Current]()).toEqual(currentEntities);
-    expect(entitiesStore[EntitiesStateKey.SelectedId]()).toEqual(id);
-    expect(entitiesStore[EntitiesStateKey.Selected]()).toEqual(entity);
+    expect(entitiesStore.current()).toEqual(currentEntities);
+    expect(entitiesStore.selectedId()).toEqual(id);
+    expect(entitiesStore.selected().entity).toEqual(entity);
   }));
 
   it('should handle get entity by id error', fakeAsync(() => {
@@ -81,7 +80,7 @@ describe('EntitiesStore', () => {
     id$.next(id);
     tick(50);
 
-    expect(entitiesStore[EntitiesStateKey.FoundEntity]()).toEqual(undefined);
+    expect(entitiesStore.foundEntity()).toEqual(undefined);
   }));
 
   it('should handle get entities by parent id error', fakeAsync(() => {
@@ -94,7 +93,7 @@ describe('EntitiesStore', () => {
     id$.next(id);
     tick(50);
 
-    expect(entitiesStore[EntitiesStateKey.Current]()).toEqual([]);
+    expect(entitiesStore.current()).toEqual([]);
   }));
 
   it('should update selected year when lower then min year', fakeAsync(() => {
@@ -106,7 +105,7 @@ describe('EntitiesStore', () => {
     id$.next(id);
     tick(50);
 
-    expect(advancedSearchStore[AdvancedSearchStateKey.SelectedYear]()).toEqual(1963);
+    expect(advancedSearchStore.selectedYear()).toEqual(1963);
   }));
 
   it('should update selected year when higher then max year', fakeAsync(() => {
@@ -119,14 +118,14 @@ describe('EntitiesStore', () => {
     id$.next(id);
     tick(50);
 
-    expect(advancedSearchStore[AdvancedSearchStateKey.SelectedYear]()).toEqual(currentYear);
+    expect(advancedSearchStore.selectedYear()).toEqual(currentYear);
   }));
 
   it('should get main entities', fakeAsync(() => {
     entitiesStore.getMainEntities();
     tick(50);
 
-    expect(entitiesStore[EntitiesStateKey.Main]()).toEqual(
+    expect(entitiesStore.main()).toEqual(
       ENTITIES_STUB.filter(
         entity => entity.type === EntityType.Continent || entity.type === EntityType.Organization,
       ),
@@ -139,6 +138,6 @@ describe('EntitiesStore', () => {
     entitiesStore.getMainEntities();
     tick(50);
 
-    expect(entitiesStore[EntitiesStateKey.Main]()).toEqual([]);
+    expect(entitiesStore.main()).toEqual([]);
   }));
 });

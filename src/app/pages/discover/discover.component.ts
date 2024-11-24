@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FlagSkeletonComponent } from '@flagarchive/angular';
@@ -9,13 +8,12 @@ import {
   MainEntitiesHeaderComponent,
 } from '../../components';
 import { EntityType } from '../../models';
-import { EntitiesStateKey, EntitiesStore } from '../../state';
+import { EntitiesStore } from '../../state';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     AdvancedSearchComponent,
-    AsyncPipe,
     EntityHeaderComponent,
     FlagSkeletonComponent,
     MainEntitiesHeaderComponent,
@@ -29,13 +27,14 @@ import { EntitiesStateKey, EntitiesStore } from '../../state';
 export class DiscoverComponent implements OnInit {
   readonly #entitiesStore = inject(EntitiesStore);
 
-  mainEntities = this.#entitiesStore[EntitiesStateKey.Main];
-  selectedEntity = this.#entitiesStore[EntitiesStateKey.Selected];
+  mainEntities = this.#entitiesStore.main;
+  selected = this.#entitiesStore.selected;
 
   isMainEntity = computed(() => {
-    const selectedEntity = this.selectedEntity();
+    const selected = this.selected();
     return (
-      selectedEntity?.type && Object.values(EntityType).includes(selectedEntity.type as EntityType)
+      selected?.entity.type &&
+      Object.values(EntityType).includes(selected.entity.type as EntityType)
     );
   });
 
