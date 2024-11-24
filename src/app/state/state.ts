@@ -1,32 +1,26 @@
 import { DefaultMainEntity, FlagCategory, Layout, SortDirection } from '../models';
 
-import {
-  AdvancedSearchStateKey,
-  AppState,
-  AppStateKey,
-  EntitiesStateKey,
-  ErrorsStateKey,
-} from './state.model';
+import { AppState } from './state.model';
 
 const currentYear = new Date().getFullYear();
 
 export const initialState: AppState = {
-  [AppStateKey.AdvancedSearch]: {
-    [AdvancedSearchStateKey.FlagCategory]: FlagCategory.Official,
-    [AdvancedSearchStateKey.Layout]: Layout.Grid,
-    [AdvancedSearchStateKey.MaxYear]: currentYear,
-    [AdvancedSearchStateKey.MinYear]: currentYear,
-    [AdvancedSearchStateKey.SelectedYear]: currentYear,
-    [AdvancedSearchStateKey.SortDirection]: SortDirection.Asc,
+  advancedSearch: {
+    flagCategory: FlagCategory.Official,
+    layout: Layout.Grid,
+    maxYear: currentYear,
+    minYear: currentYear,
+    selectedYear: currentYear,
+    sortDirection: SortDirection.Asc,
   },
-  [AppStateKey.Entities]: {
-    [EntitiesStateKey.All]: [],
-    [EntitiesStateKey.Current]: [],
-    [EntitiesStateKey.FoundEntity]: undefined,
-    [EntitiesStateKey.Main]: [],
-    [EntitiesStateKey.SelectedId]: DefaultMainEntity.Continents,
+  entities: {
+    all: [],
+    current: [],
+    foundEntity: undefined,
+    main: [],
+    selectedId: DefaultMainEntity.Continents,
   },
-  [AppStateKey.Errors]: {
-    [ErrorsStateKey.All]: [],
+  errors: {
+    all: [],
   },
 };

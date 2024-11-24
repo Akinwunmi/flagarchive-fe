@@ -12,12 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { EntityComponent } from '../../components';
 import { Entity } from '../../models';
-import {
-  AdvancedSearchStateKey,
-  AdvancedSearchStore,
-  EntitiesStateKey,
-  EntitiesStore,
-} from '../../state';
+import { AdvancedSearchStore, EntitiesStore } from '../../state';
 import { getActiveRange } from '../../utils';
 
 @Component({
@@ -36,11 +31,12 @@ export class EntityListComponent implements OnInit {
   readonly #route = inject(ActivatedRoute);
   readonly #router = inject(Router);
 
-  entities = this.#entitiesStore[EntitiesStateKey.FilteredEntities];
-  sortDirection = this.#advancedSearchStore[AdvancedSearchStateKey.SortDirection];
+  entities = this.#entitiesStore.filteredEntities;
+  sortDirection = this.#advancedSearchStore.sortDirection;
 
-  #selectedEntityId = this.#entitiesStore[EntitiesStateKey.SelectedId];
-  #selectedYear = this.#advancedSearchStore[AdvancedSearchStateKey.SelectedYear];
+  #flagCategory = this.#advancedSearchStore.flagCategory;
+  #selectedEntityId = this.#entitiesStore.selectedId;
+  #selectedYear = this.#advancedSearchStore.selectedYear;
 
   ngOnInit() {
     const id = this.#router.url.split('/').pop();
@@ -56,7 +52,10 @@ export class EntityListComponent implements OnInit {
   }
 
   getActiveRange(entity: Entity) {
-    return getActiveRange(this.#selectedYear(), entity.ranges);
+    return getActiveRange(
+      this.#selectedYear(),
+      entity.flags?.[this.#flagCategory()]?.ranges ?? entity.ranges,
+    );
   }
 
   getEntitiesAndNavigate(entity: Entity) {

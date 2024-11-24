@@ -9,7 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { FlagCategory } from '../../models';
 import { TranslationKeyPipe } from '../../pipes';
-import { AdvancedSearchStateKey, AdvancedSearchStore } from '../../state';
+import { AdvancedSearchStore } from '../../state';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,7 +31,7 @@ export class FlagCategoriesButtonComponent {
 
   flagCategoriesMenu = viewChild.required(FlagDropdownDirective);
 
-  flagCategory = this.#advancedSearchStore[AdvancedSearchStateKey.FlagCategory];
+  flagCategory = this.#advancedSearchStore.flagCategory;
 
   flagCategories = Object.values(FlagCategory);
 

@@ -16,7 +16,7 @@ import {
 } from '@flagarchive/angular';
 import { interval, Subject, takeUntil } from 'rxjs';
 
-import { AdvancedSearchStateKey, AdvancedSearchStore } from '../../state';
+import { AdvancedSearchStore } from '../../state';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,9 +44,7 @@ export class YearNavigatorComponent implements OnDestroy {
   isPlaying = computed(() => this.#isPlayingBackward() || this.#isPlayingForward());
 
   dropdownIsOpen = false;
-  selectedYear = computed(() =>
-    Math.min(this.max(), this.#advancedSearchStore[AdvancedSearchStateKey.SelectedYear]()),
-  );
+  selectedYear = computed(() => Math.min(this.max(), this.#advancedSearchStore.selectedYear()));
 
   #stop$ = new Subject<void>();
   #playSpeed$ = interval(750);

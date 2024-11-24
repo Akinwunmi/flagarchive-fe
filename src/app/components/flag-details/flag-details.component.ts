@@ -4,18 +4,12 @@ import { FlagDialogComponent, FlagPillComponent } from '@flagarchive/angular';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { DIALOG_IMPORTS } from '../../constants';
-import { FlagCategory } from '../../models';
+import { EntityFullRange, FlagCategory } from '../../models';
 import { TranslationKeyPipe } from '../../pipes';
-import {
-  AdvancedSearchStateKey,
-  AdvancedSearchStore,
-  EntitiesStateKey,
-  EntitiesStore,
-} from '../../state';
-import { getActiveRange } from '../../utils';
-import { FlagImageComponent } from '../flag-image';
+import { AdvancedSearchStore, EntitiesStore } from '../../state';
 import { EntityComponent } from '../entity';
 import { FlagCategoriesButtonComponent } from '../flag-categories-button';
+import { FlagImageComponent } from '../flag-image';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -38,10 +32,12 @@ export class FlagDetailsComponent {
   readonly #dialogRef = inject(DialogRef<FlagDialogComponent>);
   readonly #entitiesStore = inject(EntitiesStore);
 
-  entity = this.#entitiesStore[EntitiesStateKey.FoundEntity];
-  flagCategory = this.#advancedSearchStore[AdvancedSearchStateKey.FlagCategory];
-  selectedYear = this.#advancedSearchStore[AdvancedSearchStateKey.SelectedYear];
+  entity = this.#entitiesStore.foundEntity;
+  flagCategory = this.#advancedSearchStore.flagCategory;
+  selected = this.#entitiesStore.selected;
+  selectedYear = this.#advancedSearchStore.selectedYear;
 
+  activeFlagRanges = computed(() => this.#setActiveFlagRanges());
   url = computed(() => this.#setUrl());
 
   flagCategories = Object.values(FlagCategory);
@@ -50,14 +46,22 @@ export class FlagDetailsComponent {
     this.#dialogRef?.close();
   }
 
-  #setUrl(): string | undefined {
-    const entity = this.entity();
-    if (!entity) {
-      return;
-    }
+  #setActiveFlagRanges(): EntityFullRange[] | undefined {
+    const entityRanges = this.entity()?.ranges;
+    const flagRanges = this.selected()?.flag?.ranges;
 
-    const { ranges, flags } = entity;
-    const activeRange = getActiveRange(this.selectedYear(), ranges);
-    return (activeRange?.flags ?? flags)?.[this.flagCategory()].url;
+    return flagRanges
+      ?.map(({ end, start, url }) => {
+        const matchingEntityRange = entityRanges?.find(
+          entityRange =>
+            entityRange.start <= start && (!entityRange.end || (end && entityRange.end >= end)),
+        );
+        return { ...matchingEntityRange, end, start, url };
+      })
+      .sort((a, b) => a.start - b.start);
+  }
+
+  #setUrl(): string | undefined {
+    return this.selected().flagRange?.url ?? this.selected().flag?.url;
   }
 }

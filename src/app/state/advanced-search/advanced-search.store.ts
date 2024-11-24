@@ -2,29 +2,28 @@ import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 
 import { FlagCategory, Layout, SortDirection } from '../../models';
 import { initialState } from '../state';
-import { AppStateKey, AdvancedSearchStateKey } from '../state.model';
 
 export const AdvancedSearchStore = signalStore(
   { providedIn: 'root' },
-  withState(initialState[AppStateKey.AdvancedSearch]),
+  withState(initialState.advancedSearch),
   withMethods(store => ({
-    updateFlagCategory(category: FlagCategory) {
-      patchState(store, { [AdvancedSearchStateKey.FlagCategory]: category });
+    updateFlagCategory(flagCategory: FlagCategory) {
+      patchState(store, { flagCategory });
     },
     updateLayout(layout: Layout) {
-      patchState(store, { [AdvancedSearchStateKey.Layout]: layout });
+      patchState(store, { layout });
     },
-    updateMaxYear(year: number) {
-      patchState(store, { [AdvancedSearchStateKey.MaxYear]: year });
+    updateMaxYear(maxYear: number) {
+      patchState(store, { maxYear });
     },
-    updateMinYear(year: number) {
-      patchState(store, { [AdvancedSearchStateKey.MinYear]: year });
+    updateMinYear(minYear: number) {
+      patchState(store, { minYear });
     },
-    updateSelectedYear(year: number) {
-      patchState(store, { [AdvancedSearchStateKey.SelectedYear]: year });
+    updateSelectedYear(selectedYear: number) {
+      patchState(store, { selectedYear });
     },
-    updateSortDirection(direction: SortDirection) {
-      patchState(store, { [AdvancedSearchStateKey.SortDirection]: direction });
+    updateSortDirection(sortDirection: SortDirection) {
+      patchState(store, { sortDirection });
     },
   })),
 );

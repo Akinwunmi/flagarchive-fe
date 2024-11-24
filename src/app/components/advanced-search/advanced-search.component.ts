@@ -5,7 +5,7 @@ import {
   FlagIconComponent,
 } from '@flagarchive/angular';
 
-import { AdvancedSearchStateKey, AdvancedSearchStore } from '../../state';
+import { AdvancedSearchStore } from '../../state';
 import { AdvancedSearchMenuComponent } from '../advanced-search-menu';
 import { FlagCategoriesButtonComponent } from '../flag-categories-button';
 import { YearNavigatorComponent } from '../year-navigator';
@@ -28,6 +28,6 @@ import { YearNavigatorComponent } from '../year-navigator';
 export class AdvancedSearchComponent {
   readonly #advancedSearchStore = inject(AdvancedSearchStore);
 
-  maxYear = this.#advancedSearchStore[AdvancedSearchStateKey.MaxYear];
-  minYear = this.#advancedSearchStore[AdvancedSearchStateKey.MinYear];
+  maxYear = this.#advancedSearchStore.maxYear;
+  minYear = this.#advancedSearchStore.minYear;
 }

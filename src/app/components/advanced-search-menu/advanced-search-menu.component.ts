@@ -1,15 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import {
-  FlagButtonDirective,
-  FlagCardComponent,
-  FlagDropdownDirective,
-  FlagIconComponent,
-  FlagListItemComponent,
-} from '@flagarchive/angular';
+import { FlagButtonDirective, FlagCardComponent, FlagIconComponent } from '@flagarchive/angular';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FilterOption, FlagCategory, Layout, SortDirection } from '../../models';
-import { AdvancedSearchStateKey, AdvancedSearchStore } from '../../state';
+import { AdvancedSearchStore } from '../../state';
 import { FlagCategoriesButtonComponent } from '../flag-categories-button';
 
 @Component({
@@ -18,9 +12,7 @@ import { FlagCategoriesButtonComponent } from '../flag-categories-button';
     FlagButtonDirective,
     FlagCardComponent,
     FlagCategoriesButtonComponent,
-    FlagDropdownDirective,
     FlagIconComponent,
-    FlagListItemComponent,
     TranslateModule,
   ],
   selector: 'app-advanced-search-menu',
@@ -31,9 +23,9 @@ import { FlagCategoriesButtonComponent } from '../flag-categories-button';
 export class AdvancedSearchMenuComponent {
   readonly #advancedSearchStore = inject(AdvancedSearchStore);
 
-  flagCategory = this.#advancedSearchStore[AdvancedSearchStateKey.FlagCategory];
-  #layout = this.#advancedSearchStore[AdvancedSearchStateKey.Layout];
-  #sortDirection = this.#advancedSearchStore[AdvancedSearchStateKey.SortDirection];
+  flagCategory = this.#advancedSearchStore.flagCategory;
+  #layout = this.#advancedSearchStore.layout;
+  #sortDirection = this.#advancedSearchStore.sortDirection;
 
   flagCategoryOptions = computed<FilterOption<FlagCategory>[]>(() =>
     Object.values(FlagCategory)

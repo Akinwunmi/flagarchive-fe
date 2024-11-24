@@ -1,8 +1,10 @@
 import { DialogModule, DialogRef } from '@angular/cdk/dialog';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { TranslateModule, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
 
-import { ENTITIES_STUB } from '../../mocks';
+import { FIREBASE_CONFIG } from '../../firebase.config';
 
 import { FlagDetailsComponent } from './flag-details.component';
 
@@ -23,6 +25,8 @@ describe('FlagDetailsComponent', () => {
         }),
       ],
       providers: [
+        provideFirebaseApp(() => initializeApp(FIREBASE_CONFIG)),
+        provideFirestore(() => getFirestore()),
         {
           provide: DialogRef,
           useValue: {},
@@ -35,7 +39,6 @@ describe('FlagDetailsComponent', () => {
   });
 
   function setup() {
-    fixture.componentRef.setInput('entity', ENTITIES_STUB[0]);
     fixture.detectChanges();
   }
 

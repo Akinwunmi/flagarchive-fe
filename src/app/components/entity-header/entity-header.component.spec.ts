@@ -1,8 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BreadcrumbItem } from '@flagarchive/angular';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
+import { FIREBASE_CONFIG } from '../../firebase.config';
 import { ENTITIES_STUB } from '../../mocks';
 
 import { EntityHeaderComponent } from './entity-header.component';
@@ -25,6 +28,8 @@ describe('EntityHeaderComponent', () => {
         }),
       ],
       providers: [
+        provideFirebaseApp(() => initializeApp(FIREBASE_CONFIG)),
+        provideFirestore(() => getFirestore()),
         {
           provide: ActivatedRoute,
           useValue: {},

@@ -22,8 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { Entity } from '../../models';
 import { TranslationKeyPipe } from '../../pipes';
-import { AdvancedSearchStateKey, AdvancedSearchStore } from '../../state';
-import { getActiveRange } from '../../utils';
+import { AdvancedSearchStore, EntitiesStore } from '../../state';
 import { FlagDetailsComponent } from '../flag-details';
 import { FlagImageComponent } from '../flag-image';
 
@@ -46,6 +45,7 @@ import { FlagImageComponent } from '../flag-image';
 export class EntityHeaderComponent {
   readonly #advancedSearchStore = inject(AdvancedSearchStore);
   readonly #dialog = inject(Dialog);
+  readonly #entitiesStore = inject(EntitiesStore);
   readonly #route = inject(ActivatedRoute);
   readonly #router = inject(Router);
 
@@ -53,12 +53,11 @@ export class EntityHeaderComponent {
 
   detailsDialog = viewChild.required<TemplateRef<FlagDialogComponent>>('detailsDialog');
 
-  flagCategory = this.#advancedSearchStore[AdvancedSearchStateKey.FlagCategory];
+  flagCategory = this.#advancedSearchStore.flagCategory;
+  selected = this.#entitiesStore.selected;
 
   breadcrumb = computed(() => this.#getBreadcrumb());
   url = computed(() => this.#setUrl());
-
-  #selectedYear = this.#advancedSearchStore[AdvancedSearchStateKey.SelectedYear];
 
   @HostBinding('class.expanded') isExpanded = true;
 
@@ -92,8 +91,6 @@ export class EntityHeaderComponent {
   }
 
   #setUrl(): string | undefined {
-    const { ranges, flags } = this.entity();
-    const activeRange = getActiveRange(this.#selectedYear(), ranges);
-    return (activeRange?.flags ?? flags)?.[this.flagCategory()].url;
+    return this.selected().flagRange?.url ?? this.selected().flag?.url;
   }
 }
