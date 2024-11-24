@@ -78,7 +78,8 @@
       "NAVAL_ENSIGN": "Naval Ensign",
       "NAVAL_JACK": "Naval Jack",
       "OFFICIAL": "Official",
-      "PRESIDENTIAL_STANDARD": "Presidential standard"
+      "PRESIDENTIAL_STANDARD": "Presidential standard",
+      "ROYAL_STANDARD": "Royal standard"
     },
     "SORTING": {
       "NAME": {
@@ -768,6 +769,8 @@
     "UNITED_NATIONS": "United Nations",
     "UNITED_STATES": "United States",
     "UNITED_STATES_MINOR_OUTLYING_ISLANDS": "United States Minor Outlying Islands",
+    "UPPER_VOLTA": "Upper Volta",
+    "UPPER_VOLTA_REPUBLIC": "Upper Volta, Republic of",
     "URK": "Urk",
     "URUGUAY": "Uruguay",
     "US_VIRGIN_ISLANDS": "U.S. Virgin Islands",

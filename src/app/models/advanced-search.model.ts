@@ -4,6 +4,7 @@ export enum FlagCategory {
   NavalJack = 'naval_jack',
   Official = 'official',
   PresidentialStandard = 'presidential_standard',
+  RoyalStandard = 'royal_standard',
 }
 
 export enum Layout {

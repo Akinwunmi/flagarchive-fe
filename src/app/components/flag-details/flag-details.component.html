@@ -23,7 +23,7 @@
     </header>
     @if (entity(); as entity) {
       <div class="flags">
-        @for (range of entity.ranges; track $index) {
+        @for (range of activeFlagRanges(); track $index) {
           <app-entity [entity]="entity" [range]="range" />
         }
       </div>

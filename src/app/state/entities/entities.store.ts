@@ -4,25 +4,33 @@ import { patchState, signalStore, withComputed, withMethods, withState } from '@
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { pipe, switchMap, tap } from 'rxjs';
 
-import { Entity, EntityType } from '../../models';
+import { Entity, EntityFlagRange, EntityRange, EntityType } from '../../models';
 import { EntityService } from '../../services';
+import { getActiveRange } from '../../utils';
 import { AdvancedSearchStore } from '../advanced-search';
 import { ErrorsStore } from '../errors';
 import { initialState } from '../state';
-import { AppStateKey, EntitiesStateKey } from '../state.model';
 
 import { setFilteredEntities, setYears } from './entities.utils';
 
 export const EntitiesStore = signalStore(
   { providedIn: 'root' },
-  withState(initialState[AppStateKey.Entities]),
+  withState(initialState.entities),
   withComputed((store, advancedSearchStore = inject(AdvancedSearchStore)) => ({
-    [EntitiesStateKey.FilteredEntities]: computed(() =>
-      setFilteredEntities(store[EntitiesStateKey.Current](), advancedSearchStore),
-    ),
-    [EntitiesStateKey.Selected]: computed(() => {
-      const entity = store[EntitiesStateKey.FoundEntity]();
-      return setFilteredEntities(entity ? [entity] : [], advancedSearchStore)[0] ?? undefined;
+    filteredEntities: computed(() => setFilteredEntities(store.current(), advancedSearchStore)),
+    selected: computed(() => {
+      const entity = store.foundEntity();
+      const flagCategory = advancedSearchStore.flagCategory();
+      const selectedYear = advancedSearchStore.selectedYear();
+
+      const flagRanges = entity?.flags?.[flagCategory]?.ranges;
+
+      return {
+        entity: setFilteredEntities(entity ? [entity] : [], advancedSearchStore)[0] ?? undefined,
+        flag: entity?.flags?.[flagCategory],
+        flagRange: getActiveRange(selectedYear, flagRanges) as EntityFlagRange | undefined,
+        range: getActiveRange(selectedYear, entity?.ranges) as EntityRange | undefined,
+      };
     }),
   })),
   withMethods(
@@ -39,7 +47,7 @@ export const EntitiesStore = signalStore(
               tapResponse({
                 next: () => {
                   patchState(store, {
-                    [EntitiesStateKey.All]: [...store[EntitiesStateKey.All](), ...entities],
+                    all: [...store.all(), ...entities],
                   });
                 },
                 error: error => errorsStore.addError(error),
@@ -50,11 +58,11 @@ export const EntitiesStore = signalStore(
       ),
       getEntities: rxMethod<string>(
         pipe(
-          tap(id => patchState(store, { [EntitiesStateKey.SelectedId]: id })),
+          tap(selectedId => patchState(store, { selectedId })),
           switchMap(id =>
             entityService.getEntityById(id).pipe(
               tapResponse({
-                next: entity => patchState(store, { [EntitiesStateKey.FoundEntity]: entity }),
+                next: foundEntity => patchState(store, { foundEntity }),
                 error: error => errorsStore.addError(error),
               }),
             ),
@@ -62,9 +70,9 @@ export const EntitiesStore = signalStore(
           switchMap(parentEntity =>
             entityService.getEntitiesByParentId(parentEntity.id).pipe(
               tapResponse({
-                next: entities => {
-                  patchState(store, { [EntitiesStateKey.Current]: entities });
-                  setYears(entities, parentEntity, advancedSearchStore);
+                next: current => {
+                  patchState(store, { current });
+                  setYears(current, parentEntity, advancedSearchStore);
                 },
                 error: error => errorsStore.addError(error),
               }),
@@ -77,15 +85,15 @@ export const EntitiesStore = signalStore(
           switchMap(() =>
             entityService.getEntitiesByType([EntityType.Continent, EntityType.Organization]).pipe(
               tapResponse({
-                next: entities => patchState(store, { [EntitiesStateKey.Main]: entities }),
+                next: main => patchState(store, { main }),
                 error: error => errorsStore.addError(error),
               }),
             ),
           ),
         ),
       ),
-      updateSelectedEntityId(id: string) {
-        patchState(store, { [EntitiesStateKey.SelectedId]: id });
+      updateSelectedEntityId(selectedId: string) {
+        patchState(store, { selectedId });
       },
     }),
   ),

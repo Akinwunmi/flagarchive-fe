@@ -3,9 +3,9 @@ import { ChangeDetectionStrategy, Component, computed, inject, input } from '@an
 import { FlagPillComponent } from '@flagarchive/angular';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Entity, EntityFlag, EntityRange, FlagCategory } from '../../models';
+import { Entity, EntityFlag, EntityFullRange, EntityRange, FlagCategory } from '../../models';
 import { TranslationKeyPipe } from '../../pipes';
-import { AdvancedSearchStateKey, AdvancedSearchStore } from '../../state';
+import { AdvancedSearchStore } from '../../state';
 import { FlagImageComponent } from '../flag-image';
 
 @Component({
@@ -21,13 +21,15 @@ export class EntityComponent {
 
   entity = input.required<Entity>();
   card = input(true);
-  range = input<EntityRange>();
+  range = input<EntityFullRange | EntityRange>();
 
-  activeFlagCategory = this.#advancedSearchStore[AdvancedSearchStateKey.FlagCategory];
+  activeFlagCategory = this.#advancedSearchStore.flagCategory;
 
   altParentId = computed(() => this.range()?.altParentId ?? this.entity().altParentId);
   translationKey = computed(() => this.range()?.translationKey ?? this.entity().translationKey);
-  url = computed(() => this.#getActiveFlagUrl(this.range()?.flags ?? this.entity().flags));
+  url = computed(
+    () => (this.range() as EntityFullRange)?.url ?? this.#getActiveFlagUrl(this.entity().flags),
+  );
 
   setAltParentId(id?: string) {
     return id?.split('-').pop() || '';

@@ -1,7 +1,6 @@
 import { Entity, EntityRange } from '../../models';
 import { sortBy } from '../../utils';
 import { AdvancedSearchStore } from '../advanced-search';
-import { AdvancedSearchStateKey } from '../state.model';
 
 export function setFilteredEntities(
   entities: Entity[],
@@ -11,7 +10,7 @@ export function setFilteredEntities(
   return sortBy<Entity, 'translationKey'>(
     filteredEntities.map(entity => setEntityByActiveRange(entity, advancedSearchStore)),
     'translationKey',
-    advancedSearchStore[AdvancedSearchStateKey.SortDirection](),
+    advancedSearchStore.sortDirection(),
   );
 }
 
@@ -22,7 +21,7 @@ export function setYears(
 ) {
   const currentYear = new Date().getFullYear();
   const entityRanges = entities.map(entity => entity.ranges);
-  const selectedYear = advancedSearchStore[AdvancedSearchStateKey.SelectedYear];
+  const selectedYear = advancedSearchStore.selectedYear;
   let maxYear = currentYear;
   let minYear = currentYear;
 
@@ -60,8 +59,8 @@ function isEntityInRange(
   entity: Entity,
   advancedSearchStore: InstanceType<typeof AdvancedSearchStore>,
 ): boolean {
-  const maxYear = advancedSearchStore[AdvancedSearchStateKey.MaxYear];
-  const selectedYear = advancedSearchStore[AdvancedSearchStateKey.SelectedYear];
+  const maxYear = advancedSearchStore.maxYear;
+  const selectedYear = advancedSearchStore.selectedYear;
 
   if (!entity.ranges) {
     return true;
@@ -83,7 +82,7 @@ function setEntityByActiveRange(
     return entity;
   }
 
-  const selectedYear = advancedSearchStore[AdvancedSearchStateKey.SelectedYear];
+  const selectedYear = advancedSearchStore.selectedYear;
   const activeRange = entity.ranges.find(range => {
     const end = range.end ?? Infinity; // Treat open-ended ranges as infinite
     return selectedYear() >= range.start && selectedYear() <= end;
@@ -92,9 +91,9 @@ function setEntityByActiveRange(
   return {
     ...entity,
     altParentId: activeRange?.altParentId ?? entity.altParentId,
-    flags: activeRange?.flags ?? entity.flags,
-    imageUrl: activeRange?.imageUrl ?? entity.imageUrl,
+    flags: entity.flags,
     parentId: activeRange?.parentId ?? entity.parentId,
+    ranges: entity.ranges.sort((a, b) => a.start - b.start),
     translationKey: activeRange?.translationKey ?? entity.translationKey,
     type: activeRange?.type ?? entity.type,
   };
