@@ -3,6 +3,10 @@ import { FlagIconComponent } from '@flagarchive/angular';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '[class.hoisted-right]': 'hoistedRight()',
+    '[class.reversed]': 'isReversed()',
+  },
   imports: [FlagIconComponent],
   selector: 'app-flag-image',
   standalone: true,
@@ -12,6 +16,8 @@ import { FlagIconComponent } from '@flagarchive/angular';
 export class FlagImageComponent {
   src = input.required<string>();
   alt = input.required<string>();
+  hoistedRight = input(false);
+  isReversed = input(false);
   placeholder = input(false);
 
   #placeholderClass = this.placeholder();

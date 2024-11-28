@@ -50,8 +50,12 @@ export class FlagDetailsComponent {
     const entityRanges = this.entity()?.ranges;
     const flagRanges = this.selected()?.flag?.ranges;
 
+    if (!flagRanges) {
+      return entityRanges?.map(range => ({ ...range, url: this.selected().flag?.url }));
+    }
+
     return flagRanges
-      ?.map(({ end, start, url }) => {
+      .map(({ end, start, url }) => {
         const matchingEntityRange = entityRanges?.find(
           entityRange =>
             entityRange.start <= start && (!entityRange.end || (end && entityRange.end >= end)),

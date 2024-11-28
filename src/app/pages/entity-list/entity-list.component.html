@@ -1,7 +1,7 @@
-<section [ngClass]="{ grid: true }">
+<section [class.grid]="isGridLayout()">
   @for (entity of entities(); track $index) {
     <app-entity
-      [card]="true"
+      [card]="isGridLayout()"
       [entity]="entity"
       [range]="getActiveRange(entity)"
       (click)="getEntitiesAndNavigate(entity)"

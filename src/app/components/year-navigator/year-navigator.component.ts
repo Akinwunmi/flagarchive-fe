@@ -1,4 +1,3 @@
-import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -20,13 +19,7 @@ import { AdvancedSearchStore } from '../../state';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    FlagButtonDirective,
-    FlagDropdownDirective,
-    FlagIconComponent,
-    FlagYearPickerComponent,
-    NgClass,
-  ],
+  imports: [FlagButtonDirective, FlagDropdownDirective, FlagIconComponent, FlagYearPickerComponent],
   selector: 'app-year-navigator',
   standalone: true,
   styleUrl: './year-navigator.component.css',

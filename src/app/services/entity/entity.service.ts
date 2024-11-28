@@ -9,7 +9,7 @@ import {
   where,
   writeBatch,
 } from '@angular/fire/firestore';
-import { from, map, Observable } from 'rxjs';
+import { combineLatest, from, map, Observable } from 'rxjs';
 
 import { Entity, EntityWithoutBaseId } from '../../models';
 
@@ -39,7 +39,16 @@ export class EntityService {
 
   getEntitiesByParentId(id: string): Observable<Entity[]> {
     const entities = query(this.#entities, where('parentId', '==', id), limit(75));
-    return collectionData(entities, { idField: 'baseId' }) as Observable<Entity[]>;
+    const entitiesFromArray = query(
+      this.#entities,
+      where('parentIds', 'array-contains', id),
+      limit(75),
+    );
+
+    return combineLatest([
+      collectionData(entities, { idField: 'baseId' }) as Observable<Entity[]>,
+      collectionData(entitiesFromArray, { idField: 'baseId' }) as Observable<Entity[]>,
+    ]).pipe(map(([entities, entitiesFromArray]) => [...entities, ...entitiesFromArray]));
   }
 
   getEntitiesByType(types: string[]): Observable<Entity[]> {
