@@ -47,14 +47,14 @@
 }
 
 <ng-template #entitiesTemplate let-entities let-title="title">
-  <section [ngClass]="{ mobile: isMobile }">
+  <section [class.mobile]="isMobile">
     <h2>{{ title }}</h2>
     <ul>
       @for (entity of entities; track entity.id) {
         <li>
           <a
             tabindex="0"
-            [ngClass]="{ active: entity.id === selectedMainEntityId() }"
+            [class.active]="entity.id === selectedMainEntityId()"
             (click)="selectMainEntity(entity.id)"
             (keydown)="selectMainEntity(entity.id)"
           >

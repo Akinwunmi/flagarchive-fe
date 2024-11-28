@@ -7,7 +7,12 @@
   </flag-dialog-header>
   <flag-dialog-content>
     <div class="flag">
-      <app-flag-image [src]="url() ?? ''" [alt]="NAME_TRANSLATION" [placeholder]="!url()" />
+      <app-flag-image
+        [alt]="NAME_TRANSLATION"
+        [hoistedRight]="entity()?.hoistedRight ?? false"
+        [placeholder]="!url()"
+        [src]="url() ?? ''"
+      />
     </div>
     <h2>{{ NAME_TRANSLATION }}</h2>
     <div class="type">

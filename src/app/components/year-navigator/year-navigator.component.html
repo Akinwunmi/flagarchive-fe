@@ -9,7 +9,7 @@
   class="year-button"
   [flagDropdownTrigger]="dropdown"
   [isOpen]="dropdownIsOpen"
-  [ngClass]="{ pulse: isPlaying() }"
+  [class.pulse]="isPlaying()"
   (click)="setDropdownState()"
   (keyup)="setDropdownState()"
 >

@@ -8,12 +8,14 @@ export interface Entity {
   altId?: string;
   altParentId?: string;
   flags?: Record<FlagCategory, EntityFlag>;
+  hoistedRight?: boolean;
   parentId?: string;
   ranges?: EntityRange[];
 }
 
 export interface EntityFlag {
   ranges?: EntityFlagRange[];
+  reverseUrl?: string;
   url: string;
 }
 
@@ -28,6 +30,7 @@ interface EntityStartEnd {
 }
 
 export interface EntityFlagRange extends EntityStartEnd {
+  reverseUrl?: string;
   url?: string;
 }
 

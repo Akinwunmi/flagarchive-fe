@@ -1,4 +1,4 @@
-import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -23,7 +23,7 @@ import { EntitiesStore } from '../../state';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FlagIconComponent, NgClass, NgTemplateOutlet, TranslateModule, TranslationKeyPipe],
+  imports: [FlagIconComponent, NgTemplateOutlet, TranslateModule, TranslationKeyPipe],
   selector: 'app-main-entities-header',
   standalone: true,
   styleUrl: './main-entities-header.component.css',
