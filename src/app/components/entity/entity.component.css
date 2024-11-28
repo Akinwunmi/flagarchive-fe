@@ -3,7 +3,7 @@ figure {
   cursor: pointer;
   display: grid;
   gap: var(--flag-space-sm);
-  grid-template-columns: var(--flag-size-lg) 1fr;
+  grid-template-columns: var(--flag-size-lg) auto 1fr;
   grid-template-rows: auto;
   margin: 0;
   width: 100%;
@@ -16,6 +16,7 @@ figure {
     .name {
       display: -webkit-box;
       line-clamp: 1;
+      overflow: hidden;
       word-break: break-all;
       -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
@@ -29,9 +30,20 @@ figure {
     }
   }
 
-  flag-pill {
-    margin-left: calc(var(--flag-space-xs) * -1);
-    width: fit-content;
+  .info {
+    align-items: center;
+    display: flex;
+    gap: var(--flag-space-sm);
+    margin-left: var(--flag-space-xs);
+
+    flag-pill {
+      width: max-content;
+    }
+
+    .reverse-button {
+      height: var(--flag-size-sm);
+      width: fit-content;
+    }
   }
 
   &.card {
@@ -42,6 +54,10 @@ figure {
     figcaption {
       height: var(--flag-space-xl);
       overflow: hidden;
+    }
+
+    .info {
+      margin-left: 0;
     }
   }
 }

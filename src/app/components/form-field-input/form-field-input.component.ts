@@ -3,11 +3,9 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FlagFormFieldComponent } from '@flagarchive/angular';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { TranslationKeyPipe } from '../../pipes';
-
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FlagFormFieldComponent, ReactiveFormsModule, TranslateModule, TranslationKeyPipe],
+  imports: [FlagFormFieldComponent, ReactiveFormsModule, TranslateModule],
   selector: 'app-form-field-input',
   standalone: true,
   templateUrl: './form-field-input.component.html',

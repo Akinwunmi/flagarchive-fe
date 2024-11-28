@@ -1,23 +1,23 @@
-import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   DestroyRef,
   OnInit,
+  computed,
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { EntityComponent } from '../../components';
-import { Entity } from '../../models';
+import { Entity, Layout } from '../../models';
 import { AdvancedSearchStore, EntitiesStore } from '../../state';
 import { getActiveRange } from '../../utils';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [EntityComponent, NgClass],
+  imports: [EntityComponent],
   selector: 'app-entity-list',
   standalone: true,
   styleUrl: './entity-list.component.css',
@@ -32,7 +32,10 @@ export class EntityListComponent implements OnInit {
   readonly #router = inject(Router);
 
   entities = this.#entitiesStore.filteredEntities;
+  layout = this.#advancedSearchStore.layout;
   sortDirection = this.#advancedSearchStore.sortDirection;
+
+  isGridLayout = computed(() => this.layout() === Layout.Grid);
 
   #flagCategory = this.#advancedSearchStore.flagCategory;
   #selectedEntityId = this.#entitiesStore.selectedId;

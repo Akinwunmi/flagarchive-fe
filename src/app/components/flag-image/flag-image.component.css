@@ -38,6 +38,36 @@
       display: flex;
     }
   }
+
+  &.hoisted-right {
+    &::before {
+      inset: 0 calc(var(--flag-space-xs) * -1) 0 auto;
+    }
+
+    img {
+      margin: 0 0 auto auto;
+    }
+  }
+
+  &.reversed {
+    &::before {
+      inset: 0 calc(var(--flag-space-xs) * -1) 0 auto;
+    }
+
+    img {
+      margin: 0 0 auto auto;
+    }
+
+    &.hoisted-right {
+      &::before {
+        inset: 0 auto 0 calc(var(--flag-space-xs) * -1);
+      }
+
+      img {
+        margin: 0 0 auto;
+      }
+    }
+  }
 }
 
 /* Fix for displaying images properly in Safari

@@ -24,7 +24,12 @@
     <flag-icon>info_i</flag-icon>
   </button>
 </div>
-<app-flag-image [src]="url() ?? ''" [alt]="NAME_TRANSLATION" [placeholder]="!url()" />
+<app-flag-image
+  [alt]="NAME_TRANSLATION"
+  [hoistedRight]="entity().hoistedRight ?? false"
+  [placeholder]="!url()"
+  [src]="url() ?? ''"
+/>
 
 <ng-template #detailsDialog>
   <app-flag-details />
