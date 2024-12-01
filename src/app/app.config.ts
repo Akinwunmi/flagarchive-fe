@@ -7,8 +7,9 @@ import { provideRouter } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+import { environment } from '../environments/environment';
+
 import { routes } from './app.routes';
-import { FIREBASE_CONFIG } from './firebase.config';
 
 function httpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, 'i18n/');
@@ -27,7 +28,7 @@ export const APP_CONFIG: ApplicationConfig = {
       }),
     ]),
     provideAuth(() => getAuth()),
-    provideFirebaseApp(() => initializeApp(FIREBASE_CONFIG)),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => getFirestore()),
     provideHttpClient(),
     provideRouter(routes),

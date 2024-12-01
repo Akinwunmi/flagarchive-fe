@@ -37,7 +37,11 @@ yarn-error.log
 testem.log
 /typings
 .env
+src/app/firebase-development.config.ts
 
 # System files
 .DS_Store
 Thumbs.db
+
+# Netlify
+/.netlify
