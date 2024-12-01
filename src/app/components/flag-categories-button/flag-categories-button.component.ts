@@ -22,7 +22,6 @@ import { AdvancedSearchStore } from '../../state';
     TranslationKeyPipe,
   ],
   selector: 'app-flag-categories-button',
-  standalone: true,
   styleUrl: './flag-categories-button.component.css',
   templateUrl: './flag-categories-button.component.html',
 })

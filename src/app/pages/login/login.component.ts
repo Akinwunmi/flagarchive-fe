@@ -11,7 +11,6 @@ import { AuthService } from '../../services';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormFieldInputComponent, ReactiveFormsModule, TranslateModule, TranslationKeyPipe],
   selector: 'app-login',
-  standalone: true,
   styleUrl: './login.component.css',
   templateUrl: './login.component.html',
 })

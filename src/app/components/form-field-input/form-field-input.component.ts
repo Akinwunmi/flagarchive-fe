@@ -7,7 +7,6 @@ import { TranslateModule } from '@ngx-translate/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FlagFormFieldComponent, ReactiveFormsModule, TranslateModule],
   selector: 'app-form-field-input',
-  standalone: true,
   templateUrl: './form-field-input.component.html',
 })
 export class FormFieldInputComponent {
