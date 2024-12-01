@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { FlagFormFieldComponent } from '@flagarchive/angular';
@@ -8,9 +7,8 @@ import { EntitiesStore } from '../../state';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FlagFormFieldComponent, JsonPipe, ReactiveFormsModule, TranslateModule],
+  imports: [FlagFormFieldComponent, ReactiveFormsModule, TranslateModule],
   selector: 'app-create',
-  standalone: true,
   styleUrl: './create.component.css',
   templateUrl: './create.component.html',
 })

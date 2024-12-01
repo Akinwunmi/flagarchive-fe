@@ -21,7 +21,6 @@ import { AdvancedSearchStore } from '../../state';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FlagButtonDirective, FlagDropdownDirective, FlagIconComponent, FlagYearPickerComponent],
   selector: 'app-year-navigator',
-  standalone: true,
   styleUrl: './year-navigator.component.css',
   templateUrl: './year-navigator.component.html',
 })

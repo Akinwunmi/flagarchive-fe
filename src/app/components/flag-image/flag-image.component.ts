@@ -9,7 +9,6 @@ import { FlagIconComponent } from '@flagarchive/angular';
   },
   imports: [FlagIconComponent],
   selector: 'app-flag-image',
-  standalone: true,
   styleUrl: './flag-image.component.css',
   templateUrl: './flag-image.component.html',
 })

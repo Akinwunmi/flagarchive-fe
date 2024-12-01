@@ -19,7 +19,6 @@ import { getActiveRange } from '../../utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [EntityComponent],
   selector: 'app-entity-list',
-  standalone: true,
   styleUrl: './entity-list.component.css',
   templateUrl: './entity-list.component.html',
 })

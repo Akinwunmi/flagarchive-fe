@@ -38,7 +38,6 @@ import { FlagImageComponent } from '../flag-image';
     TranslationKeyPipe,
   ],
   selector: 'app-entity-header',
-  standalone: true,
   styleUrl: './entity-header.component.css',
   templateUrl: './entity-header.component.html',
 })

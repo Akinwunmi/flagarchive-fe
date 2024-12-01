@@ -23,7 +23,6 @@ import { FlagImageComponent } from '../flag-image';
     TranslationKeyPipe,
   ],
   selector: 'app-flag-details',
-  standalone: true,
   styleUrl: './flag-details.component.css',
   templateUrl: './flag-details.component.html',
 })
