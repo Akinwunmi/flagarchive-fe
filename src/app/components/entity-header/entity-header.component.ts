@@ -82,11 +82,17 @@ export class EntityHeaderComponent {
   // Split the entity ID and create a breadcrumb item for each part of the ID.
   // The link for each item is the entity ID up to that part.
   #getBreadcrumb(): BreadcrumbItem[] {
-    const ids = this.entity().id.split('-').slice(0, -1);
-    return ids.reduce((list: BreadcrumbItem[], id, index) => {
-      const link = `entity/${ids.slice(0, index + 1).join('-')}`;
-      return [...list, { link, title: id.toUpperCase() }];
-    }, []);
+    const entity = this.entity();
+    const ids = entity.parentIds?.[0]?.split('-') ?? entity.id.split('-').slice(0, -1);
+    const additionalItems = entity.parentIds?.[1]
+      ? [{ link: `entity/${entity.parentIds[1]}`, title: entity.parentIds[1].toUpperCase() }]
+      : undefined;
+
+    return ids.map((id, index) => ({
+      link: `entity/${ids.slice(0, index + 1).join('-')}`,
+      title: id.toUpperCase(),
+      additionalItems,
+    }));
   }
 
   #setUrl(): string | undefined {

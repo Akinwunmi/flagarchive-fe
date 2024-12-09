@@ -12,27 +12,35 @@ import { ErrorsStore } from '../errors';
 import { initialState } from '../state';
 
 import { setFilteredEntities, setYears } from './entities.utils';
+import { TranslateService } from '@ngx-translate/core';
 
 export const EntitiesStore = signalStore(
   { providedIn: 'root' },
   withState(initialState.entities),
-  withComputed((store, advancedSearchStore = inject(AdvancedSearchStore)) => ({
-    filteredEntities: computed(() => setFilteredEntities(store.current(), advancedSearchStore)),
-    selected: computed(() => {
-      const entity = store.foundEntity();
-      const flagCategory = advancedSearchStore.flagCategory();
-      const selectedYear = advancedSearchStore.selectedYear();
+  withComputed(
+    (
+      store,
+      advancedSearchStore = inject(AdvancedSearchStore),
+      translateService = inject(TranslateService),
+    ) => ({
+      filteredEntities: computed(() =>
+        setFilteredEntities(store.current(), advancedSearchStore, translateService),
+      ),
+      selected: computed(() => {
+        const entity = store.foundEntity();
+        const flagCategory = advancedSearchStore.flagCategory();
+        const flagRanges = entity?.flags?.[flagCategory]?.ranges;
+        const selectedYear = advancedSearchStore.selectedYear();
 
-      const flagRanges = entity?.flags?.[flagCategory]?.ranges;
-
-      return {
-        entity: setFilteredEntities(entity ? [entity] : [], advancedSearchStore)[0] ?? undefined,
-        flag: entity?.flags?.[flagCategory],
-        flagRange: getActiveRange(selectedYear, flagRanges) as EntityFlagRange | undefined,
-        range: getActiveRange(selectedYear, entity?.ranges) as EntityRange | undefined,
-      };
+        return {
+          entity: setFilteredEntities(entity ? [entity] : [], advancedSearchStore)[0] ?? undefined,
+          flag: entity?.flags?.[flagCategory],
+          flagRange: getActiveRange(selectedYear, flagRanges) as EntityFlagRange | undefined,
+          range: getActiveRange(selectedYear, entity?.ranges) as EntityRange | undefined,
+        };
+      }),
     }),
-  })),
+  ),
   withMethods(
     (
       store,

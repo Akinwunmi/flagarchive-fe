@@ -10,6 +10,7 @@ export interface Entity {
   flags?: Record<FlagCategory, EntityFlag>;
   hoistedRight?: boolean;
   parentId?: string;
+  parentIds?: string[];
   ranges?: EntityRange[];
 }
 

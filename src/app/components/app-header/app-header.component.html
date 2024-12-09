@@ -4,15 +4,15 @@
   <flag-pill [type]="pillType.Secondary">Beta 2.0</flag-pill>
 </div>
 <div class="menu-list">
-  <button flagButton ghost>
+  <button flagButton ghost [flagDropdownTrigger]="translateMenuTemplate">
     <flag-icon>translate</flag-icon>
   </button>
-  <button flagButton ghost [flagDropdownTrigger]="menuTemplate">
+  <button flagButton ghost [flagDropdownTrigger]="mainMenuTemplate">
     <flag-icon>menu</flag-icon>
   </button>
 </div>
 
-<ng-template #menuTemplate>
+<ng-template #mainMenuTemplate>
   <flag-card>
     @if (currentUser()) {
       @if (isAdmin()) {
@@ -29,6 +29,20 @@
       <flag-list-item role="button" (click)="goToLogin()">
         <flag-icon>login</flag-icon>
         {{ 'COMMON.LOGIN' | translate }}
+      </flag-list-item>
+    }
+  </flag-card>
+</ng-template>
+
+<ng-template #translateMenuTemplate>
+  <flag-card>
+    @for (language of languages; track language) {
+      <flag-list-item
+        role="button"
+        [active]="activeLanguage() === language"
+        (click)="setLanguage(language)"
+      >
+        {{ 'LANGUAGES.' + language | uppercase | translate }}
       </flag-list-item>
     }
   </flag-card>
