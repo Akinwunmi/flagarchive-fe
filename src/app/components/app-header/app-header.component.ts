@@ -26,7 +26,6 @@ import { EntitiesStore } from '../../state';
     TranslateModule,
   ],
   selector: 'app-header',
-  standalone: true,
   styleUrl: './app-header.component.css',
   templateUrl: './app-header.component.html',
 })

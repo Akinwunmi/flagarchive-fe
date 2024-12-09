@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { FlagFormFieldComponent } from '@flagarchive/angular';
+import { FlagInputComponent } from '@flagarchive/angular';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FlagFormFieldComponent, ReactiveFormsModule, TranslateModule],
+  imports: [FlagInputComponent, ReactiveFormsModule, TranslateModule],
   selector: 'app-form-field-input',
-  standalone: true,
   templateUrl: './form-field-input.component.html',
 })
 export class FormFieldInputComponent {

@@ -88,12 +88,14 @@ function setEntityByActiveRange(
     return selectedYear() >= range.start && selectedYear() <= end;
   });
 
+  // TODO - Check if this copy is still necessary after upgrading to @angular/fire 19
+  const ranges = [...entity.ranges].sort((a, b) => a.start - b.start);
   return {
     ...entity,
     altParentId: activeRange?.altParentId ?? entity.altParentId,
     flags: entity.flags,
     parentId: activeRange?.parentId ?? entity.parentId,
-    ranges: entity.ranges.sort((a, b) => a.start - b.start),
+    ranges,
     translationKey: activeRange?.translationKey ?? entity.translationKey,
     type: activeRange?.type ?? entity.type,
   };

@@ -1,16 +1,14 @@
-import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { FlagFormFieldComponent } from '@flagarchive/angular';
+import { FlagTextareaComponent } from '@flagarchive/angular';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { EntitiesStore } from '../../state';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FlagFormFieldComponent, JsonPipe, ReactiveFormsModule, TranslateModule],
+  imports: [FlagTextareaComponent, ReactiveFormsModule, TranslateModule],
   selector: 'app-create',
-  standalone: true,
   styleUrl: './create.component.css',
   templateUrl: './create.component.html',
 })
@@ -32,11 +30,9 @@ export class CreateComponent {
     this.#entitiesStore.addEntities(JSON.parse(this.#entities));
   }
 
-  validate(event: Event) {
-    const entitiesString = (event.target as HTMLTextAreaElement).value;
-
+  validate(entities: string) {
     try {
-      JSON.parse(entitiesString);
+      JSON.parse(entities);
     } catch (error) {
       this.isValid = !!error && false;
       return;
