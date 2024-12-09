@@ -4,19 +4,12 @@
   <h2>{{ 'PAGES.CREATE' | translate }}</h2>
 </header>
 <form [formGroup]="form" (ngSubmit)="upload()">
-  <flag-form-field>
-    <label for="entities">
-      {{ FORM_CONTROL_TRANSLATION_PREFIX + 'LABEL' | translate }}
-    </label>
-    <textarea
-      flagInput
-      formControlName="entities"
-      id="entities"
-      name="entities"
-      [placeholder]="FORM_CONTROL_TRANSLATION_PREFIX + 'PLACEHOLDER' | translate"
-      (keyup)="validate($event)"
-    ></textarea>
-  </flag-form-field>
+  <flag-textarea
+    formControlName="entities"
+    [label]="FORM_CONTROL_TRANSLATION_PREFIX + 'LABEL' | translate"
+    [placeholder]="FORM_CONTROL_TRANSLATION_PREFIX + 'PLACEHOLDER' | translate"
+    (changed)="validate($event)"
+  />
   <button flagButton type="submit" [disabled]="!isValid">
     {{ 'COMMON.UPLOAD' | translate }}
   </button>

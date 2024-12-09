@@ -6,7 +6,6 @@ import { TranslateModule } from '@ngx-translate/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, TranslateModule],
   selector: 'app-footer',
-  standalone: true,
   styleUrl: './app-footer.component.css',
   templateUrl: './app-footer.component.html',
 })

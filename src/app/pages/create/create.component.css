@@ -17,18 +17,6 @@ header {
 form {
   display: grid;
   gap: var(--flag-space-lg);
-  grid-template-rows: 1fr auto;
-  height: 100%;
-
-  flag-form-field {
-    grid-template-rows: auto 1fr;
-
-    textarea {
-      height: 100%;
-      min-height: var(--flag-size-3xl);
-      resize: vertical;
-    }
-  }
 
   button {
     justify-self: flex-end;
