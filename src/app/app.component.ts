@@ -12,6 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { filter } from 'rxjs';
 
 import { AppFooterComponent, AppHeaderComponent } from './components';
+import { Language } from './models';
 import { UserService } from './services';
 
 @Component({
@@ -30,10 +31,14 @@ export class AppComponent implements OnInit {
   @HostBinding('class.no-footer') hideFooter = false;
 
   ngOnInit() {
-    this.#translate.setDefaultLang('en');
-    this.#userService.getUser().subscribe(user => {
-      this.#translate.use(user.language || 'en');
-    });
+    this.#translate.langs = Object.values(Language);
+    this.#translate.setDefaultLang(Language.English);
+    this.#userService
+      .getUser()
+      .pipe(takeUntilDestroyed(this.#destroyRef))
+      .subscribe(user => {
+        this.#translate.use(user.language || Language.English);
+      });
 
     this.#router.events
       .pipe(

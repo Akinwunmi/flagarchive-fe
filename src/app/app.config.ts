@@ -9,6 +9,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { routes } from './app.routes';
 import { FIREBASE_CONFIG } from './firebase.config';
+import { Language } from './models';
 
 function httpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, 'i18n/');
@@ -18,7 +19,7 @@ export const APP_CONFIG: ApplicationConfig = {
   providers: [
     importProvidersFrom([
       TranslateModule.forRoot({
-        defaultLanguage: 'en',
+        defaultLanguage: Language.English,
         loader: {
           provide: TranslateLoader,
           useFactory: httpLoaderFactory,

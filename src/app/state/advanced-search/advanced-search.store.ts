@@ -7,6 +7,14 @@ export const AdvancedSearchStore = signalStore(
   { providedIn: 'root' },
   withState(initialState.advancedSearch),
   withMethods(store => ({
+    triggerSortDirection() {
+      Array.from({ length: 2 }).forEach(() => {
+        patchState(store, {
+          sortDirection:
+            store.sortDirection() === SortDirection.Asc ? SortDirection.Desc : SortDirection.Asc,
+        });
+      });
+    },
     updateFlagCategory(flagCategory: FlagCategory) {
       patchState(store, { flagCategory });
     },
