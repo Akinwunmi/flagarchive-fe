@@ -1,3 +1,5 @@
+import { TranslateService } from '@ngx-translate/core';
+
 import { Entity, EntityRange } from '../../models';
 import { sortBy } from '../../utils';
 import { AdvancedSearchStore } from '../advanced-search';
@@ -5,12 +7,14 @@ import { AdvancedSearchStore } from '../advanced-search';
 export function setFilteredEntities(
   entities: Entity[],
   advancedSearchStore: InstanceType<typeof AdvancedSearchStore>,
+  translateService?: TranslateService,
 ): Entity[] {
   const filteredEntities = entities.filter(entity => isEntityInRange(entity, advancedSearchStore));
   return sortBy<Entity, 'translationKey'>(
     filteredEntities.map(entity => setEntityByActiveRange(entity, advancedSearchStore)),
     'translationKey',
     advancedSearchStore.sortDirection(),
+    translateService,
   );
 }
 
