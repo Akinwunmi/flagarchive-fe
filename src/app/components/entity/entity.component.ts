@@ -18,7 +18,6 @@ import { FlagImageComponent } from '../flag-image';
     TranslationKeyPipe,
   ],
   selector: 'app-entity',
-  standalone: true,
   styleUrl: './entity.component.css',
   templateUrl: './entity.component.html',
 })

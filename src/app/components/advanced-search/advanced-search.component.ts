@@ -21,7 +21,6 @@ import { YearNavigatorComponent } from '../year-navigator';
     YearNavigatorComponent,
   ],
   selector: 'app-advanced-search',
-  standalone: true,
   styleUrl: './advanced-search.component.css',
   templateUrl: './advanced-search.component.html',
 })

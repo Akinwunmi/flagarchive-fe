@@ -20,7 +20,6 @@ import { EntitiesStore } from '../../state';
     RouterOutlet,
   ],
   selector: 'app-discover',
-  standalone: true,
   styleUrl: './discover.component.css',
   templateUrl: './discover.component.html',
 })

@@ -16,7 +16,6 @@ import { FlagCategoriesButtonComponent } from '../flag-categories-button';
     TranslateModule,
   ],
   selector: 'app-advanced-search-menu',
-  standalone: true,
   styleUrl: './advanced-search-menu.component.css',
   templateUrl: './advanced-search-menu.component.html',
 })

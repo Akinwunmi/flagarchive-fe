@@ -25,7 +25,6 @@ import { EntitiesStore } from '../../state';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FlagIconComponent, NgTemplateOutlet, TranslateModule, TranslationKeyPipe],
   selector: 'app-main-entities-header',
-  standalone: true,
   styleUrl: './main-entities-header.component.css',
   templateUrl: './main-entities-header.component.html',
 })
