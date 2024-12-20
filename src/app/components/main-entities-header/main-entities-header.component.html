@@ -6,6 +6,7 @@
     flagButton
     [attr.ghost]="activeSection() !== discoverSection.Continents || undefined"
     (click)="selectMainEntity(defaultMainEntity.Continents)"
+    (keydown)="selectMainEntity(defaultMainEntity.Continents, $event)"
   >
     {{ CONTINENTS_TRANSLATION }}
     @if (activeSection() !== discoverSection.Continents) {
@@ -16,6 +17,7 @@
     flagButton
     [attr.ghost]="activeSection() !== discoverSection.Organizations || undefined"
     (click)="selectMainEntity(defaultMainEntity.Organizations)"
+    (keydown)="selectMainEntity(defaultMainEntity.Organizations, $event)"
   >
     @if (activeSection() !== discoverSection.Organizations) {
       <flag-icon>swap_horiz</flag-icon>
@@ -23,7 +25,7 @@
     {{ ORGANIZATIONS_TRANSLATION }}
   </button>
 </div>
-@if (!isMobile || (isMobile && activeSection() === discoverSection.Continents)) {
+@if (!isMobile() || (isMobile() && activeSection() === discoverSection.Continents)) {
   <ng-container
     *ngTemplateOutlet="
       entitiesTemplate;
@@ -34,7 +36,7 @@
     "
   />
 }
-@if (!isMobile || (isMobile && activeSection() === discoverSection.Organizations)) {
+@if (!isMobile() || (isMobile() && activeSection() === discoverSection.Organizations)) {
   <ng-container
     *ngTemplateOutlet="
       entitiesTemplate;
@@ -47,7 +49,7 @@
 }
 
 <ng-template #entitiesTemplate let-entities let-title="title">
-  <section [class.mobile]="isMobile">
+  <section [class.mobile]="isMobile()">
     <h2>{{ title }}</h2>
     <ul>
       @for (entity of entities; track entity.id) {
@@ -56,7 +58,7 @@
             tabindex="0"
             [class.active]="entity.id === selectedMainEntityId()"
             (click)="selectMainEntity(entity.id)"
-            (keydown)="selectMainEntity(entity.id)"
+            (keydown)="selectMainEntity(entity.id, $event)"
           >
             {{ 'ENTITIES' | translationKey: entity.translationKey | translate }}
           </a>

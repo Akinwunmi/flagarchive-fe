@@ -4,14 +4,14 @@
 <section class="content">
   <div>
     <flag-breadcrumb [items]="breadcrumb()" (selectedItem)="goToEntity($event)" />
-    @if (isExpanded || !isMobile) {
+    @if (isExpanded() || !isMobile()) {
       <h2>{{ NAME_TRANSLATION }}</h2>
       <h3>{{ TYPE_TRANSLATION }}</h3>
     }
   </div>
   <button flagButton ghost type="button" (click)="toggleState()">
     <flag-icon>
-      @if (isExpanded) {
+      @if (isExpanded()) {
         keyboard_arrow_up
       } @else {
         keyboard_arrow_down

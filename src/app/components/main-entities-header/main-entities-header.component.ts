@@ -1,11 +1,11 @@
-import { NgTemplateOutlet } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  HostListener,
   OnInit,
+  PLATFORM_ID,
   computed,
   inject,
   input,
@@ -23,6 +23,9 @@ import { EntitiesStore } from '../../state';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '(window:resize)': 'onWindowResize()',
+  },
   imports: [FlagIconComponent, NgTemplateOutlet, TranslateModule, TranslationKeyPipe],
   selector: 'app-main-entities-header',
   styleUrl: './main-entities-header.component.css',
@@ -31,12 +34,15 @@ import { EntitiesStore } from '../../state';
 export class MainEntitiesHeaderComponent implements OnInit {
   readonly #cdr = inject(ChangeDetectorRef);
   readonly #destroyRef = inject(DestroyRef);
+  readonly #document = inject(DOCUMENT);
   readonly #entitiesStore = inject(EntitiesStore);
+  readonly #platformId = inject(PLATFORM_ID);
   readonly #route = inject(ActivatedRoute);
   readonly #router = inject(Router);
 
   mainEntities = input.required<Entity[]>();
 
+  isMobile = signal(false);
   selectedMainEntityId = signal<string>(DefaultMainEntity.Continents);
 
   continents = computed(() => this.#getEntities(EntityType.Continent));
@@ -51,11 +57,11 @@ export class MainEntitiesHeaderComponent implements OnInit {
   defaultMainEntity = DefaultMainEntity;
   discoverSection = DiscoverSection;
 
-  isMobile = window.innerWidth < 640;
-
-  @HostListener('window:resize')
-  onWindowResize() {
-    this.isMobile = window.innerWidth < 640;
+  constructor() {
+    const { defaultView } = this.#document;
+    if (isPlatformBrowser(this.#platformId) && defaultView) {
+      this.isMobile.set(defaultView.innerWidth <= 640);
+    }
   }
 
   ngOnInit() {
@@ -75,7 +81,16 @@ export class MainEntitiesHeaderComponent implements OnInit {
       });
   }
 
-  selectMainEntity(id: string) {
+  onWindowResize() {
+    const { defaultView } = this.#document;
+    this.isMobile.set(defaultView ? defaultView.innerWidth <= 640 : false);
+  }
+
+  selectMainEntity(id: string, event?: KeyboardEvent) {
+    if (event && event.key !== 'Enter' && event.key !== ' ') {
+      return;
+    }
+
     this.selectedMainEntityId.set(id);
     this.#entitiesStore.updateSelectedEntityId(id);
     this.#router.navigate(['entity', id], { relativeTo: this.#route });
