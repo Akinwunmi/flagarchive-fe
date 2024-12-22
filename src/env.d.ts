@@ -1,9 +1,13 @@
 // Define the type of the environment variables.
 declare interface Env {
   readonly NODE_ENV: string;
-  // Replace the following with your own environment variables.
-  // Example: NGX_VERSION: string;
-  [key: string]: string | undefined;
+  readonly NG_APP_FIREBASE_API_KEY: string;
+  readonly NG_APP_FIREBASE_APP_ID: string;
+  readonly NG_APP_FIREBASE_AUTH_DOMAIN: string;
+  readonly NG_APP_FIREBASE_MEASUREMENT_ID: string;
+  readonly NG_APP_FIREBASE_MESSAGING_SENDER_ID: string;
+  readonly NG_APP_FIREBASE_PROJECT_ID: string;
+  readonly NG_APP_FIREBASE_STORAGE_BUCKET: string;
 }
 
 // Choose how to access the environment variables.
