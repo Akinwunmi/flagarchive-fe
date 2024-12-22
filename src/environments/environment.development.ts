@@ -1,11 +1,11 @@
 export const environment = {
   firebaseConfig: {
-    apiKey: import.meta.env['NG_APP_FIREBASE_API_KEY'],
-    appId: import.meta.env['NG_APP_FIREBASE_APP_ID'],
-    authDomain: import.meta.env['NG_APP_FIREBASE_AUTH_DOMAIN'],
-    measurementId: import.meta.env['NG_APP_FIREBASE_MEASUREMENT_ID'],
-    messagingSenderId: import.meta.env['NG_APP_FIREBASE_MESSAGING_SENDER_ID'],
-    projectId: import.meta.env['NG_APP_FIREBASE_PROJECT_ID'],
-    storageBucket: import.meta.env['NG_APP_FIREBASE_STORAGE_BUCKET'],
+    apiKey: 'AIzaSyBZzwMsFmhsl0g8BvCCsFrCpnEMawVkCeo',
+    appId: '1:1076024154430:web:bc11a9b5a6c9cd0ee5f46f',
+    authDomain: 'flagarchive-database.firebaseapp.com',
+    measurementId: 'G-169QS3QMGC',
+    messagingSenderId: '1076024154430',
+    projectId: 'flagarchive-database',
+    storageBucket: 'flagarchive-database.appspot.com',
   },
 };
