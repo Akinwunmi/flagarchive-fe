@@ -5,9 +5,11 @@ import {
   DestroyRef,
   OnInit,
   computed,
+  effect,
   inject,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { EntityComponent } from '../../components';
@@ -27,6 +29,7 @@ export class EntityListComponent implements OnInit {
   readonly #cdr = inject(ChangeDetectorRef);
   readonly #destroyRef = inject(DestroyRef);
   readonly #entitiesStore = inject(EntitiesStore);
+  readonly #meta = inject(Meta);
   readonly #route = inject(ActivatedRoute);
   readonly #router = inject(Router);
 
@@ -39,6 +42,15 @@ export class EntityListComponent implements OnInit {
   #flagCategory = this.#advancedSearchStore.flagCategory;
   #selectedEntityId = this.#entitiesStore.selectedId;
   #selectedYear = this.#advancedSearchStore.selectedYear;
+
+  constructor() {
+    effect(() => {
+      this.#meta.updateTag({
+        property: 'og:url',
+        content: `https://flagarchive.com/discover/entity/${this.#selectedEntityId()}`,
+      });
+    });
+  }
 
   ngOnInit() {
     const id = this.#router.url.split('/').pop();

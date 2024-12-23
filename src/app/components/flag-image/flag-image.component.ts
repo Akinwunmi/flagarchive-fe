@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, HostBinding, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, linkedSignal } from '@angular/core';
 import { FlagIconComponent } from '@flagarchive/angular';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[class.hoisted-right]': 'hoistedRight()',
+    '[class.placeholder]': 'placeholderClass()',
     '[class.reversed]': 'isReversed()',
   },
   imports: [FlagIconComponent],
@@ -19,18 +20,13 @@ export class FlagImageComponent {
   isReversed = input(false);
   placeholder = input(false);
 
-  #placeholderClass = this.placeholder();
-
-  @HostBinding('class.placeholder')
-  get placeholderClass(): boolean {
-    return this.#placeholderClass;
-  }
+  placeholderClass = linkedSignal(() => this.placeholder());
 
   handleImageError() {
-    this.#placeholderClass = true;
+    this.placeholderClass.set(true);
   }
 
   handleImageLoad() {
-    this.#placeholderClass = false;
+    this.placeholderClass.set(false);
   }
 }

@@ -1,13 +1,14 @@
 import { Dialog } from '@angular/cdk/dialog';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  HostBinding,
-  HostListener,
+  PLATFORM_ID,
   TemplateRef,
   computed,
   inject,
   input,
+  signal,
   viewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -28,6 +29,10 @@ import { FlagImageComponent } from '../flag-image';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '[class.expanded]': 'isExpanded()',
+    '(window:resize)': 'onWindowResize()',
+  },
   imports: [
     FlagBreadcrumbComponent,
     FlagButtonDirective,
@@ -44,7 +49,9 @@ import { FlagImageComponent } from '../flag-image';
 export class EntityHeaderComponent {
   readonly #advancedSearchStore = inject(AdvancedSearchStore);
   readonly #dialog = inject(Dialog);
+  readonly #document = inject(DOCUMENT);
   readonly #entitiesStore = inject(EntitiesStore);
+  readonly #platformId = inject(PLATFORM_ID);
   readonly #route = inject(ActivatedRoute);
   readonly #router = inject(Router);
 
@@ -55,15 +62,17 @@ export class EntityHeaderComponent {
   flagCategory = this.#advancedSearchStore.flagCategory;
   selected = this.#entitiesStore.selected;
 
+  isExpanded = signal(true);
+  isMobile = signal(false);
+
   breadcrumb = computed(() => this.#getBreadcrumb());
   url = computed(() => this.#setUrl());
 
-  @HostBinding('class.expanded') isExpanded = true;
-
-  isMobile = window.innerWidth < 640;
-
-  @HostListener('window:resize') onWindowResize() {
-    this.isMobile = window.innerWidth < 640;
+  constructor() {
+    const { defaultView } = this.#document;
+    if (isPlatformBrowser(this.#platformId) && defaultView) {
+      this.isMobile.set(defaultView.innerWidth <= 640);
+    }
   }
 
   goToEntity(item: BreadcrumbItem) {
@@ -71,12 +80,17 @@ export class EntityHeaderComponent {
     this.#router.navigate(route || [], { relativeTo: this.#route });
   }
 
+  onWindowResize() {
+    const { defaultView } = this.#document;
+    this.isMobile.set(defaultView ? defaultView.innerWidth <= 640 : false);
+  }
+
   openDetails() {
     this.#dialog.open<FlagDialogComponent>(this.detailsDialog());
   }
 
   toggleState() {
-    this.isExpanded = !this.isExpanded;
+    this.isExpanded.update(expanded => !expanded);
   }
 
   // Split the entity ID and create a breadcrumb item for each part of the ID.
