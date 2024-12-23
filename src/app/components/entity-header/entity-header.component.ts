@@ -2,12 +2,11 @@ import { Dialog } from '@angular/cdk/dialog';
 import {
   ChangeDetectionStrategy,
   Component,
-  HostBinding,
-  HostListener,
   TemplateRef,
   computed,
   inject,
   input,
+  signal,
   viewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -28,6 +27,10 @@ import { FlagImageComponent } from '../flag-image';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '[class.expanded]': 'isExpanded()',
+    '(window:resize)': 'onWindowResize()',
+  },
   imports: [
     FlagBreadcrumbComponent,
     FlagButtonDirective,
@@ -55,20 +58,19 @@ export class EntityHeaderComponent {
   flagCategory = this.#advancedSearchStore.flagCategory;
   selected = this.#entitiesStore.selected;
 
+  isExpanded = signal(true);
+  isMobile = signal(window.innerWidth <= 640);
+
   breadcrumb = computed(() => this.#getBreadcrumb());
   url = computed(() => this.#setUrl());
-
-  @HostBinding('class.expanded') isExpanded = true;
-
-  isMobile = window.innerWidth < 640;
-
-  @HostListener('window:resize') onWindowResize() {
-    this.isMobile = window.innerWidth < 640;
-  }
 
   goToEntity(item: BreadcrumbItem) {
     const route = item.link?.split('/');
     this.#router.navigate(route || [], { relativeTo: this.#route });
+  }
+
+  onWindowResize() {
+    this.isMobile.set(window.innerWidth <= 640);
   }
 
   openDetails() {
@@ -76,7 +78,7 @@ export class EntityHeaderComponent {
   }
 
   toggleState() {
-    this.isExpanded = !this.isExpanded;
+    this.isExpanded.update(expanded => !expanded);
   }
 
   // Split the entity ID and create a breadcrumb item for each part of the ID.

@@ -4,7 +4,6 @@ import {
   ChangeDetectorRef,
   Component,
   DestroyRef,
-  HostListener,
   OnInit,
   computed,
   inject,
@@ -23,6 +22,9 @@ import { EntitiesStore } from '../../state';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '(window:resize)': 'onWindowResize()',
+  },
   imports: [FlagIconComponent, NgTemplateOutlet, TranslateModule, TranslationKeyPipe],
   selector: 'app-main-entities-header',
   styleUrl: './main-entities-header.component.css',
@@ -37,6 +39,7 @@ export class MainEntitiesHeaderComponent implements OnInit {
 
   mainEntities = input.required<Entity[]>();
 
+  isMobile = signal(window.innerWidth <= 640);
   selectedMainEntityId = signal<string>(DefaultMainEntity.Continents);
 
   continents = computed(() => this.#getEntities(EntityType.Continent));
@@ -50,13 +53,6 @@ export class MainEntitiesHeaderComponent implements OnInit {
 
   defaultMainEntity = DefaultMainEntity;
   discoverSection = DiscoverSection;
-
-  isMobile = window.innerWidth < 640;
-
-  @HostListener('window:resize')
-  onWindowResize() {
-    this.isMobile = window.innerWidth < 640;
-  }
 
   ngOnInit() {
     const initialId = this.#router.url.split('/').pop();
@@ -75,7 +71,15 @@ export class MainEntitiesHeaderComponent implements OnInit {
       });
   }
 
-  selectMainEntity(id: string) {
+  onWindowResize() {
+    this.isMobile.set(window.innerWidth <= 640);
+  }
+
+  selectMainEntity(id: string, event?: KeyboardEvent) {
+    if (event && event.key !== 'Enter' && event.key !== ' ') {
+      return;
+    }
+
     this.selectedMainEntityId.set(id);
     this.#entitiesStore.updateSelectedEntityId(id);
     this.#router.navigate(['entity', id], { relativeTo: this.#route });
